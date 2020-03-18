@@ -5,12 +5,12 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Automated 2D Peak Fitting • fitnmr</title>
+<title>Automated 2D Peak Fitting Code • fitnmr</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="Automated 2D Peak Fitting">
+<script src="../pkgdown.js"></script><meta property="og:title" content="Automated 2D Peak Fitting Code">
 <meta property="og:description" content="">
 <meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">fitnmr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5</span>
       </span>
     </div>
 
@@ -54,7 +54,10 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/peak2d.html">Automated 2D Peak Fitting</a>
+      <a href="../articles/peak2d.html">Automated 2D Peak Fitting Code</a>
+    </li>
+    <li>
+      <a href="../articles/peak2d_scripts.html">Automated 2D Peak Fitting Scripts</a>
     </li>
   </ul>
 </li>
@@ -79,7 +82,7 @@
       </header><script src="peak2d_files/jquery-1.11.3/jquery.min.js"></script><script src="peak2d_files/elevate-section-attrs-2.0/elevate-section-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1>Automated 2D Peak Fitting</h1>
+      <h1>Automated 2D Peak Fitting Code</h1>
             
       
       <small class="dont-index">Source: <a href="https://github.com/smith-group/fitnmr/blob/master/vignettes/peak2d.Rmd"><code>vignettes/peak2d.Rmd</code></a></small>
@@ -89,7 +92,7 @@
 
     
     
-<p>FitNMR enables fully automated peak fitting of 2D NMR spectra. This document is split into two sections. The first section demonstrates how fitting can be done using <code>R</code> code, various stages of the algorithm, and some of the ways that the results can be visualized. The second section, “Fitting Peaks without Coding”, shows how the same fitting can be done with very little manual code entry using two convenience scripts, <code>fit_peaks_2d.R</code> and <code>refit_peaks_2d.R</code>.</p>
+<p>FitNMR enables fully automated peak fitting of 2D NMR spectra. This document demonstrates how fitting can be done using <code>R</code> code, various stages of the algorithm, and some of the ways that the results can be visualized. For a description of how a similar workflow can be accomplished using prewritten <code>R</code> scripts that process all the spectra you put in a given directory, see the “Automated 2D Peak Fitting Scripts” document.</p>
 <p>The following tutorial will assume you have loaded the FitNMR package.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(fitnmr)</span></code></pre></div>
 <div id="sample-data" class="section level2">
@@ -404,232 +407,6 @@
 <div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(extended_peak_df[,<span class="st">"2.ft2"</span>]<span class="op">/</span>extended_peak_df[,<span class="st">"1.ft2"</span>], <span class="dt">xlab=</span><span class="st">"Peak Number"</span>, <span class="dt">ylab=</span><span class="st">"Spectrum 2 Volume/Spectrum 1 Volume"</span>)</span></code></pre></div>
 <p><img src="peak2d_files/figure-html/unnamed-chunk-23-2.png" width="384"></p>
 </div>
-<div id="fitting-peaks-without-coding" class="section level2">
-<h2 class="hasAnchor">
-<a href="#fitting-peaks-without-coding" class="anchor"></a>Fitting Peaks without Coding</h2>
-<p>To facilitate the fitting of peaks with minimal amounts of R code, two demo scripts are available that will automatically fit and refit NMRPipe spectra found in the directory you run the scripts from.</p>
-<div id="fitting-initial-set-of-peaks" class="section level3">
-<h3 class="hasAnchor">
-<a href="#fitting-initial-set-of-peaks" class="anchor"></a>Fitting Initial Set of Peaks</h3>
-<p>The first, <code>fit_peaks_2d.R</code>, handles the initial fitting of peaks. You would typically use this script to find an initial set of peaks on the highest signal-to-noise spectrum in your dataset. You customize the script by creating a copy of it then editing the parameters at the top of the file prior to running it in R.</p>
-<p>In a typical workflow, you would create a directory to perform the initial fitting in, then copy the reference spectrum into that directory. That spectrum must have <code>.ft2</code> as the extension, otherwise the script won’t be able to find it. Ordinarily you would do this manually, but here we will do so in code. The following creates a <code>fit</code> directory and copies the first T<sub>1</sub> spectrum into it.</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="kw"><a href="https://rdrr.io/r/base/files2.html">dir.create</a></span>(<span class="st">"fit"</span>, <span class="dt">showWarnings=</span><span class="ot">FALSE</span>)</span>
-<span id="cb22-2"><a href="#cb22-2"></a><span class="kw"><a href="https://rdrr.io/r/base/files.html">file.copy</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(t1_dir, t1_ft2_filenames[<span class="dv">1</span>]), <span class="st">"fit"</span>)</span></code></pre></div>
-<p>Next we need to make a copy of the <code>fit_peaks_2d.R</code> script, which may be easiest to do from within R. (Note: if you want to copy the script into the current working directory, change <code>"fit"</code> to <code>"."</code> in the line below.)</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="kw"><a href="https://rdrr.io/r/base/files.html">file.copy</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"demo"</span>, <span class="st">"fit_peaks_2d.R"</span>, <span class="dt">package=</span><span class="st">"fitnmr"</span>), <span class="st">"fit"</span>)</span></code></pre></div>
-<p>You can then customize any of the options at the top of <code>fit_peaks_2d</code>:</p>
-<pre><code># Fitting Parameters:
-
-# peak height must be at least this times the noise level for a new fitting iteration
-noise_cutoff &lt;- 15
-
-# F-test p-value must be less than this value to accept the addition of a new peak
-f_alpha &lt;- 0.001
-
-# maximum number of peak fitting iterations to run
-iter_max &lt;- 100
-
-# data +/- these ppm values will be used for fitting (1H and X nuclei, respectively)
-omega0_plus &lt;- c(0.075, 0.75)
-
-# starting R2 value for the fits
-r2_start &lt;- 5
-
-# R2 values are constrained to be between these two numbers
-r2_bounds &lt;- c(0.5, 20)
-
-# starting doublet scalar coupling (1H and X nuclei, respectively), NA for singlet
-sc_start &lt;- c(6, NA)
-
-# scalar coupling values are constrained to be between these two numbers
-sc_bounds &lt;- c(2, 12)
-
-
-# Plotting Parameters:
-
-# lowest contour in fit_spectra.pdf will be this number times the noise level
-plot_noise_cutoff &lt;- 4
-
-# scaling factor for fit_spectra.pdf labels
-cex &lt;- 0.4</code></pre>
-<p>In this case, we will use the script unmodified. The <code>fit_peaks_2d.R</code> script must be run from within the <code>fit</code> directory, which is done below. (Note: usually you should have already set the working directory to be <code>fit</code> and thus omit the <code><a href="https://rdrr.io/r/base/getwd.html">setwd()</a></code> calls below.)</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="kw"><a href="https://rdrr.io/r/base/getwd.html">setwd</a></span>(<span class="st">"fit"</span>)</span>
-<span id="cb25-2"><a href="#cb25-2"></a><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span>(<span class="st">"fit_peaks_2d.R"</span>)</span>
-<span id="cb25-3"><a href="#cb25-3"></a><span class="co">#&gt; Fit iteration 1:</span></span>
-<span id="cb25-4"><a href="#cb25-4"></a><span class="co">#&gt;   0 -&gt;  6 fit parameters: F = 333.8 (p = 4.56642e-10)</span></span>
-<span id="cb25-5"><a href="#cb25-5"></a><span class="co">#&gt;   6 -&gt;  9 fit parameters: F = 64.6 (p = 1.11899e-05)</span></span>
-<span id="cb25-6"><a href="#cb25-6"></a><span class="co">#&gt;   9 -&gt; 12 fit parameters: F = 1.2 (p = 0.464419)</span></span>
-<span id="cb25-7"><a href="#cb25-7"></a><span class="co">#&gt;  Terminating search because F-test p-value &lt; 0.001</span></span>
-<span id="cb25-8"><a href="#cb25-8"></a><span class="co">#&gt; Fit iteration 2:</span></span>
-<span id="cb25-9"><a href="#cb25-9"></a><span class="co">#&gt;   0 -&gt;  6 fit parameters: F = 734.0 (p = 1.87653e-15)</span></span>
-<span id="cb25-10"><a href="#cb25-10"></a><span class="co">#&gt;   6 -&gt;  9 fit parameters: F = 14.7 (p = 0.000581712)</span></span>
-<span id="cb25-11"><a href="#cb25-11"></a><span class="co">#&gt;   9 -&gt; 12 fit parameters: F = 0.1 (p = 0.976358)</span></span>
-<span id="cb25-12"><a href="#cb25-12"></a><span class="co">#&gt;  Terminating search because F-test p-value &lt; 0.001</span></span>
-<span id="cb25-13"><a href="#cb25-13"></a><span class="co">#&gt; Fit iteration 3:</span></span>
-<span id="cb25-14"><a href="#cb25-14"></a><span class="co">#&gt;   0 -&gt;  6 fit parameters: F = 27.7 (p = 7.52698e-13)</span></span>
-<span id="cb25-15"><a href="#cb25-15"></a><span class="co">#&gt;   6 -&gt;  9 fit parameters: F = 226.0 (p = 2.5923e-27)</span></span>
-<span id="cb25-16"><a href="#cb25-16"></a><span class="co">#&gt;   9 -&gt; 12 fit parameters: F = 13.3 (p = 1.34241e-05)</span></span>
-<span id="cb25-17"><a href="#cb25-17"></a><span class="co">#&gt;  12 -&gt; 15 fit parameters: F = 68.7 (p = 1.46797e-13)</span></span>
-<span id="cb25-18"><a href="#cb25-18"></a><span class="co">#&gt;  15 -&gt; 18 fit parameters: F = 7.0 (p = 0.00144316)</span></span>
-<span id="cb25-19"><a href="#cb25-19"></a><span class="co">#&gt;  Terminating search because F-test p-value &lt; 0.001</span></span>
-<span id="cb25-20"><a href="#cb25-20"></a><span class="co">#&gt; Fit iteration 4:</span></span>
-<span id="cb25-21"><a href="#cb25-21"></a><span class="co">#&gt;   0 -&gt;  6 fit parameters: F = 2022.7 (p = 1.60653e-20)</span></span>
-<span id="cb25-22"><a href="#cb25-22"></a><span class="co">#&gt;   6 -&gt;  9 fit parameters: F = 14.0 (p = 0.000228688)</span></span>
-<span id="cb25-23"><a href="#cb25-23"></a><span class="co">#&gt;  Terminating search because fit produced zero volume</span></span>
-<span id="cb25-24"><a href="#cb25-24"></a><span class="co">#&gt; Fit iteration 5:</span></span>
-<span id="cb25-25"><a href="#cb25-25"></a><span class="co">#&gt;   0 -&gt;  6 fit parameters: F = 107.8 (p = 9.74212e-11)</span></span>
-<span id="cb25-26"><a href="#cb25-26"></a><span class="co">#&gt;   6 -&gt;  9 fit parameters: F = 260.6 (p = 2.04021e-13)</span></span>
-<span id="cb25-27"><a href="#cb25-27"></a><span class="co">#&gt;   9 -&gt; 12 fit parameters: F = 11.0 (p = 0.00161564)</span></span>
-<span id="cb25-28"><a href="#cb25-28"></a><span class="co">#&gt;  Terminating search because F-test p-value &lt; 0.001</span></span>
-<span id="cb25-29"><a href="#cb25-29"></a><span class="co">#&gt; Fit iteration 6:</span></span>
-<span id="cb25-30"><a href="#cb25-30"></a><span class="co">#&gt;   0 -&gt;  6 fit parameters: F = 1219.7 (p = 6.27674e-21)</span></span>
-<span id="cb25-31"><a href="#cb25-31"></a><span class="co">#&gt;   6 -&gt;  9 fit parameters: F = 174.9 (p = 1.74543e-15)</span></span>
-<span id="cb25-32"><a href="#cb25-32"></a><span class="co">#&gt;   9 -&gt; 12 fit parameters: F = 42.3 (p = 8.00775e-09)</span></span>
-<span id="cb25-33"><a href="#cb25-33"></a><span class="co">#&gt;  12 -&gt; 15 fit parameters: F = 11.8 (p = 0.000186865)</span></span>
-<span id="cb25-34"><a href="#cb25-34"></a><span class="co">#&gt;  15 -&gt; 18 fit parameters: F = 1.6 (p = 0.223018)</span></span>
-<span id="cb25-35"><a href="#cb25-35"></a><span class="co">#&gt;  Terminating search because F-test p-value &lt; 0.001</span></span>
-<span id="cb25-36"><a href="#cb25-36"></a><span class="co">#&gt; Fit iteration 7:</span></span>
-<span id="cb25-37"><a href="#cb25-37"></a><span class="co">#&gt;   0 -&gt;  6 fit parameters: F = 232.0 (p = 1.0692e-22)</span></span>
-<span id="cb25-38"><a href="#cb25-38"></a><span class="co">#&gt;   6 -&gt;  9 fit parameters: F = 15.9 (p = 1.99824e-06)</span></span>
-<span id="cb25-39"><a href="#cb25-39"></a><span class="co">#&gt;   9 -&gt; 12 fit parameters: F = 54.3 (p = 1.15821e-11)</span></span>
-<span id="cb25-40"><a href="#cb25-40"></a><span class="co">#&gt;  Terminating search because fit produced zero volume</span></span>
-<span id="cb25-41"><a href="#cb25-41"></a><span class="co">#&gt; Fit iteration 8:</span></span>
-<span id="cb25-42"><a href="#cb25-42"></a><span class="co">#&gt;   0 -&gt;  6 fit parameters: F = 330.9 (p = 1.75035e-07)</span></span>
-<span id="cb25-43"><a href="#cb25-43"></a><span class="co">#&gt;   6 -&gt;  9 fit parameters: F = 1.8 (p = 0.274918)</span></span>
-<span id="cb25-44"><a href="#cb25-44"></a><span class="co">#&gt;  Terminating search because F-test p-value &lt; 0.001</span></span>
-<span id="cb25-45"><a href="#cb25-45"></a><span class="kw"><a href="https://rdrr.io/r/base/getwd.html">setwd</a></span>(<span class="st">".."</span>)</span></code></pre></div>
-<p>This creates a number of files:</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="kw"><a href="https://rdrr.io/r/base/list.files.html">list.files</a></span>(<span class="st">"fit"</span>)</span>
-<span id="cb26-2"><a href="#cb26-2"></a><span class="co">#&gt; [1] "1.ft2"                "fit_iterations.pdf"   "fit_peaks_2d.R"      </span></span>
-<span id="cb26-3"><a href="#cb26-3"></a><span class="co">#&gt; [4] "fit_spectra.pdf"      "fit_volume.csv"       "noise_histograms.pdf"</span></span>
-<span id="cb26-4"><a href="#cb26-4"></a><span class="co">#&gt; [7] "refit_peaks_2d.R"</span></span></code></pre></div>
-<ol style="list-style-type: decimal">
-<li>
-<code>noise_histograms.pdf</code> gives a histogram of the noise values for each if the input spectra.</li>
-<li>
-<code>fit_iterations.pdf</code> shows each iteration of the fitting. The starting peak position (i.e. highest intensity in the spectrum) is indicated with a green circle. The first line of text under each peak gives the peak number and fraction of the total volume in that iteration. The second line gives the F-test p-value for that peak. The title lists the p-value for the peak (not shown) that was rejected because it was greater than <code>f_alpha</code>.</li>
-<li>
-<code>fit_spectra.pdf</code> shows the overall spectrum as described above.</li>
-<li>
-<code>fit_volume.csv</code> contains all the identified peaks, along with a column for the volume found in each spectrum.</li>
-</ol>
-</div>
-<div id="refining-the-initial-fit" class="section level3">
-<h3 class="hasAnchor">
-<a href="#refining-the-initial-fit" class="anchor"></a>Refining the Initial fit</h3>
-<p>The initial fit is done iteratively so it is usually a good idea to refine this by editing the fitting groups, deleting extraneous peaks, and then doing a simultaneous refit of all peaks together with the <code>refit_peaks_2d.R</code> script. We will do this in another directory called <code>refine</code>, to which we will also copy the first spectrum and the <code>refit_peaks_2d.R</code> script:</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a><span class="kw"><a href="https://rdrr.io/r/base/files2.html">dir.create</a></span>(<span class="st">"refine"</span>, <span class="dt">showWarnings=</span><span class="ot">FALSE</span>)</span>
-<span id="cb27-2"><a href="#cb27-2"></a><span class="kw"><a href="https://rdrr.io/r/base/files.html">file.copy</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(t1_dir, t1_ft2_filenames[<span class="dv">1</span>]), <span class="st">"refine"</span>)</span>
-<span id="cb27-3"><a href="#cb27-3"></a><span class="kw"><a href="https://rdrr.io/r/base/files.html">file.copy</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"demo"</span>, <span class="st">"refit_peaks_2d.R"</span>, <span class="dt">package=</span><span class="st">"fitnmr"</span>), <span class="st">"refine"</span>, <span class="dt">overwrite=</span><span class="ot">TRUE</span>)</span></code></pre></div>
-<p>You can then customize any of the options at the top of <code>refit_peaks_2d.R</code>:</p>
-<pre><code># Fitting Parameters:
-
-# data +/- these ppm values will be used for fitting (1H and X nuclei, respectively)
-omega0_plus &lt;- c(0.075, 0.75)
-
-# omega0 values are constrained to be within this factor times R2 of the starting omega0
-omega0_r2_factor &lt;- 1.5
-
-# R2 values are constrained to be between these two numbers
-r2_bounds &lt;- c(0.5, 20)
-
-# scalar coupling values are constrained to be between these two numbers
-sc_bounds &lt;- c(2, 12)
-
-# enable refitting of omega0
-fit_omega0 &lt;- TRUE
-
-# enable refitting of R2
-fit_r2 &lt;- TRUE
-
-# enable refitting of scalar couplings
-fit_sc &lt;- TRUE
-
-
-# Plotting Parameters:
-
-# lowest contour in *_fit.pdf will be this number times the noise level
-plot_noise_cutoff &lt;- 4
-
-# scaling factor for *_fit.pdf labels
-cex &lt;- 0.4
-
-# show omega0 constraints imposed by omega0_r2_factor
-plot_omega0_bounds &lt;- TRUE
-
-
-# Computing Parameters:
-
-# number of cores to use for refitting
-mc_cores &lt;- parallel::detectCores()</code></pre>
-<p>However, in this case we will use the script unmodified. The next step is to copy the peak list from the previous to a file called <code>start_volume.csv</code> in the new directory:</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a><span class="kw"><a href="https://rdrr.io/r/base/files.html">file.copy</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(<span class="st">"fit"</span>, <span class="st">"fit_volume.csv"</span>), <span class="kw"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(<span class="st">"refine"</span>, <span class="st">"start_volume.csv"</span>), <span class="dt">overwrite=</span><span class="ot">TRUE</span>)</span></code></pre></div>
-<p>Once that file has been copied, you can then manually change the peak groups, as described above, and delete rows for any peaks you want to discard. In this case, that will be done with the following <code>R</code> code:</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a>input_table &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(<span class="st">"refine"</span>, <span class="st">"start_volume.csv"</span>), <span class="dt">check.names=</span><span class="ot">FALSE</span>)</span>
-<span id="cb30-2"><a href="#cb30-2"></a>input_table[<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">5</span>,<span class="dv">7</span>),<span class="st">"fit"</span>] &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span>(input_table[,<span class="st">"fit"</span>])<span class="op">+</span><span class="dv">1</span></span>
-<span id="cb30-3"><a href="#cb30-3"></a>input_table &lt;-<span class="st"> </span>input_table[<span class="op">-</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">4</span>,<span class="dv">14</span>,<span class="dv">16</span>),]</span>
-<span id="cb30-4"><a href="#cb30-4"></a><span class="kw"><a href="https://rdrr.io/r/utils/write.table.html">write.csv</a></span>(input_table, <span class="kw"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(<span class="st">"refine"</span>, <span class="st">"start_volume.csv"</span>), <span class="dt">row.names=</span><span class="ot">FALSE</span>)</span></code></pre></div>
-<p>The final step is to call the <code>refit_peaks_2d.R</code> from within the <code>refine</code> directory:</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a><span class="kw"><a href="https://rdrr.io/r/base/getwd.html">setwd</a></span>(<span class="st">"refine"</span>)</span>
-<span id="cb31-2"><a href="#cb31-2"></a><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span>(<span class="st">"refit_peaks_2d.R"</span>)</span>
-<span id="cb31-3"><a href="#cb31-3"></a><span class="co">#&gt; Fitting m0 for spectrum 1.ft2...</span></span>
-<span id="cb31-4"><a href="#cb31-4"></a><span class="co">#&gt; Fitting omega0,sc,r2,m0 for spectrum 1.ft2...</span></span>
-<span id="cb31-5"><a href="#cb31-5"></a><span class="kw"><a href="https://rdrr.io/r/base/getwd.html">setwd</a></span>(<span class="st">".."</span>)</span></code></pre></div>
-<p>The <code>refit_peaks_2d.R</code> script first optimizes the volumes, keeping all other parameters fixed, then optimizes the volumes along with whatever other variables the user specifies in the script. Also, unlike the refinement done in <code>R</code> code above, <code>refit_peaks_2d.R</code> only fits a single spectrum at a time. This avoids two problems:</p>
-<ol style="list-style-type: decimal">
-<li>For many experiments in which a series of spectra are acquired, different amounts of applied power can result in subtle shifts of the temperature/peak positions. Especially for overlappling peaks, this can cause systematic variations in the volumes. Allowing each spectrum to have slightly different peak positions within a small region around the starting values helps avoid this problem.</li>
-<li>When many spectra are fit simultaneously, the memory usage for FitNMR can grow very large. This will hopefully be fixed in a future update.</li>
-</ol>
-<p>The script creates two files for each spectrum, whose names are derived from the spectrum filenames:</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a><span class="kw"><a href="https://rdrr.io/r/base/list.files.html">list.files</a></span>(<span class="st">"refine"</span>)</span>
-<span id="cb32-2"><a href="#cb32-2"></a><span class="co">#&gt; [1] "1_fit.pdf"        "1_volume.csv"     "1.ft2"            "refit_peaks_2d.R"</span></span>
-<span id="cb32-3"><a href="#cb32-3"></a><span class="co">#&gt; [5] "start_volume.csv"</span></span></code></pre></div>
-<ol style="list-style-type: decimal">
-<li>
-<code>1_fit.pdf</code> shows the overall spectrum as described above. In addition, it also shows the constraints on the <code>omega0</code> parameters using gray rectangles, the size of which is determined by the <code>omega0_r2_factor</code> parameter. The central peak position, shown as a small blue dot, is constrained to be within that gray rectangle.</li>
-<li>
-<code>1_volume.csv</code> contains all the identified peaks, along with a column for the volume found in that spectrum.</li>
-</ol>
-</div>
-<div id="extending-the-fit-to-other-spectra-1" class="section level3">
-<h3 class="hasAnchor">
-<a href="#extending-the-fit-to-other-spectra-1" class="anchor"></a>Extending the Fit to Other Spectra</h3>
-<p>To extend the refined fit to a series of other spectra, we will create another directory called <code>extend</code>. To this directory both T<sub>1</sub> spectra will be copied. In addition, the fit parameters output by the refinement step will be copied to the file <code>start_volume.csv</code> for use as input.</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a><span class="kw"><a href="https://rdrr.io/r/base/files2.html">dir.create</a></span>(<span class="st">"extend"</span>, <span class="ot">FALSE</span>)</span>
-<span id="cb33-2"><a href="#cb33-2"></a><span class="kw"><a href="https://rdrr.io/r/base/files.html">file.copy</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(t1_dir, t1_ft2_filenames), <span class="st">"extend"</span>)</span>
-<span id="cb33-3"><a href="#cb33-3"></a><span class="kw"><a href="https://rdrr.io/r/base/files.html">file.copy</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(<span class="st">"refine"</span>, <span class="st">"1_volume.csv"</span>), <span class="kw"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(<span class="st">"extend"</span>, <span class="st">"start_volume.csv"</span>), <span class="dt">overwrite=</span><span class="ot">TRUE</span>)</span></code></pre></div>
-<p>A copy of the <code>refit_peaks_2d.R</code> script will be used again:</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a><span class="kw"><a href="https://rdrr.io/r/base/files.html">file.copy</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"demo"</span>, <span class="st">"refit_peaks_2d.R"</span>, <span class="dt">package=</span><span class="st">"fitnmr"</span>), <span class="st">"extend"</span>, <span class="dt">overwrite=</span><span class="ot">TRUE</span>)</span></code></pre></div>
-<p>However, when extending the fit to other spectra, the parameters determining the peak shape (<code>sc</code> and <code>r2</code>) will be fixed, allowing only the volume and peak position to be optimized. This is done by changing <code>fit_sc</code> and <code>fit_r2</code> to <code>FALSE</code> at the top of the script, which can be done using a text editor. For the purposes of this demonstration, the two parameters are changed with the following code:</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a>script_lines &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(<span class="st">"extend"</span>, <span class="st">"refit_peaks_2d.R"</span>))</span>
-<span id="cb35-2"><a href="#cb35-2"></a>script_lines &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/grep.html">sub</a></span>(<span class="st">"fit_sc &lt;- TRUE"</span>, <span class="st">"fit_sc &lt;- FALSE"</span>, script_lines)</span>
-<span id="cb35-3"><a href="#cb35-3"></a>script_lines &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/grep.html">sub</a></span>(<span class="st">"fit_r2 &lt;- TRUE"</span>, <span class="st">"fit_r2 &lt;- FALSE"</span>, script_lines)</span>
-<span id="cb35-4"><a href="#cb35-4"></a><span class="kw"><a href="https://rdrr.io/r/base/writeLines.html">writeLines</a></span>(script_lines, <span class="kw"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(<span class="st">"extend"</span>, <span class="st">"refit_peaks_2d.R"</span>))</span></code></pre></div>
-<p>The part of the script showing the parameters to be fit now reads:</p>
-<pre><code># enable refitting of omega0
-fit_omega0 &lt;- TRUE
-
-# enable refitting of R2
-fit_r2 &lt;- FALSE
-
-# enable refitting of scalar couplings
-fit_sc &lt;- FALSE</code></pre>
-<p>Next, run <code>refit_peaks_2d.R</code> from within the the <code>extend</code> directory. It will do the refitting for each spectrum on a different CPU core, reducing the total time taken to fit a large number of spectra.</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a><span class="kw"><a href="https://rdrr.io/r/base/getwd.html">setwd</a></span>(<span class="st">"extend"</span>)</span>
-<span id="cb37-2"><a href="#cb37-2"></a><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span>(<span class="st">"refit_peaks_2d.R"</span>)</span>
-<span id="cb37-3"><a href="#cb37-3"></a><span class="kw"><a href="https://rdrr.io/r/base/getwd.html">setwd</a></span>(<span class="st">".."</span>)</span></code></pre></div>
-<p>As above, the script creates two files for each spectrum, whose names are derived from the spectrum filenames:</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a><span class="kw"><a href="https://rdrr.io/r/base/list.files.html">list.files</a></span>(<span class="st">"extend"</span>)</span>
-<span id="cb38-2"><a href="#cb38-2"></a><span class="co">#&gt; [1] "1_fit.pdf"        "1_volume.csv"     "1.ft2"            "2_fit.pdf"       </span></span>
-<span id="cb38-3"><a href="#cb38-3"></a><span class="co">#&gt; [5] "2_volume.csv"     "2.ft2"            "refit_peaks_2d.R" "start_volume.csv"</span></span></code></pre></div>
-<ol style="list-style-type: decimal">
-<li>
-<code>*_fit.pdf</code> shows the overall spectrum. Pay particular attention to where the small blue circle is located in the gray rectangle. You may want to adjust <code>omega0_r2_factor</code> to increase or decrease the stringency of the <code>omega0</code> constraint, or possibly choose a different spectrum to use for <code>start_volume.csv</code>.</li>
-<li>
-<code>*_volume.csv</code> contains all the identified peaks, along with a column for the volume found in that spectrum.</li>
-</ol>
-</div>
-</div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -646,7 +423,6 @@ fit_sc &lt;- FALSE</code></pre>
       <li><a href="#fitting-peaks-without-scalar-couplings">Fitting Peaks without Scalar Couplings</a></li>
       <li><a href="#editing-fit-clusters">Editing Fit Clusters</a></li>
       <li><a href="#extending-the-fit-to-other-spectra">Extending the Fit to Other Spectra</a></li>
-      <li><a href="#fitting-peaks-without-coding">Fitting Peaks without Coding</a></li>
       </ul>
 </div>
       </div>

@@ -3,6 +3,7 @@ pkgdown: 1.4.1
 pkgdown_sha: ~
 articles:
   peak2d: peak2d.html
+  peak2d_scripts: peak2d_scripts.html
 urls:
   reference: https://smith-group.github.io/fitnmr//reference
   article: https://smith-group.github.io/fitnmr//articles

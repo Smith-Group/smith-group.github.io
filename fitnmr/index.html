@@ -19,6 +19,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,23 +33,17 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">fitnmr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -64,8 +60,8 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/smith-group/fitnmr/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+  <a href="https://github.com/smith-group/fitnmr/" class="external-link">
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -81,33 +77,33 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-<div id="fitnmr" class="section level1">
-<div class="page-header"><h1 class="hasAnchor">
-<a href="#fitnmr" class="anchor"></a>FitNMR</h1></div>
-<div id="installation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h2>
+<div class="section level1">
+<div class="page-header"><h1 id="fitnmr">FitNMR<a class="anchor" aria-label="anchor" href="#fitnmr"></a>
+</h1></div>
+<div class="section level2">
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h2>
 <p>The best way to install FitNMR is downloading and installing one of the <a href="https://smith-group.github.io/fitnmr_releases/">released packages</a>. These include prebuilt vignettes, which you can also view online as described below.</p>
-<p>The latest developmental version of FitNMR can be installed directly from GitHub by running the following command from within R. Before doing so, you should make sure that you have a writable library directory set using the <code><a href="https://rdrr.io/r/base/libPaths.html">.libPaths()</a></code> command.</p>
-<pre><code>source("https://raw.githubusercontent.com/r-lib/remotes/master/install-github.R")$value("Smith-Group/fitnmr")</code></pre>
+<p>The latest developmental version of FitNMR can be installed directly from GitHub by running the following command from within R. Before doing so, you should make sure that you have a writable library directory set using the <code><a href="https://rdrr.io/r/base/libPaths.html" class="external-link">.libPaths()</a></code> command.</p>
+<pre><code><span><span class="kw"><a href="https://rdrr.io/r/base/source.html" class="external-link">source</a></span><span class="op">(</span><span class="st">"https://raw.githubusercontent.com/r-lib/remotes/master/install-github.R"</span><span class="op">)</span><span class="op">$</span><span class="fu">value</span><span class="op">(</span><span class="st">"Smith-Group/fitnmr"</span><span class="op">)</span></span></code></pre>
 <p>Installing <code>fitnmr</code> in this way will not include the vignettes.</p>
 </div>
-<div id="usage" class="section level2">
-<h2 class="hasAnchor">
-<a href="#usage" class="anchor"></a>Usage</h2>
+<div class="section level2">
+<h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
+</h2>
 <p>An example of how to use FitNMR for 2D peak fitting can be found in the <a href="https://smith-group.github.io/fitnmr/articles/peak2d_scripts.html">Automated 2D Peak Fitting Scripts</a> vignette. For more background on the algorithms, or if you are comfortable with R code, see the <a href="https://smith-group.github.io/fitnmr/articles/peak2d.html">Automated 2D Peak Fitting Code</a> vignette.</p>
 <p>For a roadmap describing the different categories of functions available, see the <a href="https://smith-group.github.io/fitnmr/reference/fitnmr.html">FitNMR Package Overview</a>.</p>
 <p>To get documentation for individual functions from within R, use the following commands:</p>
-<pre><code><a href="https://github.com/smith-group/fitnmr">library(fitnmr)
-?read_nmrpipe</a></code></pre>
+<pre><code><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/smith-group/fitnmr/" class="external-link">fitnmr</a></span><span class="op">)</span></span>
+<span><span class="op">?</span><span class="va">read_nmrpipe</span></span></code></pre>
 <p>To get an HTML listing of all the function-level documentation, you can run:</p>
-<pre><code><a href="https://rdrr.io/r/utils/help.start.html">help.start()</a></code></pre>
+<pre><code><span><span class="fu"><a href="https://rdrr.io/r/utils/help.start.html" class="external-link">help.start</a></span><span class="op">(</span><span class="op">)</span></span></code></pre>
 <p>After doing so, navigate to the “Packages” page, then click the “fitnmr” package.</p>
-<p>If you are new to R, chapters 1, 2, 5, and 6 of <a href="https://cran.r-project.org/doc/manuals/r-release/R-intro.html">An Introduction to R</a> are highly recommended.</p>
+<p>If you are new to R, chapters 1, 2, 5, and 6 of <a href="https://cran.r-project.org/doc/manuals/r-release/R-intro.html" class="external-link">An Introduction to R</a> are highly recommended.</p>
 </div>
-<div id="license" class="section level2">
-<h2 class="hasAnchor">
-<a href="#license" class="anchor"></a>License</h2>
+<div class="section level2">
+<h2 id="license">License<a class="anchor" aria-label="anchor" href="#license"></a>
+</h2>
 <p>FitNMR is released under the GNU Public License version 3.0.</p>
 </div>
 </div>
@@ -115,36 +111,49 @@
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="links">
-<h2>Links</h2>
+<h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li>Browse source code at <br><a href="https://github.com/smith-group/fitnmr/">https://​github.com/​smith-group/​fitnmr/​</a>
-</li>
+<li><a href="https://github.com/smith-group/fitnmr/" class="external-link">Browse source code</a></li>
 </ul>
 </div>
+
 <div class="license">
-<h2>License</h2>
+<h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
-<li><a href="https://www.r-project.org/Licenses/GPL-3">GPL-3</a></li>
+<li><a href="https://www.r-project.org/Licenses/GPL-3" class="external-link">GPL-3</a></li>
 </ul>
 </div>
+
+
+<div class="citation">
+<h2 data-toc-skip>Citation</h2>
+<ul class="list-unstyled">
+<li><a href="authors.html#citation">Citing fitnmr</a></li>
+</ul>
+</div>
+
 <div class="developers">
-<h2>Developers</h2>
+<h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
 <li>
-<a href="http://smithlab.wesleyan.edu">Colin Smith</a> <br><small class="roles"> Author, maintainer </small>  </li>
+<a href="http://smithlab.wesleyan.edu" class="external-link">Colin Smith</a> <br><small class="roles"> Author, maintainer </small>  </li>
 </ul>
 </div>
+
+
 
   </div>
 </div>
 
 
       <footer><div class="copyright">
-  <p>Developed by <a href="http://smithlab.wesleyan.edu">Colin Smith</a>.</p>
+  <p></p>
+<p>Developed by <a href="http://smithlab.wesleyan.edu" class="external-link">Colin Smith</a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>
@@ -152,6 +161,8 @@
 
   
 
+
+  
 
   </body>
 </html>

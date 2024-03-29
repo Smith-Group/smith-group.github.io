@@ -1,123 +1,192 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://smith-group.github.io/fitnmr//index.html</loc>
+    <loc>https://smith-group.github.io/fitnmr/404.html</loc>
   </url>
   <url>
-    <loc>https://smith-group.github.io/fitnmr//reference/comb_vec_to_param_array.html</loc>
+    <loc>https://smith-group.github.io/fitnmr/articles/index.html</loc>
   </url>
   <url>
-    <loc>https://smith-group.github.io/fitnmr//reference/contour_pipe.html</loc>
+    <loc>https://smith-group.github.io/fitnmr/articles/peak2d.html</loc>
   </url>
   <url>
-    <loc>https://smith-group.github.io/fitnmr//reference/coupling_param_idx.html</loc>
+    <loc>https://smith-group.github.io/fitnmr/articles/peak2d_scripts.html</loc>
   </url>
   <url>
-    <loc>https://smith-group.github.io/fitnmr//reference/extract_params.html</loc>
+    <loc>https://smith-group.github.io/fitnmr/authors.html</loc>
   </url>
   <url>
-    <loc>https://smith-group.github.io/fitnmr//reference/fit_footprint.html</loc>
+    <loc>https://smith-group.github.io/fitnmr/index.html</loc>
   </url>
   <url>
-    <loc>https://smith-group.github.io/fitnmr//reference/fit_peak_cluster.html</loc>
+    <loc>https://smith-group.github.io/fitnmr/reference/abind_list.html</loc>
   </url>
   <url>
-    <loc>https://smith-group.github.io/fitnmr//reference/fit_peak_iter.html</loc>
+    <loc>https://smith-group.github.io/fitnmr/reference/collapse_na.html</loc>
   </url>
   <url>
-    <loc>https://smith-group.github.io/fitnmr//reference/fit_peaks.html</loc>
+    <loc>https://smith-group.github.io/fitnmr/reference/comb_vec_to_param_array.html</loc>
   </url>
   <url>
-    <loc>https://smith-group.github.io/fitnmr//reference/fitnmr.html</loc>
+    <loc>https://smith-group.github.io/fitnmr/reference/contour_pipe.html</loc>
   </url>
   <url>
-    <loc>https://smith-group.github.io/fitnmr//reference/get_spec_int.html</loc>
+    <loc>https://smith-group.github.io/fitnmr/reference/coupling_param_idx.html</loc>
   </url>
   <url>
-    <loc>https://smith-group.github.io/fitnmr//reference/get_spec_peak_int.html</loc>
+    <loc>https://smith-group.github.io/fitnmr/reference/extract_params.html</loc>
   </url>
   <url>
-    <loc>https://smith-group.github.io/fitnmr//reference/height_assign.html</loc>
+    <loc>https://smith-group.github.io/fitnmr/reference/fit_footprint.html</loc>
   </url>
   <url>
-    <loc>https://smith-group.github.io/fitnmr//reference/limit_omega0_by_r2.html</loc>
+    <loc>https://smith-group.github.io/fitnmr/reference/fit_peak_cluster.html</loc>
   </url>
   <url>
-    <loc>https://smith-group.github.io/fitnmr//reference/make_fit_input.html</loc>
+    <loc>https://smith-group.github.io/fitnmr/reference/fit_peak_iter.html</loc>
   </url>
   <url>
-    <loc>https://smith-group.github.io/fitnmr//reference/make_param_list.html</loc>
+    <loc>https://smith-group.github.io/fitnmr/reference/fit_peaks.html</loc>
   </url>
   <url>
-    <loc>https://smith-group.github.io/fitnmr//reference/nmr_pipe.html</loc>
+    <loc>https://smith-group.github.io/fitnmr/reference/fitnmr.html</loc>
   </url>
   <url>
-    <loc>https://smith-group.github.io/fitnmr//reference/noise_estimate.html</loc>
+    <loc>https://smith-group.github.io/fitnmr/reference/get_spec_int.html</loc>
   </url>
   <url>
-    <loc>https://smith-group.github.io/fitnmr//reference/omega0_comb_source_idx.html</loc>
+    <loc>https://smith-group.github.io/fitnmr/reference/get_spec_peak_int.html</loc>
   </url>
   <url>
-    <loc>https://smith-group.github.io/fitnmr//reference/omega0_param_idx.html</loc>
+    <loc>https://smith-group.github.io/fitnmr/reference/height_assign.html</loc>
   </url>
   <url>
-    <loc>https://smith-group.github.io/fitnmr//reference/param_array_to_comb_vec.html</loc>
+    <loc>https://smith-group.github.io/fitnmr/reference/index.html</loc>
   </url>
   <url>
-    <loc>https://smith-group.github.io/fitnmr//reference/param_list_to_arg_list.html</loc>
+    <loc>https://smith-group.github.io/fitnmr/reference/infer_acquisition_time.html</loc>
   </url>
   <url>
-    <loc>https://smith-group.github.io/fitnmr//reference/param_list_to_peak_df.html</loc>
+    <loc>https://smith-group.github.io/fitnmr/reference/infer_aliasing.html</loc>
   </url>
   <url>
-    <loc>https://smith-group.github.io/fitnmr//reference/param_values.html</loc>
+    <loc>https://smith-group.github.io/fitnmr/reference/infer_direct.html</loc>
   </url>
   <url>
-    <loc>https://smith-group.github.io/fitnmr//reference/peak_df_to_fit_input.html</loc>
+    <loc>https://smith-group.github.io/fitnmr/reference/infer_sweep_width.html</loc>
   </url>
   <url>
-    <loc>https://smith-group.github.io/fitnmr//reference/peak_df_to_param_list.html</loc>
+    <loc>https://smith-group.github.io/fitnmr/reference/limit_omega0_by_r2.html</loc>
   </url>
   <url>
-    <loc>https://smith-group.github.io/fitnmr//reference/perform_fit.html</loc>
+    <loc>https://smith-group.github.io/fitnmr/reference/make_comb_list_omega0.html</loc>
   </url>
   <url>
-    <loc>https://smith-group.github.io/fitnmr//reference/plot_fit_1d.html</loc>
+    <loc>https://smith-group.github.io/fitnmr/reference/make_coupling_mat.html</loc>
   </url>
   <url>
-    <loc>https://smith-group.github.io/fitnmr//reference/plot_fit_2d.html</loc>
+    <loc>https://smith-group.github.io/fitnmr/reference/make_fit_input.html</loc>
   </url>
   <url>
-    <loc>https://smith-group.github.io/fitnmr//reference/plot_peak_df.html</loc>
+    <loc>https://smith-group.github.io/fitnmr/reference/make_map.html</loc>
   </url>
   <url>
-    <loc>https://smith-group.github.io/fitnmr//reference/ppm_to_pts.html</loc>
+    <loc>https://smith-group.github.io/fitnmr/reference/make_param_list.html</loc>
   </url>
   <url>
-    <loc>https://smith-group.github.io/fitnmr//reference/read_nmrdraw_peak_tab.html</loc>
+    <loc>https://smith-group.github.io/fitnmr/reference/nmr_pipe.html</loc>
   </url>
   <url>
-    <loc>https://smith-group.github.io/fitnmr//reference/read_nmrpipe.html</loc>
+    <loc>https://smith-group.github.io/fitnmr/reference/noise_estimate.html</loc>
   </url>
   <url>
-    <loc>https://smith-group.github.io/fitnmr//reference/sim_time_nd.html</loc>
+    <loc>https://smith-group.github.io/fitnmr/reference/omega0_comb_source_idx.html</loc>
   </url>
   <url>
-    <loc>https://smith-group.github.io/fitnmr//reference/spec_overlap_mat.html</loc>
+    <loc>https://smith-group.github.io/fitnmr/reference/omega0_param_idx.html</loc>
   </url>
   <url>
-    <loc>https://smith-group.github.io/fitnmr//reference/update_fit_bounds.html</loc>
+    <loc>https://smith-group.github.io/fitnmr/reference/param_array_to_comb_vec.html</loc>
   </url>
   <url>
-    <loc>https://smith-group.github.io/fitnmr//reference/whz_to_pts.html</loc>
+    <loc>https://smith-group.github.io/fitnmr/reference/param_list_to_arg_list.html</loc>
   </url>
   <url>
-    <loc>https://smith-group.github.io/fitnmr//reference/write_nmrdraw_peak_tab.html</loc>
+    <loc>https://smith-group.github.io/fitnmr/reference/param_list_to_peak_df.html</loc>
   </url>
   <url>
-    <loc>https://smith-group.github.io/fitnmr//articles/peak2d.html</loc>
+    <loc>https://smith-group.github.io/fitnmr/reference/param_list_to_tables.html</loc>
   </url>
   <url>
-    <loc>https://smith-group.github.io/fitnmr//articles/peak2d_scripts.html</loc>
+    <loc>https://smith-group.github.io/fitnmr/reference/param_values.html</loc>
+  </url>
+  <url>
+    <loc>https://smith-group.github.io/fitnmr/reference/peak_bind.html</loc>
+  </url>
+  <url>
+    <loc>https://smith-group.github.io/fitnmr/reference/peak_df_to_fit_input.html</loc>
+  </url>
+  <url>
+    <loc>https://smith-group.github.io/fitnmr/reference/peak_df_to_param_list.html</loc>
+  </url>
+  <url>
+    <loc>https://smith-group.github.io/fitnmr/reference/perform_fit.html</loc>
+  </url>
+  <url>
+    <loc>https://smith-group.github.io/fitnmr/reference/plot_fit_1d.html</loc>
+  </url>
+  <url>
+    <loc>https://smith-group.github.io/fitnmr/reference/plot_fit_2d.html</loc>
+  </url>
+  <url>
+    <loc>https://smith-group.github.io/fitnmr/reference/plot_peak_df.html</loc>
+  </url>
+  <url>
+    <loc>https://smith-group.github.io/fitnmr/reference/plot_resonances_1d.html</loc>
+  </url>
+  <url>
+    <loc>https://smith-group.github.io/fitnmr/reference/plot_resonances_2d.html</loc>
+  </url>
+  <url>
+    <loc>https://smith-group.github.io/fitnmr/reference/plot_resonances_3d.html</loc>
+  </url>
+  <url>
+    <loc>https://smith-group.github.io/fitnmr/reference/plot_sparse_1d.html</loc>
+  </url>
+  <url>
+    <loc>https://smith-group.github.io/fitnmr/reference/ppm_to_pts.html</loc>
+  </url>
+  <url>
+    <loc>https://smith-group.github.io/fitnmr/reference/read_nmrdraw_peak_tab.html</loc>
+  </url>
+  <url>
+    <loc>https://smith-group.github.io/fitnmr/reference/read_nmrpipe.html</loc>
+  </url>
+  <url>
+    <loc>https://smith-group.github.io/fitnmr/reference/resonance_to_param_list.html</loc>
+  </url>
+  <url>
+    <loc>https://smith-group.github.io/fitnmr/reference/sim_time_nd.html</loc>
+  </url>
+  <url>
+    <loc>https://smith-group.github.io/fitnmr/reference/spec_bind.html</loc>
+  </url>
+  <url>
+    <loc>https://smith-group.github.io/fitnmr/reference/spec_overlap_mat.html</loc>
+  </url>
+  <url>
+    <loc>https://smith-group.github.io/fitnmr/reference/split_coupling_names.html</loc>
+  </url>
+  <url>
+    <loc>https://smith-group.github.io/fitnmr/reference/tables_to_param_list.html</loc>
+  </url>
+  <url>
+    <loc>https://smith-group.github.io/fitnmr/reference/update_fit_bounds.html</loc>
+  </url>
+  <url>
+    <loc>https://smith-group.github.io/fitnmr/reference/whz_to_pts.html</loc>
+  </url>
+  <url>
+    <loc>https://smith-group.github.io/fitnmr/reference/write_nmrdraw_peak_tab.html</loc>
   </url>
 </urlset>

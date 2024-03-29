@@ -19,6 +19,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,23 +33,17 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">fitnmr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -64,8 +60,8 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/smith-group/fitnmr/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+  <a href="https://github.com/smith-group/fitnmr/" class="external-link">
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -79,369 +75,528 @@
 
       
 
-      </header><script src="peak2d_files/header-attrs-2.3/header-attrs.js"></script><script src="peak2d_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Automated 2D Peak Fitting Code</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/smith-group/fitnmr/blob/master/vignettes/peak2d.Rmd"><code>vignettes/peak2d.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/smith-group/fitnmr/blob/HEAD/vignettes/peak2d.Rmd" class="external-link"><code>vignettes/peak2d.Rmd</code></a></small>
       <div class="hidden name"><code>peak2d.Rmd</code></div>
 
     </div>
 
     
     
-<p>FitNMR enables fully automated peak fitting of 2D NMR spectra. This document demonstrates how fitting can be done using <code>R</code> code, various stages of the algorithm, and some of the ways that the results can be visualized. For a description of how a similar workflow can be accomplished using prewritten <code>R</code> scripts that process all the spectra you put in a given directory, see the “Automated 2D Peak Fitting Scripts” document.</p>
-<p>The following tutorial will assume you have loaded the FitNMR package.</p>
-<div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://github.com/smith-group/fitnmr">fitnmr</a></span>)
-</pre></div>
-<div id="sample-data" class="section level2">
-<h2 class="hasAnchor">
-<a href="#sample-data" class="anchor"></a>Sample Data</h2>
-<p>The first step in peak picking is to load one or more spectra. There are a number of example spectra that come with the FitNMR package. For this tutorial, we will be using spectra from a T<sub>1</sub> measurement of a small <em>de novo</em> designed mini-protein. The directory containing that data and the spectrum filenames can be determined with the following commands:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="kw">t1_dir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"extdata"</span>, <span class="st">"t1"</span>, package=<span class="st">"fitnmr"</span>)
-<span class="kw">t1_ft2_filenames</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html">list.files</a></span>(<span class="kw">t1_dir</span>, pattern=<span class="st">".ft2"</span>)
-<span class="kw">t1_ft2_filenames</span>
-<span class="co">#&gt; [1] "1.ft2" "2.ft2"</span>
-</pre></div>
+<p>FitNMR enables fully automated peak fitting of 2D NMR spectra. This
+document demonstrates how fitting can be done using <code>R</code> code,
+various stages of the algorithm, and some of the ways that the results
+can be visualized. For a description of how a similar workflow can be
+accomplished using prewritten <code>R</code> scripts that process all
+the spectra you put in a given directory, see the “Automated 2D Peak
+Fitting Scripts” document.</p>
+<p>The following tutorial will assume you have loaded the FitNMR
+package.</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/smith-group/fitnmr/" class="external-link">fitnmr</a></span><span class="op">)</span></span></code></pre></div>
+<div class="section level2">
+<h2 id="sample-data">Sample Data<a class="anchor" aria-label="anchor" href="#sample-data"></a>
+</h2>
+<p>The first step in peak picking is to load one or more spectra. There
+are a number of example spectra that come with the FitNMR package. For
+this tutorial, we will be using spectra from a T<sub>1</sub> measurement
+of a small <em>de novo</em> designed mini-protein. The directory
+containing that data and the spectrum filenames can be determined with
+the following commands:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">t1_dir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"t1"</span>, package<span class="op">=</span><span class="st">"fitnmr"</span><span class="op">)</span></span>
+<span><span class="va">t1_ft2_filenames</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span><span class="va">t1_dir</span>, pattern<span class="op">=</span><span class="st">".ft2"</span><span class="op">)</span></span>
+<span><span class="va">t1_ft2_filenames</span></span>
+<span><span class="co">#&gt; [1] "1.ft2" "2.ft2"</span></span></code></pre></div>
 </div>
-<div id="reading-spectra" class="section level2">
-<h2 class="hasAnchor">
-<a href="#reading-spectra" class="anchor"></a>Reading Spectra</h2>
-<p>The <code>read_nmrpipe</code> function is used to read NMRPipe-formatted spectra.</p>
-<p>To read both files, we will use the <code>lapply</code> function in R. This builds a list data structure by iterating over the items in the first argument and applying the function given in the second argument to each. Any subsequent arguments are passed to the function when it is called. The <code>file.path</code> function joins the directory where the files are located to the file names within that directory.</p>
-<p>The <code>dim_order="hx"</code> argument tells <code>read_nmrpipe</code> to reorder the dimensions of the spectra so that the <sup>1</sup>H dimension is first. This is important as most default NMRPipe processing scripts will leave the <sup>1</sup>H as the second dimension. After reading the list of spectra, we will assign names to each using the original filenames.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit">
-<span class="kw">spec_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(<span class="kw">t1_dir</span>, <span class="kw">t1_ft2_filenames</span>), <span class="kw">read_nmrpipe</span>, dim_order=<span class="st">"hx"</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span>(<span class="kw">spec_list</span>) <span class="op">&lt;-</span> <span class="kw">t1_ft2_filenames</span>
-</pre></div>
-<p>The underlying data structures used to store the two spectra can be shown with the <code>str</code> function:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="kw">spec_list</span>)
-<span class="co">#&gt; List of 2</span>
-<span class="co">#&gt;  $ 1.ft2:List of 4</span>
-<span class="co">#&gt;   ..$ int    : num [1:66, 1:45] 1243 1033 2060 2653 2102 ...</span>
-<span class="co">#&gt;   .. ..- attr(*, "dimnames")=List of 2</span>
-<span class="co">#&gt;   .. .. ..$ HN : chr [1:66] "8.6770160099608" "8.66967763204871" "8.66233925413663" "8.65500087622454" ...</span>
-<span class="co">#&gt;   .. .. ..$ N15: chr [1:45] "124.032918497401" "123.917245763118" "123.801573028835" "123.685900294552" ...</span>
-<span class="co">#&gt;   ..$ ppm    :List of 2</span>
-<span class="co">#&gt;   .. ..$ HN : num [1:66] 8.68 8.67 8.66 8.66 8.65 ...</span>
-<span class="co">#&gt;   .. ..$ N15: num [1:45] 124 124 124 124 124 ...</span>
-<span class="co">#&gt;   ..$ fheader: num [1:29, 1:2] 1 4.77 533 2048 799.74 ...</span>
-<span class="co">#&gt;   .. ..- attr(*, "dimnames")=List of 2</span>
-<span class="co">#&gt;   .. .. ..$ : chr [1:29] "QUADFLAG" "CAR" "CENTER" "FTSIZE" ...</span>
-<span class="co">#&gt;   .. .. ..$ : chr [1:2] "HN" "N15"</span>
-<span class="co">#&gt;   ..$ header : Named num [1:512] 0.00 4.01e+09 2.35 0.00 0.00 ...</span>
-<span class="co">#&gt;   .. ..- attr(*, "names")= chr [1:512] "FDMAGIC" "FDFLTFORMAT" "FDFLTORDER" "" ...</span>
-<span class="co">#&gt;  $ 2.ft2:List of 4</span>
-<span class="co">#&gt;   ..$ int    : num [1:66, 1:45] -679 -355 260 642 413 ...</span>
-<span class="co">#&gt;   .. ..- attr(*, "dimnames")=List of 2</span>
-<span class="co">#&gt;   .. .. ..$ HN : chr [1:66] "8.6770160099608" "8.66967763204871" "8.66233925413663" "8.65500087622454" ...</span>
-<span class="co">#&gt;   .. .. ..$ N15: chr [1:45] "124.032918497401" "123.917245763118" "123.801573028835" "123.685900294552" ...</span>
-<span class="co">#&gt;   ..$ ppm    :List of 2</span>
-<span class="co">#&gt;   .. ..$ HN : num [1:66] 8.68 8.67 8.66 8.66 8.65 ...</span>
-<span class="co">#&gt;   .. ..$ N15: num [1:45] 124 124 124 124 124 ...</span>
-<span class="co">#&gt;   ..$ fheader: num [1:29, 1:2] 1 4.77 533 2048 799.74 ...</span>
-<span class="co">#&gt;   .. ..- attr(*, "dimnames")=List of 2</span>
-<span class="co">#&gt;   .. .. ..$ : chr [1:29] "QUADFLAG" "CAR" "CENTER" "FTSIZE" ...</span>
-<span class="co">#&gt;   .. .. ..$ : chr [1:2] "HN" "N15"</span>
-<span class="co">#&gt;   ..$ header : Named num [1:512] 0.00 4.01e+09 2.35 0.00 0.00 ...</span>
-<span class="co">#&gt;   .. ..- attr(*, "names")= chr [1:512] "FDMAGIC" "FDFLTFORMAT" "FDFLTORDER" "" ...</span>
-</pre></div>
-<p>This shows that there is a list of two spectra. Each spectrum is itself a list with four named components:</p>
+<div class="section level2">
+<h2 id="reading-spectra">Reading Spectra<a class="anchor" aria-label="anchor" href="#reading-spectra"></a>
+</h2>
+<p>The <code>read_nmrpipe</code> function is used to read
+NMRPipe-formatted spectra.</p>
+<p>To read both files, we will use the <code>lapply</code> function in
+R. This builds a list data structure by iterating over the items in the
+first argument and applying the function given in the second argument to
+each. Any subsequent arguments are passed to the function when it is
+called. The <code>file.path</code> function joins the directory where
+the files are located to the file names within that directory.</p>
+<p>The <code>dim_order="hx"</code> argument tells
+<code>read_nmrpipe</code> to reorder the dimensions of the spectra so
+that the <sup>1</sup>H dimension is first. This is important as most
+default NMRPipe processing scripts will leave the <sup>1</sup>H as the
+second dimension. After reading the list of spectra, we will assign
+names to each using the original filenames.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">spec_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">t1_dir</span>, <span class="va">t1_ft2_filenames</span><span class="op">)</span>, <span class="va">read_nmrpipe</span>, dim_order<span class="op">=</span><span class="st">"hx"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">spec_list</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">t1_ft2_filenames</span></span></code></pre></div>
+<p>The underlying data structures used to store the two spectra can be
+shown with the <code>str</code> function:</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">spec_list</span><span class="op">)</span></span>
+<span><span class="co">#&gt; List of 2</span></span>
+<span><span class="co">#&gt;  $ 1.ft2:List of 4</span></span>
+<span><span class="co">#&gt;   ..$ int    : num [1:66, 1:45] 1243 1033 2060 2653 2102 ...</span></span>
+<span><span class="co">#&gt;   .. ..- attr(*, "dimnames")=List of 2</span></span>
+<span><span class="co">#&gt;   .. .. ..$ HN : chr [1:66] "8.6770160099608" "8.66967763204871" "8.66233925413663" "8.65500087622454" ...</span></span>
+<span><span class="co">#&gt;   .. .. ..$ N15: chr [1:45] "124.032918497401" "123.917245763118" "123.801573028835" "123.685900294552" ...</span></span>
+<span><span class="co">#&gt;   ..$ ppm    :List of 2</span></span>
+<span><span class="co">#&gt;   .. ..$ HN : num [1:66] 8.68 8.67 8.66 8.66 8.65 ...</span></span>
+<span><span class="co">#&gt;   .. ..$ N15: num [1:45] 124 124 124 124 124 ...</span></span>
+<span><span class="co">#&gt;   ..$ fheader: num [1:33, 1:2] 66 24 387 6558 800 ...</span></span>
+<span><span class="co">#&gt;   .. ..- attr(*, "dimnames")=List of 2</span></span>
+<span><span class="co">#&gt;   .. .. ..$ : chr [1:33] "SIZE" "APOD" "SW" "ORIG" ...</span></span>
+<span><span class="co">#&gt;   .. .. ..$ : chr [1:2] "HN" "N15"</span></span>
+<span><span class="co">#&gt;   ..$ header : Named num [1:512] 0.00 4.01e+09 2.35 0.00 0.00 ...</span></span>
+<span><span class="co">#&gt;   .. ..- attr(*, "names")= chr [1:512] "FDMAGIC" "FDFLTFORMAT" "FDFLTORDER" "" ...</span></span>
+<span><span class="co">#&gt;  $ 2.ft2:List of 4</span></span>
+<span><span class="co">#&gt;   ..$ int    : num [1:66, 1:45] -679 -355 260 642 413 ...</span></span>
+<span><span class="co">#&gt;   .. ..- attr(*, "dimnames")=List of 2</span></span>
+<span><span class="co">#&gt;   .. .. ..$ HN : chr [1:66] "8.6770160099608" "8.66967763204871" "8.66233925413663" "8.65500087622454" ...</span></span>
+<span><span class="co">#&gt;   .. .. ..$ N15: chr [1:45] "124.032918497401" "123.917245763118" "123.801573028835" "123.685900294552" ...</span></span>
+<span><span class="co">#&gt;   ..$ ppm    :List of 2</span></span>
+<span><span class="co">#&gt;   .. ..$ HN : num [1:66] 8.68 8.67 8.66 8.66 8.65 ...</span></span>
+<span><span class="co">#&gt;   .. ..$ N15: num [1:45] 124 124 124 124 124 ...</span></span>
+<span><span class="co">#&gt;   ..$ fheader: num [1:33, 1:2] 66 24 387 6558 800 ...</span></span>
+<span><span class="co">#&gt;   .. ..- attr(*, "dimnames")=List of 2</span></span>
+<span><span class="co">#&gt;   .. .. ..$ : chr [1:33] "SIZE" "APOD" "SW" "ORIG" ...</span></span>
+<span><span class="co">#&gt;   .. .. ..$ : chr [1:2] "HN" "N15"</span></span>
+<span><span class="co">#&gt;   ..$ header : Named num [1:512] 0.00 4.01e+09 2.35 0.00 0.00 ...</span></span>
+<span><span class="co">#&gt;   .. ..- attr(*, "names")= chr [1:512] "FDMAGIC" "FDFLTFORMAT" "FDFLTORDER" "" ...</span></span></code></pre></div>
+<p>This shows that there is a list of two spectra. Each spectrum is
+itself a list with four named components:</p>
 <ol style="list-style-type: decimal">
 <li>
-<code>int</code>: A multidimensional array with the intensities of the spectrum, which in this case is just a 2D matrix. The chemical shifts are stored in character format in the dimension names (<code>dimnames</code>) of the array.</li>
+<code>int</code>: A multidimensional array with the intensities of
+the spectrum, which in this case is just a 2D matrix. The chemical
+shifts are stored in character format in the dimension names
+(<code>dimnames</code>) of the array.</li>
 <li>
-<code>ppm</code>: A list of chemical shifts for each dimension stored in numeric format.</li>
+<code>ppm</code>: A list of chemical shifts for each dimension
+stored in numeric format.</li>
 <li>
-<code>fheader</code>: A matrix of header values associated each dimension.</li>
+<code>fheader</code>: A matrix of header values associated each
+dimension.</li>
 <li>
-<code>header</code>: The raw data from the 512-value NMRPipe header.</li>
+<code>header</code>: The raw data from the 512-value NMRPipe
+header.</li>
 </ol>
 </div>
-<div id="displaying-spectra" class="section level2">
-<h2 class="hasAnchor">
-<a href="#displaying-spectra" class="anchor"></a>Displaying Spectra</h2>
-<p>We can produce a contour plot of the first spectrum using the <code>contour_pipe</code> function. It takes a matrix as input, so we must extract the <code>int</code> matrix of the first spectrum with the syntax shown.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit">
-<span class="fu"><a href="../reference/contour_pipe.html">contour_pipe</a></span>(<span class="kw">spec_list</span>[[<span class="fl">1</span>]]<span class="op">$</span><span class="kw">int</span>)
-</pre></div>
+<div class="section level2">
+<h2 id="displaying-spectra">Displaying Spectra<a class="anchor" aria-label="anchor" href="#displaying-spectra"></a>
+</h2>
+<p>We can produce a contour plot of the first spectrum using the
+<code>contour_pipe</code> function. It takes a matrix as input, so we
+must extract the <code>int</code> matrix of the first spectrum with the
+syntax shown.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/contour_pipe.html">contour_pipe</a></span><span class="op">(</span><span class="va">spec_list</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">int</span><span class="op">)</span></span></code></pre></div>
 <p><img src="peak2d_files/figure-html/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto auto auto 0;"></p>
-<p>As you can see above, the spectrum has a number of overlapped peaks with possible shoulders.</p>
+<p>As you can see above, the spectrum has a number of overlapped peaks
+with possible shoulders.</p>
 </div>
-<div id="estimating-noise" class="section level2">
-<h2 class="hasAnchor">
-<a href="#estimating-noise" class="anchor"></a>Estimating Noise</h2>
-<p>The automated peak fitting procedure uses the noise level of each spectrum to determine a cutoff below which peaks will no longer be added. FitNMR includes a function, <code>noise_estimate</code>, for determining the noise level by fitting a Gaussian function to a histogram of the signal intensities.</p>
-<p>The <code>sapply</code> function below is similar to the <code>lapply</code> function used above, but it attempts to simplify the output of each function into a matrix. In this case, because a vector of three numerical values is returned each time <code>noise_estimate</code> is called, a 3xN matrix (N = the number of spectra) of results is created. Also, because the <code>noise_estimate</code> function just takes numerical intensities, the code below defines a short inline function to extract those from each spectrum.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit">
-<span class="kw">noise_mat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">sapply</a></span>(<span class="kw">spec_list</span>, <span class="fu">function</span>(<span class="kw">x</span>) <span class="fu"><a href="../reference/noise_estimate.html">noise_estimate</a></span>(<span class="kw">x</span><span class="op">$</span><span class="kw">int</span>))
-<span class="kw">noise_mat</span>
-<span class="co">#&gt;           1.ft2     2.ft2</span>
-<span class="co">#&gt; mu       928.52    385.31</span>
-<span class="co">#&gt; sigma   1097.91    739.07</span>
-<span class="co">#&gt; max   404348.28 116520.75</span>
-</pre></div>
-<p>The resulting matrix above gives the mean value the noise is centered on (<code>mu</code>), the standard deviation of the noise (<code>sigma</code>), and the maximum intensity in the spectrum (<code>max</code>).</p>
-<p>The <code>noise_estimate</code> function can create plots showing the histogram of the intensity values (black) and the fit Gaussian function (blue). S/N is defined as <code>max/sigma</code>.</p>
-<p><img src="peak2d_files/figure-html/noise-1.png" width="288"><img src="peak2d_files/figure-html/noise-2.png" width="288"></p>
-<p>To identify an initial set of peaks, better results will probably be obtained using the spectrum with the highest signal-to-noise ratio, which in this case is the first spectrum.</p>
+<div class="section level2">
+<h2 id="estimating-noise">Estimating Noise<a class="anchor" aria-label="anchor" href="#estimating-noise"></a>
+</h2>
+<p>The automated peak fitting procedure uses the noise level of each
+spectrum to determine a cutoff below which peaks will no longer be
+added. FitNMR includes a function, <code>noise_estimate</code>, for
+determining the noise level by fitting a Gaussian function to a
+histogram of the signal intensities.</p>
+<p>The <code>sapply</code> function below is similar to the
+<code>lapply</code> function used above, but it attempts to simplify the
+output of each function into a matrix. In this case, because a vector of
+three numerical values is returned each time <code>noise_estimate</code>
+is called, a 3xN matrix (N = the number of spectra) of results is
+created. Also, because the <code>noise_estimate</code> function just
+takes numerical intensities, the code below defines a short inline
+function to extract those from each spectrum.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">noise_mat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="va">spec_list</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="../reference/noise_estimate.html">noise_estimate</a></span><span class="op">(</span><span class="va">x</span><span class="op">$</span><span class="va">int</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">noise_mat</span></span>
+<span><span class="co">#&gt;           1.ft2     2.ft2</span></span>
+<span><span class="co">#&gt; mu       928.52    385.31</span></span>
+<span><span class="co">#&gt; sigma   1097.91    739.07</span></span>
+<span><span class="co">#&gt; max   404348.28 116520.75</span></span></code></pre></div>
+<p>The resulting matrix above gives the mean value the noise is centered
+on (<code>mu</code>), the standard deviation of the noise
+(<code>sigma</code>), and the maximum intensity in the spectrum
+(<code>max</code>).</p>
+<p>The <code>noise_estimate</code> function can create plots showing the
+histogram of the intensity values (black) and the fit Gaussian function
+(blue). S/N is defined as <code>max/sigma</code>.</p>
+<p><img src="peak2d_files/figure-html/unnamed-chunk-8-1.png" width="288"><img src="peak2d_files/figure-html/unnamed-chunk-8-2.png" width="288"></p>
+<pre><code><span><span class="co">#&gt;           1.ft2     2.ft2</span></span>
+<span><span class="co">#&gt; mu       928.52    385.31</span></span>
+<span><span class="co">#&gt; sigma   1097.91    739.07</span></span>
+<span><span class="co">#&gt; max   404348.28 116520.75</span></span></code></pre>
+<p>To identify an initial set of peaks, better results will probably be
+obtained using the spectrum with the highest signal-to-noise ratio,
+which in this case is the first spectrum.</p>
 </div>
-<div id="fitting-peaks" class="section level2">
-<h2 class="hasAnchor">
-<a href="#fitting-peaks" class="anchor"></a>Fitting Peaks</h2>
-<div id="fitting-a-few-peak-clusters" class="section level3">
-<h3 class="hasAnchor">
-<a href="#fitting-a-few-peak-clusters" class="anchor"></a>Fitting a Few Peak Clusters</h3>
-<p>We will start by running three iterations of the iterative peak fitting method. It takes a list of spectra, which we previously read into <code>spec_list``. In this case, we will only do the fitting on the first spectrum. To get a list of just one spectrum, use single square brackets,</code>[ ]<code>, which return another list. (By contrast double square brackets,</code>[[ ]]<code>, return individual items from the list that are not enclosed in a list data structure.) The</code>iter_max<code>argument in</code>fit_peak_iter` specifies the number of iterations to perform.</p>
-<p>FitNMR outputs text describing what the peak fitting algorithm is doing. Adding the first peak involves addition of 6 parameters to the model (2 <code>omega0</code>, 2 <code>r2</code>, 1 <code>m0</code>, and 1 scalar coupling). The probability of the observed improvement to the fit happening at random (according to an F-test) is given by the p-value. For the first peak added, this is very low, indicating that having a peak at that position is much better than assuming otherwise. Adding the second peak involves addition of just 3 parameters (2 <code>omega0</code> and 1 <code>m0</code>), because several of the parameters are shared with the first peak (2 <code>r2</code> and 1 scalar coupling). For the first iteration, the search is terminated after the third peak fails to fall below the p-value cutoff, which is specified by <code>f_alpha</code> and defaults to <code>0.001</code>.</p>
-<p>The <code>fit_peak_iter</code> function returns a list of fits, one for each iteration. To convert that into a more user-friendly table, use the <code>param_list_to_peak_df</code> function. The first couple columns of that table give the peak number and fit iteration at which the peak was added. If applicable, the F-test p-value will be given next. The following several columns give the peak position (in ppm), the scalar coupling (in Hz), and the R<sub>2</sub> (in Hz), with the integer suffix indicating the dimension for each parameter. The remaining columns give the peak volumes from each spectrum.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit">
-<span class="kw">peak_fits</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fit_peak_iter.html">fit_peak_iter</a></span>(<span class="kw">spec_list</span>[<span class="fl">1</span>], iter_max=<span class="fl">3</span>)
-<span class="co">#&gt; Fit iteration 1:</span>
-<span class="co">#&gt;   0 -&gt;  6 fit parameters: F = 333.8 (p = 4.56642e-10)</span>
-<span class="co">#&gt;   6 -&gt;  9 fit parameters: F = 64.6 (p = 1.11899e-05)</span>
-<span class="co">#&gt;   9 -&gt; 12 fit parameters: F = 1.2 (p = 0.464419)</span>
-<span class="co">#&gt;  Terminating search because F-test p-value &lt; 0.001</span>
-<span class="co">#&gt; Fit iteration 2:</span>
-<span class="co">#&gt;   0 -&gt;  6 fit parameters: F = 734.0 (p = 1.87653e-15)</span>
-<span class="co">#&gt;   6 -&gt;  9 fit parameters: F = 14.7 (p = 0.000581712)</span>
-<span class="co">#&gt;   9 -&gt; 12 fit parameters: F = 0.1 (p = 0.976358)</span>
-<span class="co">#&gt;  Terminating search because F-test p-value &lt; 0.001</span>
-<span class="co">#&gt; Fit iteration 3:</span>
-<span class="co">#&gt;   0 -&gt;  6 fit parameters: F = 27.7 (p = 7.52698e-13)</span>
-<span class="co">#&gt;   6 -&gt;  9 fit parameters: F = 226.0 (p = 2.5923e-27)</span>
-<span class="co">#&gt;   9 -&gt; 12 fit parameters: F = 13.3 (p = 1.34241e-05)</span>
-<span class="co">#&gt;  12 -&gt; 15 fit parameters: F = 68.7 (p = 1.46797e-13)</span>
-<span class="co">#&gt;  15 -&gt; 18 fit parameters: F = 7.0 (p = 0.00144316)</span>
-<span class="co">#&gt;  Terminating search because F-test p-value &lt; 0.001</span>
-<span class="kw">peak_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/param_list_to_peak_df.html">param_list_to_peak_df</a></span>(<span class="kw">peak_fits</span>)
-<span class="kw">peak_df</span>
-<span class="co">#&gt;   peak fit   f_pvalue omega0_ppm_1 omega0_ppm_2 sc_hz_1 r2_hz_1 r2_hz_2      1.ft2</span>
-<span class="co">#&gt; 1    1   1 4.5664e-10       8.2476       121.87  3.2806  2.9072  2.3345  824420657</span>
-<span class="co">#&gt; 2    2   1 1.1190e-05       8.2596       121.93  3.2806  2.9072  2.3345  240560662</span>
-<span class="co">#&gt; 3    3   2 1.8765e-15       8.5400       119.76  2.0000  4.7886  2.0996 1020008726</span>
-<span class="co">#&gt; 4    4   2 5.8171e-04       8.5202       119.73  2.0000  4.7886  2.0996   89977216</span>
-<span class="co">#&gt; 5    5   3 7.5270e-13       8.6124       123.36  7.6481  5.2849  2.1801  848579189</span>
-<span class="co">#&gt; 6    6   3 2.5923e-27       8.5853       123.03  7.6481  5.2849  2.1801  607904936</span>
-<span class="co">#&gt; 7    7   3 1.3424e-05       8.6449       123.47  7.6481  5.2849  2.1801  147984411</span>
-<span class="co">#&gt; 8    8   3 1.4680e-13       8.5370       122.96  7.6481  5.2849  2.1801  161971930</span>
-<span class="fu"><a href="../reference/plot_peak_df.html">plot_peak_df</a></span>(<span class="kw">peak_df</span>, <span class="kw">spec_list</span>[<span class="fl">1</span>], cex=<span class="fl">0.6</span>)
-</pre></div>
+<div class="section level2">
+<h2 id="fitting-peaks">Fitting Peaks<a class="anchor" aria-label="anchor" href="#fitting-peaks"></a>
+</h2>
+<div class="section level3">
+<h3 id="fitting-a-few-peak-clusters">Fitting a Few Peak Clusters<a class="anchor" aria-label="anchor" href="#fitting-a-few-peak-clusters"></a>
+</h3>
+<p>We will start by running three iterations of the iterative peak
+fitting method. It takes a list of spectra, which we previously read
+into
+<code>spec_list``. In this case, we will only do the fitting on the first spectrum. To get a list of just one spectrum, use single square brackets,</code>[
+]<code>, which return another list. (By contrast double square brackets,</code>[[
+]]<code>, return individual items from the list that are not enclosed in a list data structure.) The</code>iter_max<code>argument in</code>fit_peak_iter`
+specifies the number of iterations to perform.</p>
+<p>FitNMR outputs text describing what the peak fitting algorithm is
+doing. Adding the first peak involves addition of 6 parameters to the
+model (2 <code>omega0</code>, 2 <code>r2</code>, 1 <code>m0</code>, and
+1 scalar coupling). The probability of the observed improvement to the
+fit happening at random (according to an F-test) is given by the
+p-value. For the first peak added, this is very low, indicating that
+having a peak at that position is much better than assuming otherwise.
+Adding the second peak involves addition of just 3 parameters (2
+<code>omega0</code> and 1 <code>m0</code>), because several of the
+parameters are shared with the first peak (2 <code>r2</code> and 1
+scalar coupling). For the first iteration, the search is terminated
+after the third peak fails to fall below the p-value cutoff, which is
+specified by <code>f_alpha</code> and defaults to
+<code>0.001</code>.</p>
+<p>The <code>fit_peak_iter</code> function returns a list of fits, one
+for each iteration. To convert that into a more user-friendly table, use
+the <code>param_list_to_peak_df</code> function. The first couple
+columns of that table give the peak number and fit iteration at which
+the peak was added. If applicable, the F-test p-value will be given
+next. The following several columns give the peak position (in ppm), the
+scalar coupling (in Hz), and the R<sub>2</sub> (in Hz), with the integer
+suffix indicating the dimension for each parameter. The remaining
+columns give the peak volumes from each spectrum.</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">peak_fits</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fit_peak_iter.html">fit_peak_iter</a></span><span class="op">(</span><span class="va">spec_list</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, iter_max<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Fit iteration 1:</span></span>
+<span><span class="co">#&gt;   0 -&gt;  6 fit parameters: F = 333.8 (p = 4.56642e-10)</span></span>
+<span><span class="co">#&gt;   6 -&gt;  9 fit parameters: F = 64.6 (p = 1.11899e-05)</span></span>
+<span><span class="co">#&gt; Warning in minpack.lm::nls.lm(fit_par, fit_lower, fit_upper, fn = fit_fn, : lmder: info = -1. Number of iterations has reached `maxiter' == 200.</span></span>
+<span><span class="co">#&gt;   9 -&gt; 12 fit parameters: F = 1.2 (p = 0.464698)</span></span>
+<span><span class="co">#&gt;  Terminating search because F-test p-value &gt; 0.001</span></span>
+<span><span class="co">#&gt; Fit iteration 2:</span></span>
+<span><span class="co">#&gt;   0 -&gt;  6 fit parameters: F = 734.0 (p = 1.87653e-15)</span></span>
+<span><span class="co">#&gt;   6 -&gt;  9 fit parameters: F = 14.7 (p = 0.000581712)</span></span>
+<span><span class="co">#&gt;   9 -&gt; 12 fit parameters: F = 0.1 (p = 0.976358)</span></span>
+<span><span class="co">#&gt;  Terminating search because F-test p-value &gt; 0.001</span></span>
+<span><span class="co">#&gt; Fit iteration 3:</span></span>
+<span><span class="co">#&gt;   0 -&gt;  6 fit parameters: F = 27.7 (p = 7.52698e-13)</span></span>
+<span><span class="co">#&gt;   6 -&gt;  9 fit parameters: F = 226.0 (p = 2.5923e-27)</span></span>
+<span><span class="co">#&gt;   9 -&gt; 12 fit parameters: F = 13.3 (p = 1.34241e-05)</span></span>
+<span><span class="co">#&gt;  12 -&gt; 15 fit parameters: F = 68.7 (p = 1.46797e-13)</span></span>
+<span><span class="co">#&gt;  15 -&gt; 18 fit parameters: F = 7.0 (p = 0.00144316)</span></span>
+<span><span class="co">#&gt;  Terminating search because F-test p-value &gt; 0.001</span></span>
+<span><span class="va">peak_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/param_list_to_peak_df.html">param_list_to_peak_df</a></span><span class="op">(</span><span class="va">peak_fits</span><span class="op">)</span></span>
+<span><span class="va">peak_df</span></span>
+<span><span class="co">#&gt;   peak fit   f_pvalue omega0_ppm_1 omega0_ppm_2 sc_hz_1 r2_hz_1 r2_hz_2      1.ft2</span></span>
+<span><span class="co">#&gt; 1    1   1 4.5664e-10       8.2476       121.87  3.2806  2.9072  2.3345  824420657</span></span>
+<span><span class="co">#&gt; 2    2   1 1.1190e-05       8.2596       121.93  3.2806  2.9072  2.3345  240560662</span></span>
+<span><span class="co">#&gt; 3    3   2 1.8765e-15       8.5400       119.76  2.0000  4.7886  2.0996 1020008726</span></span>
+<span><span class="co">#&gt; 4    4   2 5.8171e-04       8.5202       119.73  2.0000  4.7886  2.0996   89977216</span></span>
+<span><span class="co">#&gt; 5    5   3 7.5270e-13       8.6124       123.36  7.6481  5.2849  2.1801  848579189</span></span>
+<span><span class="co">#&gt; 6    6   3 2.5923e-27       8.5853       123.03  7.6481  5.2849  2.1801  607904936</span></span>
+<span><span class="co">#&gt; 7    7   3 1.3424e-05       8.6449       123.47  7.6481  5.2849  2.1801  147984411</span></span>
+<span><span class="co">#&gt; 8    8   3 1.4680e-13       8.5370       122.96  7.6481  5.2849  2.1801  161971930</span></span>
+<span><span class="fu"><a href="../reference/plot_peak_df.html">plot_peak_df</a></span><span class="op">(</span><span class="va">peak_df</span>, <span class="va">spec_list</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, cex<span class="op">=</span><span class="fl">0.6</span><span class="op">)</span></span></code></pre></div>
 <p><img src="peak2d_files/figure-html/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto auto auto 0;"></p>
-<p>A plot of the resulting peak fits can be produced with the <code>plot_peak_df</code> function, which requires a peak table and list of spectra. It plots the peaks with contours down to 4 times the standard deviation of the noise present in the spectra. The modeled peaks are shown with red contours and the peak centers are indicated with blue dots, with the area of the blue dot proportional to the volume of the peak. Below each set of dots, the peaks are numbered with the syntax, <code>&lt;peak&gt;:&lt;fit&gt;</code>. All peaks in a given fit will share scalar coupling and R<sub>2</sub> parameters. If contained in the input table, the F-test p-value will be given below the peak number. This can be helpful in optimizing the the <code>f_alpha</code> parameter to avoid false negatives while minimizing the number of false positives.</p>
+<p>A plot of the resulting peak fits can be produced with the
+<code>plot_peak_df</code> function, which requires a peak table and list
+of spectra. It plots the peaks with contours down to 4 times the
+standard deviation of the noise present in the spectra. The modeled
+peaks are shown with red contours and the peak centers are indicated
+with blue dots, with the area of the blue dot proportional to the volume
+of the peak. Below each set of dots, the peaks are numbered with the
+syntax, <code>&lt;peak&gt;:&lt;fit&gt;</code>. All peaks in a given fit
+will share scalar coupling and R<sub>2</sub> parameters. If contained in
+the input table, the F-test p-value will be given below the peak number.
+This can be helpful in optimizing the the <code>f_alpha</code> parameter
+to avoid false negatives while minimizing the number of false
+positives.</p>
 </div>
-<div id="a-peek-inside-the-algorithm" class="section level3">
-<h3 class="hasAnchor">
-<a href="#a-peek-inside-the-algorithm" class="anchor"></a>A Peek Inside the Algorithm</h3>
-<p>To take a more detailed look inside a single iteration of the algorithm, the <code>fit_peak_iter</code> function can be called again, providing the output of the first time it was run using the <code>fit_list</code> parameter. By setting the <code>plot_fit_stages</code> parameter to <code>TRUE</code>, FitNMR will produce a series of plots illustrating the progress of the algorithm.</p>
-<p>A given iteration starts with placing a peak at the highest point in the spectrum, after all previously modeled peaks have been subtracted out. It first optimizes <code>m0</code>, leaving the <code>omega0</code>, <code>r2</code>, and <code>sc</code> parameters at their default values. The resulting peak is shown in the first plot, with red dots at the peak centers and lines <code>±r2</code> for each dimension.</p>
-<p>After obtaining an initial volume, the peak shape is allowed to change by unfixing the <code>r2</code> and <code>sc</code> parameters. Subsequent plots show contours of peaks modeled with the input parameters in blue, and the fit parameters in red. Finally, the peak is allowed to move by unfixing the <code>omega0</code> parameters, with the center of each multiplet constrained to <code>±1.5*r2</code>, as indicated by the gray square.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit">
-<span class="kw">peak_fits</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fit_peak_iter.html">fit_peak_iter</a></span>(<span class="kw">spec_list</span>[<span class="fl">1</span>], iter_max=<span class="fl">1</span>, fit_list=<span class="kw">peak_fits</span>, plot_fit_stages=<span class="fl">TRUE</span>)
-<span class="co">#&gt; Fit iteration 1:</span>
-</pre></div>
+<div class="section level3">
+<h3 id="a-peek-inside-the-algorithm">A Peek Inside the Algorithm<a class="anchor" aria-label="anchor" href="#a-peek-inside-the-algorithm"></a>
+</h3>
+<p>To take a more detailed look inside a single iteration of the
+algorithm, the <code>fit_peak_iter</code> function can be called again,
+providing the output of the first time it was run using the
+<code>fit_list</code> parameter. By setting the
+<code>plot_fit_stages</code> parameter to <code>TRUE</code>, FitNMR will
+produce a series of plots illustrating the progress of the
+algorithm.</p>
+<p>A given iteration starts with placing a peak at the highest point in
+the spectrum, after all previously modeled peaks have been subtracted
+out. It first optimizes <code>m0</code>, leaving the
+<code>omega0</code>, <code>r2</code>, and <code>sc</code> parameters at
+their default values. The resulting peak is shown in the first plot,
+with red dots at the peak centers and lines <code>±r2</code> for each
+dimension.</p>
+<p>After obtaining an initial volume, the peak shape is allowed to
+change by unfixing the <code>r2</code> and <code>sc</code> parameters.
+Subsequent plots show contours of peaks modeled with the input
+parameters in blue, and the fit parameters in red. Finally, the peak is
+allowed to move by unfixing the <code>omega0</code> parameters, with the
+center of each multiplet constrained to <code>±1.5*r2</code>, as
+indicated by the gray square.</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">peak_fits</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fit_peak_iter.html">fit_peak_iter</a></span><span class="op">(</span><span class="va">spec_list</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, iter_max<span class="op">=</span><span class="fl">1</span>, fit_list<span class="op">=</span><span class="va">peak_fits</span>, plot_fit_stages<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Fit iteration 1:</span></span></code></pre></div>
 <p><img src="peak2d_files/figure-html/unnamed-chunk-12-1.png" width="384" style="display: block; margin: auto auto auto 0;"><img src="peak2d_files/figure-html/unnamed-chunk-12-2.png" width="384" style="display: block; margin: auto auto auto 0;"><img src="peak2d_files/figure-html/unnamed-chunk-12-3.png" width="384" style="display: block; margin: auto auto auto 0;"></p>
-<pre><code>#&gt;   0 -&gt;  6 fit parameters: F = 2022.7 (p = 1.60653e-20)</code></pre>
+<pre><code><span><span class="co">#&gt;   0 -&gt;  6 fit parameters: F = 2022.7 (p = 1.60653e-20)</span></span></code></pre>
 <p><img src="peak2d_files/figure-html/unnamed-chunk-12-4.png" width="384" style="display: block; margin: auto auto auto 0;"><img src="peak2d_files/figure-html/unnamed-chunk-12-5.png" width="384" style="display: block; margin: auto auto auto 0;"><img src="peak2d_files/figure-html/unnamed-chunk-12-6.png" width="384" style="display: block; margin: auto auto auto 0;"><img src="peak2d_files/figure-html/unnamed-chunk-12-7.png" width="384" style="display: block; margin: auto auto auto 0;"></p>
-<pre><code>#&gt;   6 -&gt;  9 fit parameters: F = 14.0 (p = 0.000228688)</code></pre>
+<pre><code><span><span class="co">#&gt;   6 -&gt;  9 fit parameters: F = 14.0 (p = 0.000228688)</span></span></code></pre>
 <p><img src="peak2d_files/figure-html/unnamed-chunk-12-8.png" width="384" style="display: block; margin: auto auto auto 0;"><img src="peak2d_files/figure-html/unnamed-chunk-12-9.png" width="384" style="display: block; margin: auto auto auto 0;"><img src="peak2d_files/figure-html/unnamed-chunk-12-10.png" width="384" style="display: block; margin: auto auto auto 0;"></p>
-<pre><code>#&gt;  Terminating search because fit produced zero volume</code></pre>
-<p>In this case, the last peak added was too close to the first and when all parameters were unfixed, one of the peaks had zero volume, which resulted in termination of this iteration. In this fit, the shoulder peak is present, but is less than 10% of the volume of the major peak. (See fit 4 in the peak lists below.) The newly added peak cluster is outlined in green in the following spectrum.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit">
-<span class="fu"><a href="../reference/plot_peak_df.html">plot_peak_df</a></span>(<span class="fu"><a href="../reference/param_list_to_peak_df.html">param_list_to_peak_df</a></span>(<span class="kw">peak_fits</span>), <span class="kw">spec_list</span>[<span class="fl">1</span>], cex=<span class="fl">0.6</span>)
-<span class="fu"><a href="https://rdrr.io/r/graphics/rect.html">rect</a></span>(<span class="fl">8.41</span>, <span class="fl">120.6</span>, <span class="fl">8.31</span>, <span class="fl">119.2</span>, border=<span class="st">"green"</span>)
-<span class="fu"><a href="https://rdrr.io/r/graphics/text.html">text</a></span>(<span class="fl">8.31</span>, <span class="fl">119.9</span>, <span class="st">"New Cluster"</span>, pos=<span class="fl">4</span>, col=<span class="st">"green"</span>)
-</pre></div>
+<pre><code><span><span class="co">#&gt;  Terminating search because fit produced zero volume</span></span></code></pre>
+<p>In this case, the last peak added was too close to the first and when
+all parameters were unfixed, one of the peaks had zero volume, which
+resulted in termination of this iteration. In this fit, the shoulder
+peak is present, but is less than 10% of the volume of the major peak.
+(See fit 4 in the peak lists below.) The newly added peak cluster is
+outlined in green in the following spectrum.</p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_peak_df.html">plot_peak_df</a></span><span class="op">(</span><span class="fu"><a href="../reference/param_list_to_peak_df.html">param_list_to_peak_df</a></span><span class="op">(</span><span class="va">peak_fits</span><span class="op">)</span>, <span class="va">spec_list</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, cex<span class="op">=</span><span class="fl">0.6</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/rect.html" class="external-link">rect</a></span><span class="op">(</span><span class="fl">8.41</span>, <span class="fl">120.6</span>, <span class="fl">8.31</span>, <span class="fl">119.2</span>, border<span class="op">=</span><span class="st">"green"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/text.html" class="external-link">text</a></span><span class="op">(</span><span class="fl">8.31</span>, <span class="fl">119.9</span>, <span class="st">"New Cluster"</span>, pos<span class="op">=</span><span class="fl">4</span>, col<span class="op">=</span><span class="st">"green"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="peak2d_files/figure-html/unnamed-chunk-14-1.png" width="576" style="display: block; margin: auto auto auto 0;"></p>
 </div>
-<div id="fitting-the-remainder-of-the-peaks" class="section level3">
-<h3 class="hasAnchor">
-<a href="#fitting-the-remainder-of-the-peaks" class="anchor"></a>Fitting the Remainder of the Peaks</h3>
-<p>To fit the remainder of the peaks, call the <code>fit_peak_iter</code> function again, this time leaving out the <code>iter_max</code> parameter so that the default value (100) is used.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit">
-<span class="kw">peak_fits</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fit_peak_iter.html">fit_peak_iter</a></span>(<span class="kw">spec_list</span>[<span class="fl">1</span>], fit_list=<span class="kw">peak_fits</span>)
-<span class="co">#&gt; Fit iteration 1:</span>
-<span class="co">#&gt;   0 -&gt;  6 fit parameters: F = 107.8 (p = 9.74212e-11)</span>
-<span class="co">#&gt;   6 -&gt;  9 fit parameters: F = 260.6 (p = 2.04021e-13)</span>
-<span class="co">#&gt;   9 -&gt; 12 fit parameters: F = 11.0 (p = 0.00161564)</span>
-<span class="co">#&gt;  Terminating search because F-test p-value &lt; 0.001</span>
-<span class="co">#&gt; Fit iteration 2:</span>
-<span class="co">#&gt;   0 -&gt;  6 fit parameters: F = 1219.7 (p = 6.27674e-21)</span>
-<span class="co">#&gt;   6 -&gt;  9 fit parameters: F = 174.9 (p = 1.74543e-15)</span>
-<span class="co">#&gt;   9 -&gt; 12 fit parameters: F = 42.3 (p = 8.00775e-09)</span>
-<span class="co">#&gt;  12 -&gt; 15 fit parameters: F = 11.8 (p = 0.000186865)</span>
-<span class="co">#&gt;  15 -&gt; 18 fit parameters: F = 1.6 (p = 0.223018)</span>
-<span class="co">#&gt;  Terminating search because F-test p-value &lt; 0.001</span>
-<span class="co">#&gt; Fit iteration 3:</span>
-<span class="co">#&gt;   0 -&gt;  6 fit parameters: F = 232.0 (p = 1.0692e-22)</span>
-<span class="co">#&gt;   6 -&gt;  9 fit parameters: F = 15.9 (p = 1.99824e-06)</span>
-<span class="co">#&gt;   9 -&gt; 12 fit parameters: F = 54.3 (p = 1.15821e-11)</span>
-<span class="co">#&gt;  Terminating search because fit produced zero volume</span>
-<span class="co">#&gt; Fit iteration 4:</span>
-<span class="co">#&gt;   0 -&gt;  6 fit parameters: F = 330.9 (p = 1.75035e-07)</span>
-<span class="co">#&gt;   6 -&gt;  9 fit parameters: F = 1.8 (p = 0.274918)</span>
-<span class="co">#&gt;  Terminating search because F-test p-value &lt; 0.001</span>
-<span class="kw">peak_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/param_list_to_peak_df.html">param_list_to_peak_df</a></span>(<span class="kw">peak_fits</span>)
-<span class="kw">peak_df</span>
-<span class="co">#&gt;    peak fit   f_pvalue omega0_ppm_1 omega0_ppm_2 sc_hz_1 r2_hz_1 r2_hz_2      1.ft2</span>
-<span class="co">#&gt; 1     1   1 4.5664e-10       8.2476       121.87  3.2806  2.9072 2.33450  824420657</span>
-<span class="co">#&gt; 2     2   1 1.1190e-05       8.2596       121.93  3.2806  2.9072 2.33450  240560662</span>
-<span class="co">#&gt; 3     3   2 1.8765e-15       8.5400       119.76  2.0000  4.7886 2.09965 1020008726</span>
-<span class="co">#&gt; 4     4   2 5.8171e-04       8.5202       119.73  2.0000  4.7886 2.09965   89977216</span>
-<span class="co">#&gt; 5     5   3 7.5270e-13       8.6124       123.36  7.6481  5.2849 2.18012  848579189</span>
-<span class="co">#&gt; 6     6   3 2.5923e-27       8.5853       123.03  7.6481  5.2849 2.18012  607904936</span>
-<span class="co">#&gt; 7     7   3 1.3424e-05       8.6449       123.47  7.6481  5.2849 2.18012  147984411</span>
-<span class="co">#&gt; 8     8   3 1.4680e-13       8.5370       122.96  7.6481  5.2849 2.18012  161971930</span>
-<span class="co">#&gt; 9     9   4 1.6065e-20       8.3580       119.89 10.2029  2.2306 5.03575  875241831</span>
-<span class="co">#&gt; 10   10   4 2.2869e-04       8.3791       119.90 10.2029  2.2306 5.03575   62766713</span>
-<span class="co">#&gt; 11   11   5 9.7421e-11       8.2506       119.41  6.3683  4.9091 1.85341  732475431</span>
-<span class="co">#&gt; 12   12   5 2.0402e-13       8.2900       119.38  6.3683  4.9091 1.85341  181301641</span>
-<span class="co">#&gt; 13   13   6 6.2767e-21       8.4826       122.50  9.1982  5.0619 2.03464  475854299</span>
-<span class="co">#&gt; 14   14   6 1.7454e-15       8.4629       122.91  9.1982  5.0619 2.03464   28166195</span>
-<span class="co">#&gt; 15   15   6 8.0078e-09       8.4768       123.03  9.1982  5.0619 2.03464   92626742</span>
-<span class="co">#&gt; 16   16   6 1.8687e-04       8.4786       122.43  9.1982  5.0619 2.03464  105607485</span>
-<span class="co">#&gt; 17   17   7 1.0692e-22       8.4433       120.73  7.1444  6.3350 2.97224  460752250</span>
-<span class="co">#&gt; 18   18   7 1.9982e-06       8.4251       120.46  7.1444  6.3350 2.97224   97674580</span>
-<span class="co">#&gt; 19   19   7 1.1582e-11       8.4663       120.51  7.1444  6.3350 2.97224   62014526</span>
-<span class="co">#&gt; 20   20   8 1.7504e-07       8.3444       120.76  8.6176  1.9530 0.86044  105614247</span>
-<span class="fu"><a href="../reference/plot_peak_df.html">plot_peak_df</a></span>(<span class="kw">peak_df</span>, <span class="kw">spec_list</span>[<span class="fl">1</span>], cex=<span class="fl">0.6</span>)
-</pre></div>
+<div class="section level3">
+<h3 id="fitting-the-remainder-of-the-peaks">Fitting the Remainder of the Peaks<a class="anchor" aria-label="anchor" href="#fitting-the-remainder-of-the-peaks"></a>
+</h3>
+<p>To fit the remainder of the peaks, call the
+<code>fit_peak_iter</code> function again, this time leaving out the
+<code>iter_max</code> parameter so that the default value (100) is
+used.</p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">peak_fits</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fit_peak_iter.html">fit_peak_iter</a></span><span class="op">(</span><span class="va">spec_list</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, fit_list<span class="op">=</span><span class="va">peak_fits</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Fit iteration 1:</span></span>
+<span><span class="co">#&gt;   0 -&gt;  6 fit parameters: F = 107.8 (p = 9.74212e-11)</span></span>
+<span><span class="co">#&gt;   6 -&gt;  9 fit parameters: F = 260.6 (p = 2.04021e-13)</span></span>
+<span><span class="co">#&gt;   9 -&gt; 12 fit parameters: F = 11.0 (p = 0.00161564)</span></span>
+<span><span class="co">#&gt;  Terminating search because F-test p-value &gt; 0.001</span></span>
+<span><span class="co">#&gt; Fit iteration 2:</span></span>
+<span><span class="co">#&gt;   0 -&gt;  6 fit parameters: F = 1219.7 (p = 6.27674e-21)</span></span>
+<span><span class="co">#&gt;   6 -&gt;  9 fit parameters: F = 174.9 (p = 1.74543e-15)</span></span>
+<span><span class="co">#&gt;   9 -&gt; 12 fit parameters: F = 42.3 (p = 8.00775e-09)</span></span>
+<span><span class="co">#&gt;  12 -&gt; 15 fit parameters: F = 11.8 (p = 0.000186865)</span></span>
+<span><span class="co">#&gt;  15 -&gt; 18 fit parameters: F = 1.6 (p = 0.223018)</span></span>
+<span><span class="co">#&gt;  Terminating search because F-test p-value &gt; 0.001</span></span>
+<span><span class="co">#&gt; Fit iteration 3:</span></span>
+<span><span class="co">#&gt;   0 -&gt;  6 fit parameters: F = 232.0 (p = 1.0692e-22)</span></span>
+<span><span class="co">#&gt;   6 -&gt;  9 fit parameters: F = 15.9 (p = 1.99824e-06)</span></span>
+<span><span class="co">#&gt;   9 -&gt; 12 fit parameters: F = 54.3 (p = 1.15821e-11)</span></span>
+<span><span class="co">#&gt;  Terminating search because fit produced zero volume</span></span>
+<span><span class="co">#&gt; Fit iteration 4:</span></span>
+<span><span class="co">#&gt;   0 -&gt;  6 fit parameters: F = 330.9 (p = 1.75035e-07)</span></span>
+<span><span class="co">#&gt;   6 -&gt;  9 fit parameters: F = 1.8 (p = 0.274918)</span></span>
+<span><span class="co">#&gt;  Terminating search because F-test p-value &gt; 0.001</span></span>
+<span><span class="va">peak_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/param_list_to_peak_df.html">param_list_to_peak_df</a></span><span class="op">(</span><span class="va">peak_fits</span><span class="op">)</span></span>
+<span><span class="va">peak_df</span></span>
+<span><span class="co">#&gt;    peak fit   f_pvalue omega0_ppm_1 omega0_ppm_2 sc_hz_1 r2_hz_1 r2_hz_2      1.ft2</span></span>
+<span><span class="co">#&gt; 1     1   1 4.5664e-10       8.2476       121.87  3.2806  2.9072 2.33450  824420657</span></span>
+<span><span class="co">#&gt; 2     2   1 1.1190e-05       8.2596       121.93  3.2806  2.9072 2.33450  240560662</span></span>
+<span><span class="co">#&gt; 3     3   2 1.8765e-15       8.5400       119.76  2.0000  4.7886 2.09965 1020008726</span></span>
+<span><span class="co">#&gt; 4     4   2 5.8171e-04       8.5202       119.73  2.0000  4.7886 2.09965   89977216</span></span>
+<span><span class="co">#&gt; 5     5   3 7.5270e-13       8.6124       123.36  7.6481  5.2849 2.18012  848579189</span></span>
+<span><span class="co">#&gt; 6     6   3 2.5923e-27       8.5853       123.03  7.6481  5.2849 2.18012  607904936</span></span>
+<span><span class="co">#&gt; 7     7   3 1.3424e-05       8.6449       123.47  7.6481  5.2849 2.18012  147984411</span></span>
+<span><span class="co">#&gt; 8     8   3 1.4680e-13       8.5370       122.96  7.6481  5.2849 2.18012  161971930</span></span>
+<span><span class="co">#&gt; 9     9   4 1.6065e-20       8.3580       119.89 10.2029  2.2306 5.03575  875241831</span></span>
+<span><span class="co">#&gt; 10   10   4 2.2869e-04       8.3791       119.90 10.2029  2.2306 5.03575   62766713</span></span>
+<span><span class="co">#&gt; 11   11   5 9.7421e-11       8.2506       119.41  6.3683  4.9091 1.85341  732475431</span></span>
+<span><span class="co">#&gt; 12   12   5 2.0402e-13       8.2900       119.38  6.3683  4.9091 1.85341  181301641</span></span>
+<span><span class="co">#&gt; 13   13   6 6.2767e-21       8.4826       122.50  9.1982  5.0619 2.03464  475854299</span></span>
+<span><span class="co">#&gt; 14   14   6 1.7454e-15       8.4629       122.91  9.1982  5.0619 2.03464   28166195</span></span>
+<span><span class="co">#&gt; 15   15   6 8.0078e-09       8.4768       123.03  9.1982  5.0619 2.03464   92626742</span></span>
+<span><span class="co">#&gt; 16   16   6 1.8687e-04       8.4786       122.43  9.1982  5.0619 2.03464  105607485</span></span>
+<span><span class="co">#&gt; 17   17   7 1.0692e-22       8.4433       120.73  7.1444  6.3350 2.97224  460752250</span></span>
+<span><span class="co">#&gt; 18   18   7 1.9982e-06       8.4251       120.46  7.1444  6.3350 2.97224   97674580</span></span>
+<span><span class="co">#&gt; 19   19   7 1.1582e-11       8.4663       120.51  7.1444  6.3350 2.97224   62014526</span></span>
+<span><span class="co">#&gt; 20   20   8 1.7504e-07       8.3444       120.76  8.6176  1.9530 0.86044  105614247</span></span>
+<span><span class="fu"><a href="../reference/plot_peak_df.html">plot_peak_df</a></span><span class="op">(</span><span class="va">peak_df</span>, <span class="va">spec_list</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, cex<span class="op">=</span><span class="fl">0.6</span><span class="op">)</span></span></code></pre></div>
 <p><img src="peak2d_files/figure-html/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto auto auto 0;"></p>
 </div>
 </div>
-<div id="fitting-peaks-without-scalar-couplings" class="section level2">
-<h2 class="hasAnchor">
-<a href="#fitting-peaks-without-scalar-couplings" class="anchor"></a>Fitting Peaks without Scalar Couplings</h2>
-<p>Scalar couplings are only fit for specified dimensions. The only type of splitting pattern currently supported is a doublet. The particular dimensions for which scalar couplings are fit is specified with the <code>sc_start</code> parameter, which should be a two-element numeric vector. The first element of that vector gives the starting value of the scalar coupling in the first dimension, and likewise the second element for the second dimension. If a given dimension is set to <code>NA</code>, then it will not have a doublet generated. If <code>sc_start</code> is left at the default value of <code><a href="https://rdrr.io/r/base/c.html">c(6, NA)</a></code>, then there will just be a doublet fit in the first dimension, with only a single peak fit in the second dimension. To disable scalar couplings altogether, set <code>sc_start</code> to <code><a href="https://rdrr.io/r/base/c.html">c(NA, NA)</a></code>.</p>
-<div class="sourceCode" id="cb14"><pre class="downlit">
-<span class="kw">peak_fits_no_sc</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fit_peak_iter.html">fit_peak_iter</a></span>(<span class="kw">spec_list</span>[<span class="fl">1</span>], sc_start=<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">NA</span>, <span class="fl">NA</span>))
-<span class="fu"><a href="../reference/plot_peak_df.html">plot_peak_df</a></span>(<span class="fu"><a href="../reference/param_list_to_peak_df.html">param_list_to_peak_df</a></span>(<span class="kw">peak_fits_no_sc</span>), <span class="kw">spec_list</span>[<span class="fl">1</span>], cex=<span class="fl">0.6</span>)
-<span class="fu"><a href="https://rdrr.io/r/graphics/rect.html">rect</a></span>(<span class="fl">8.55</span>, <span class="fl">122.8</span>, <span class="fl">8.43</span>, <span class="fl">122.1</span>, border=<span class="st">"green"</span>)
-<span class="fu"><a href="https://rdrr.io/r/graphics/text.html">text</a></span>(<span class="fl">8.43</span>, <span class="fl">122.5</span>, <span class="st">"Coupling\nDetected\nde novo"</span>, pos=<span class="fl">4</span>, col=<span class="st">"green"</span>)
-</pre></div>
+<div class="section level2">
+<h2 id="fitting-peaks-without-scalar-couplings">Fitting Peaks without Scalar Couplings<a class="anchor" aria-label="anchor" href="#fitting-peaks-without-scalar-couplings"></a>
+</h2>
+<p>Scalar couplings are only fit for specified dimensions. The only type
+of splitting pattern currently supported is a doublet. The particular
+dimensions for which scalar couplings are fit is specified with the
+<code>sc_start</code> parameter, which should be a two-element numeric
+vector. The first element of that vector gives the starting value of the
+scalar coupling in the first dimension, and likewise the second element
+for the second dimension. If a given dimension is set to
+<code>NA</code>, then it will not have a doublet generated. If
+<code>sc_start</code> is left at the default value of
+<code>c(6, NA)</code>, then there will just be a doublet fit in the
+first dimension, with only a single peak fit in the second dimension. To
+disable scalar couplings altogether, set <code>sc_start</code> to
+<code>c(NA, NA)</code>.</p>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">peak_fits_no_sc</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fit_peak_iter.html">fit_peak_iter</a></span><span class="op">(</span><span class="va">spec_list</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, sc_start<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="cn">NA</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/plot_peak_df.html">plot_peak_df</a></span><span class="op">(</span><span class="fu"><a href="../reference/param_list_to_peak_df.html">param_list_to_peak_df</a></span><span class="op">(</span><span class="va">peak_fits_no_sc</span><span class="op">)</span>, <span class="va">spec_list</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, cex<span class="op">=</span><span class="fl">0.6</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/rect.html" class="external-link">rect</a></span><span class="op">(</span><span class="fl">8.55</span>, <span class="fl">122.8</span>, <span class="fl">8.43</span>, <span class="fl">122.1</span>, border<span class="op">=</span><span class="st">"green"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/text.html" class="external-link">text</a></span><span class="op">(</span><span class="fl">8.43</span>, <span class="fl">122.5</span>, <span class="st">"Coupling\nDetected\nde novo"</span>, pos<span class="op">=</span><span class="fl">4</span>, col<span class="op">=</span><span class="st">"green"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="peak2d_files/figure-html/unnamed-chunk-16-1.png" width="672"></p>
-<p>Many of the peaks in the above plot can be fit reasonably well without scalar couplings, but the contours do not necessarily match up as well. For one peak boxed in green above, a scalar coupling is detected <em>de novo</em> by the fitting algorithm, with two adjacent peaks having roughly the same volume.</p>
+<p>Many of the peaks in the above plot can be fit reasonably well
+without scalar couplings, but the contours do not necessarily match up
+as well. For one peak boxed in green above, a scalar coupling is
+detected <em>de novo</em> by the fitting algorithm, with two adjacent
+peaks having roughly the same volume.</p>
 </div>
-<div id="editing-fit-clusters" class="section level2">
-<h2 class="hasAnchor">
-<a href="#editing-fit-clusters" class="anchor"></a>Editing Fit Clusters</h2>
-<div id="separating-fit-clusters" class="section level3">
-<h3 class="hasAnchor">
-<a href="#separating-fit-clusters" class="anchor"></a>Separating Fit Clusters</h3>
-<p>After performing an initial fit, there may be large clusters of peaks that can be separated into different clusters and refit to allow the peak shapes to take on different values. For instance, peaks 5 and 7 shown in “Splitting the Reminder of Peaks” above are sufficiently separated from peaks 6 and 8 in both the vertical and horizontal dimensions, such that it should be possible to fit different peak shape parameters. To separate them out into their own cluster, reassign them a new “fit” cluster that is greater than any other fit group.</p>
-<div class="sourceCode" id="cb15"><pre class="downlit">
-<span class="kw">edited_peak_df</span> <span class="op">&lt;-</span> <span class="kw">peak_df</span>
-<span class="kw">edited_peak_df</span>[<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">5</span>,<span class="fl">7</span>),<span class="st">"fit"</span>] <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span>(<span class="kw">edited_peak_df</span>[,<span class="st">"fit"</span>])<span class="op">+</span><span class="fl">1</span>
-</pre></div>
+<div class="section level2">
+<h2 id="editing-fit-clusters">Editing Fit Clusters<a class="anchor" aria-label="anchor" href="#editing-fit-clusters"></a>
+</h2>
+<div class="section level3">
+<h3 id="separating-fit-clusters">Separating Fit Clusters<a class="anchor" aria-label="anchor" href="#separating-fit-clusters"></a>
+</h3>
+<p>After performing an initial fit, there may be large clusters of peaks
+that can be separated into different clusters and refit to allow the
+peak shapes to take on different values. For instance, peaks 5 and 7
+shown in “Splitting the Reminder of Peaks” above are sufficiently
+separated from peaks 6 and 8 in both the vertical and horizontal
+dimensions, such that it should be possible to fit different peak shape
+parameters. To separate them out into their own cluster, reassign them a
+new “fit” cluster that is greater than any other fit group.</p>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">edited_peak_df</span> <span class="op">&lt;-</span> <span class="va">peak_df</span></span>
+<span><span class="va">edited_peak_df</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>,<span class="fl">7</span><span class="op">)</span>,<span class="st">"fit"</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">edited_peak_df</span><span class="op">[</span>,<span class="st">"fit"</span><span class="op">]</span><span class="op">)</span><span class="op">+</span><span class="fl">1</span></span></code></pre></div>
 </div>
-<div id="deleting-peaks" class="section level3">
-<h3 class="hasAnchor">
-<a href="#deleting-peaks" class="anchor"></a>Deleting Peaks</h3>
-<p>Furthermore, you may find that the algorithm has been overzealous and detected peaks that do not appear to be real after visual inspection, for instance peaks 4, 14, and 16. To remove them, simply remove their rows from the peak table. In this case we use the the feature of R that removes elements using a negative index:</p>
-<div class="sourceCode" id="cb16"><pre class="downlit">
-<span class="kw">edited_peak_df</span> <span class="op">&lt;-</span> <span class="kw">edited_peak_df</span>[<span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">4</span>,<span class="fl">14</span>,<span class="fl">16</span>),]
-</pre></div>
-<p>Even if you don’t separate groups or delete peaks, it may be helpful to perform a simultaneous fit of all peaks together to remove bias that may have accumulated because of overlap between groups of peaks that were originally fit separately. To do so, you need to convert the peak table back a fit fit input. That is done with the <code>peak_df_to_fit_input</code> function, which requires the peak table, the set of spectra, and the size of the region of interest around each peak where fitting will be done.</p>
-<p>Also, you will need to manually update the lower and upper bounds for parameters, which is done automatically with <code>fit_peak_iter</code>. Here we use <code>update_fit_bounds</code> to constrain omega0 within 1.5 times <code>r2</code> of the starting value, <code>r2</code> to be in the range of 0.5-20 Hz, and the scalar coupling to be in the range of 2-12 Hz. Finally, we do the fit using the <code>perform_fit</code> function.</p>
-<div class="sourceCode" id="cb17"><pre class="downlit">
-<span class="kw">refined_fit_input</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/peak_df_to_fit_input.html">peak_df_to_fit_input</a></span>(<span class="kw">edited_peak_df</span>, <span class="kw">spec_list</span>[<span class="fl">1</span>], omega0_plus=<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0.075</span>, <span class="fl">0.75</span>))
-<span class="kw">refined_fit_input</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/update_fit_bounds.html">update_fit_bounds</a></span>(<span class="kw">refined_fit_input</span>, omega0_r2_factor=<span class="fl">1.5</span>, r2_bounds=<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0.5</span>, <span class="fl">20</span>), sc_bounds=<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">2</span>, <span class="fl">12</span>))
-<span class="kw">refined_fit_output</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/perform_fit.html">perform_fit</a></span>(<span class="kw">refined_fit_input</span>)
-<span class="kw">refined_peak_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/param_list_to_peak_df.html">param_list_to_peak_df</a></span>(<span class="kw">refined_fit_output</span>)
-<span class="kw">refined_peak_df</span>
-<span class="co">#&gt;    peak fit omega0_ppm_1 omega0_ppm_2 sc_hz_1 r2_hz_1 r2_hz_2      1.ft2</span>
-<span class="co">#&gt; 1     1   1       8.2476       121.87  3.3464  2.8966 2.31700  823653909</span>
-<span class="co">#&gt; 2     2   1       8.2596       121.93  3.3464  2.8966 2.31700  239523089</span>
-<span class="co">#&gt; 3     3   2       8.5395       119.76  2.0000  5.7031 2.07497 1120869405</span>
-<span class="co">#&gt; 5     4   3       8.6123       123.37  9.4647  3.2949 2.36755  777520645</span>
-<span class="co">#&gt; 6     5   4       8.5853       123.04  6.0584  6.5825 1.79531  632570914</span>
-<span class="co">#&gt; 7     6   3       8.6439       123.45  9.4647  3.2949 2.36755  163968213</span>
-<span class="co">#&gt; 8     7   4       8.5370       122.96  6.0584  6.5825 1.79531  151176016</span>
-<span class="co">#&gt; 9     8   5       8.3575       119.89 10.1574  1.7355 4.73942  803199446</span>
-<span class="co">#&gt; 10    9   5       8.3749       119.90 10.1574  1.7355 4.73942   96757331</span>
-<span class="co">#&gt; 11   10   6       8.2506       119.41  6.0938  5.0267 1.77681  731298695</span>
-<span class="co">#&gt; 12   11   6       8.2901       119.38  6.0938  5.0267 1.77681  180468792</span>
-<span class="co">#&gt; 13   12   7       8.4819       122.49  9.4013  5.0804 2.41289  587356398</span>
-<span class="co">#&gt; 15   13   7       8.4745       123.01  9.4013  5.0804 2.41289  108282766</span>
-<span class="co">#&gt; 17   14   8       8.4433       120.73  9.1220  4.8622 3.19641  436460816</span>
-<span class="co">#&gt; 18   15   8       8.4244       120.47  9.1220  4.8622 3.19641   95394763</span>
-<span class="co">#&gt; 19   16   8       8.4672       120.52  9.1220  4.8622 3.19641   64410776</span>
-<span class="co">#&gt; 20   17   9       8.3442       120.76  8.3984  1.5895 0.91163   97880231</span>
-<span class="fu"><a href="../reference/plot_peak_df.html">plot_peak_df</a></span>(<span class="kw">refined_peak_df</span>, <span class="kw">spec_list</span>[<span class="fl">1</span>], cex=<span class="fl">0.6</span>)
-</pre></div>
+<div class="section level3">
+<h3 id="deleting-peaks">Deleting Peaks<a class="anchor" aria-label="anchor" href="#deleting-peaks"></a>
+</h3>
+<p>Furthermore, you may find that the algorithm has been overzealous and
+detected peaks that do not appear to be real after visual inspection,
+for instance peaks 4, 14, and 16. To remove them, simply remove their
+rows from the peak table. In this case we use the the feature of R that
+removes elements using a negative index:</p>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">edited_peak_df</span> <span class="op">&lt;-</span> <span class="va">edited_peak_df</span><span class="op">[</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>,<span class="fl">14</span>,<span class="fl">16</span><span class="op">)</span>,<span class="op">]</span></span></code></pre></div>
+<p>Even if you don’t separate groups or delete peaks, it may be helpful
+to perform a simultaneous fit of all peaks together to remove bias that
+may have accumulated because of overlap between groups of peaks that
+were originally fit separately. To do so, you need to convert the peak
+table back a fit fit input. That is done with the
+<code>peak_df_to_fit_input</code> function, which requires the peak
+table, the set of spectra, and the size of the region of interest around
+each peak where fitting will be done.</p>
+<p>Also, you will need to manually update the lower and upper bounds for
+parameters, which is done automatically with <code>fit_peak_iter</code>.
+Here we use <code>update_fit_bounds</code> to constrain omega0 within
+1.5 times <code>r2</code> of the starting value, <code>r2</code> to be
+in the range of 0.5-20 Hz, and the scalar coupling to be in the range of
+2-12 Hz. Finally, we do the fit using the <code>perform_fit</code>
+function.</p>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">refined_fit_input</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/peak_df_to_fit_input.html">peak_df_to_fit_input</a></span><span class="op">(</span><span class="va">edited_peak_df</span>, <span class="va">spec_list</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, omega0_plus<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.075</span>, <span class="fl">0.75</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">refined_fit_input</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/update_fit_bounds.html">update_fit_bounds</a></span><span class="op">(</span><span class="va">refined_fit_input</span>, omega0_r2_factor<span class="op">=</span><span class="fl">1.5</span>, r2_bounds<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">20</span><span class="op">)</span>, sc_bounds<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">12</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">refined_fit_output</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/perform_fit.html">perform_fit</a></span><span class="op">(</span><span class="va">refined_fit_input</span><span class="op">)</span></span>
+<span><span class="va">refined_peak_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/param_list_to_peak_df.html">param_list_to_peak_df</a></span><span class="op">(</span><span class="va">refined_fit_output</span><span class="op">)</span></span>
+<span><span class="va">refined_peak_df</span></span>
+<span><span class="co">#&gt;    peak fit omega0_ppm_1 omega0_ppm_2 sc_hz_1 r2_hz_1 r2_hz_2      1.ft2</span></span>
+<span><span class="co">#&gt; 1     1   1       8.2476       121.87  3.3464  2.8966 2.31700  823653909</span></span>
+<span><span class="co">#&gt; 2     2   1       8.2596       121.93  3.3464  2.8966 2.31700  239523089</span></span>
+<span><span class="co">#&gt; 3     3   2       8.5395       119.76  2.0000  5.7031 2.07497 1120869405</span></span>
+<span><span class="co">#&gt; 5     4   3       8.6123       123.37  9.4647  3.2949 2.36755  777520645</span></span>
+<span><span class="co">#&gt; 6     5   4       8.5853       123.04  6.0584  6.5825 1.79531  632570914</span></span>
+<span><span class="co">#&gt; 7     6   3       8.6439       123.45  9.4647  3.2949 2.36755  163968213</span></span>
+<span><span class="co">#&gt; 8     7   4       8.5370       122.96  6.0584  6.5825 1.79531  151176016</span></span>
+<span><span class="co">#&gt; 9     8   5       8.3575       119.89 10.1574  1.7355 4.73942  803199446</span></span>
+<span><span class="co">#&gt; 10    9   5       8.3749       119.90 10.1574  1.7355 4.73942   96757331</span></span>
+<span><span class="co">#&gt; 11   10   6       8.2506       119.41  6.0938  5.0267 1.77681  731298695</span></span>
+<span><span class="co">#&gt; 12   11   6       8.2901       119.38  6.0938  5.0267 1.77681  180468792</span></span>
+<span><span class="co">#&gt; 13   12   7       8.4819       122.49  9.4013  5.0804 2.41289  587356398</span></span>
+<span><span class="co">#&gt; 15   13   7       8.4745       123.01  9.4013  5.0804 2.41289  108282766</span></span>
+<span><span class="co">#&gt; 17   14   8       8.4433       120.73  9.1220  4.8622 3.19641  436460816</span></span>
+<span><span class="co">#&gt; 18   15   8       8.4244       120.47  9.1220  4.8622 3.19641   95394763</span></span>
+<span><span class="co">#&gt; 19   16   8       8.4672       120.52  9.1220  4.8622 3.19641   64410776</span></span>
+<span><span class="co">#&gt; 20   17   9       8.3442       120.76  8.3984  1.5895 0.91163   97880231</span></span>
+<span><span class="fu"><a href="../reference/plot_peak_df.html">plot_peak_df</a></span><span class="op">(</span><span class="va">refined_peak_df</span>, <span class="va">spec_list</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, cex<span class="op">=</span><span class="fl">0.6</span><span class="op">)</span></span></code></pre></div>
 <p><img src="peak2d_files/figure-html/refine-1.png" width="672" style="display: block; margin: auto auto auto 0;"></p>
 </div>
 </div>
-<div id="extending-the-fit-to-other-spectra" class="section level2">
-<h2 class="hasAnchor">
-<a href="#extending-the-fit-to-other-spectra" class="anchor"></a>Extending the Fit to Other Spectra</h2>
-<p>If you have a series of spectra with similar peak shapes, as in this case, you can then extend the fit to more than one spectrum in a manner similar to how we produced the refined peak table above, but instead giving a list of multiple spectra to <code>peak_df_to_fit_input</code>.</p>
-<div class="sourceCode" id="cb18"><pre class="downlit">
-<span class="kw">extended_fit_input</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/peak_df_to_fit_input.html">peak_df_to_fit_input</a></span>(<span class="kw">refined_peak_df</span>, <span class="kw">spec_list</span>, omega0_plus=<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0.075</span>, <span class="fl">0.75</span>))
-</pre></div>
-<p>We can take a peek at the parameters that show the starting volumes for the refined and extended fits as shown below. Note that the starting volumes for the second spectrum is a second column in the <code>m0</code> matrix, which has inherited the volumes from the first spectrum. After performing the fit, the second spectrum has much lower volumes.</p>
-<div class="sourceCode" id="cb19"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="kw">refined_fit_output</span><span class="op">$</span><span class="kw">fit_list</span><span class="op">$</span><span class="kw">m0</span>)
-<span class="co">#&gt;           [,1]</span>
-<span class="co">#&gt; [1,] 411826954</span>
-<span class="co">#&gt; [2,] 411826954</span>
-<span class="co">#&gt; [3,] 119761545</span>
-<span class="co">#&gt; [4,] 119761545</span>
-<span class="co">#&gt; [5,] 560434702</span>
-<span class="co">#&gt; [6,] 560434702</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="kw">extended_fit_input</span><span class="op">$</span><span class="kw">start_list</span><span class="op">$</span><span class="kw">m0</span>)
-<span class="co">#&gt;           [,1]      [,2]</span>
-<span class="co">#&gt; [1,] 411826954 411826954</span>
-<span class="co">#&gt; [2,] 411826954 411826954</span>
-<span class="co">#&gt; [3,] 119761545 119761545</span>
-<span class="co">#&gt; [4,] 119761545 119761545</span>
-<span class="co">#&gt; [5,] 560434702 560434702</span>
-<span class="co">#&gt; [6,] 560434702 560434702</span>
-<span class="kw">extended_fit_input</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/update_fit_bounds.html">update_fit_bounds</a></span>(<span class="kw">extended_fit_input</span>, omega0_r2_factor=<span class="fl">1.5</span>, r2_bounds=<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0.5</span>, <span class="fl">20</span>), sc_bounds=<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">2</span>, <span class="fl">12</span>))
-<span class="kw">extended_fit_output</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/perform_fit.html">perform_fit</a></span>(<span class="kw">extended_fit_input</span>)
-<span class="kw">extended_peak_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/param_list_to_peak_df.html">param_list_to_peak_df</a></span>(<span class="kw">extended_fit_output</span>)
-<span class="kw">extended_peak_df</span>
-<span class="co">#&gt;    peak fit omega0_ppm_1 omega0_ppm_2 sc_hz_1 r2_hz_1 r2_hz_2      1.ft2     2.ft2</span>
-<span class="co">#&gt; 1     1   1       8.2477       121.87  3.5990  2.8622 2.31689  830842209 210047866</span>
-<span class="co">#&gt; 2     2   1       8.2597       121.93  3.5990  2.8622 2.31689  229341270  95117365</span>
-<span class="co">#&gt; 3     3   2       8.5396       119.76  2.0000  5.7375 2.07965 1123239155 321223317</span>
-<span class="co">#&gt; 5     4   3       8.6124       123.37  9.4971  3.2734 2.36572  776957582 219067212</span>
-<span class="co">#&gt; 6     5   4       8.5854       123.04  5.9568  6.6395 1.78841  634197446 174862251</span>
-<span class="co">#&gt; 7     6   3       8.6441       123.45  9.4971  3.2734 2.36572  162742659  48844731</span>
-<span class="co">#&gt; 8     7   4       8.5370       122.96  5.9568  6.6395 1.78841  151478910  42110074</span>
-<span class="co">#&gt; 9     8   5       8.3576       119.89 10.1415  1.8255 4.77580  811481657 234014667</span>
-<span class="co">#&gt; 10    9   5       8.3747       119.90 10.1415  1.8255 4.77580   90684748  46955496</span>
-<span class="co">#&gt; 11   10   6       8.2507       119.41  6.0253  5.0653 1.80271  733711506 210530936</span>
-<span class="co">#&gt; 12   11   6       8.2902       119.38  6.0253  5.0653 1.80271  180068078  51782211</span>
-<span class="co">#&gt; 13   12   7       8.4820       122.49  9.4837  5.0140 2.39974  585468868 171083375</span>
-<span class="co">#&gt; 15   13   7       8.4746       123.01  9.4837  5.0140 2.39974  107909300  35712860</span>
-<span class="co">#&gt; 17   14   8       8.4434       120.73  9.0403  4.9595 3.20275  438456400 123241978</span>
-<span class="co">#&gt; 18   15   8       8.4246       120.47  9.0403  4.9595 3.20275   96468436  24991594</span>
-<span class="co">#&gt; 19   16   8       8.4672       120.52  9.0403  4.9595 3.20275   63361999  21694761</span>
-<span class="co">#&gt; 20   17   9       8.3444       120.76  8.3617  1.6683 0.87464   98061407  35062473</span>
-<span class="fu"><a href="../reference/plot_peak_df.html">plot_peak_df</a></span>(<span class="kw">extended_peak_df</span>, <span class="kw">spec_list</span>, cex=<span class="fl">0.6</span>)
-</pre></div>
-<p>This is the fit for <code>1.ft2</code>.</p>
-<p><img src="peak2d_files/figure-html/extend-1.png" width="672"></p>
-<p>The fit for <code>2.ft2</code> looks nearly identical but the peaks are about fourfold less intense than <code>1.ft2</code>. You can tell this because the lowest contour level in the plot below is slightly narrower than in the plot above. (Remember that the lowest contour level is drawn at 4x the noise level for all plots drawn by <code>plot_peak_df</code>.)</p>
-<p><img src="peak2d_files/figure-html/extend-2.png" width="672"></p>
-<p>The peak volumes between the two spectra are highly correlated and have similar relative ratios, indicating that the T<sub>1</sub> values are for the peaks are relatively similar.</p>
-<div class="sourceCode" id="cb20"><pre class="downlit">
-<span class="kw">xlim</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/range.html">range</a></span>(<span class="fl">0</span>, <span class="kw">extended_peak_df</span>[,<span class="st">"1.ft2"</span>])
-<span class="kw">ylim</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/range.html">range</a></span>(<span class="fl">0</span>, <span class="kw">extended_peak_df</span>[,<span class="st">"2.ft2"</span>])
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span>(<span class="kw">extended_peak_df</span>[,<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"1.ft2"</span>, <span class="st">"2.ft2"</span>)], xlim=<span class="kw">xlim</span>, ylim=<span class="kw">ylim</span>)
-<span class="fu"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span>(<span class="fu"><a href="https://rdrr.io/r/stats/lsfit.html">lsfit</a></span>(<span class="kw">extended_peak_df</span>[,<span class="st">"1.ft2"</span>], <span class="kw">extended_peak_df</span>[,<span class="st">"2.ft2"</span>]), col=<span class="st">"red"</span>)
-</pre></div>
-<p><img src="peak2d_files/figure-html/unnamed-chunk-23-1.png" width="384"></p>
-<div class="sourceCode" id="cb21"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span>(<span class="kw">extended_peak_df</span>[,<span class="st">"2.ft2"</span>]<span class="op">/</span><span class="kw">extended_peak_df</span>[,<span class="st">"1.ft2"</span>], xlab=<span class="st">"Peak Number"</span>, ylab=<span class="st">"Spectrum 2 Volume/Spectrum 1 Volume"</span>)
-</pre></div>
-<p><img src="peak2d_files/figure-html/unnamed-chunk-23-2.png" width="384"></p>
+<div class="section level2">
+<h2 id="extending-the-fit-to-other-spectra">Extending the Fit to Other Spectra<a class="anchor" aria-label="anchor" href="#extending-the-fit-to-other-spectra"></a>
+</h2>
+<p>If you have a series of spectra with similar peak shapes, as in this
+case, you can then extend the fit to more than one spectrum in a manner
+similar to how we produced the refined peak table above, but instead
+giving a list of multiple spectra to
+<code>peak_df_to_fit_input</code>.</p>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">extended_fit_input</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/peak_df_to_fit_input.html">peak_df_to_fit_input</a></span><span class="op">(</span><span class="va">refined_peak_df</span>, <span class="va">spec_list</span>, omega0_plus<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.075</span>, <span class="fl">0.75</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>We can take a peek at the parameters that show the starting volumes
+for the refined and extended fits as shown below. Note that the starting
+volumes for the second spectrum is a second column in the
+<code>m0</code> matrix, which has inherited the volumes from the first
+spectrum. After performing the fit, the second spectrum has much lower
+volumes.</p>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">refined_fit_output</span><span class="op">$</span><span class="va">fit_list</span><span class="op">$</span><span class="va">m0</span><span class="op">)</span></span>
+<span><span class="co">#&gt;           [,1]</span></span>
+<span><span class="co">#&gt; [1,] 411826954</span></span>
+<span><span class="co">#&gt; [2,] 411826954</span></span>
+<span><span class="co">#&gt; [3,] 119761545</span></span>
+<span><span class="co">#&gt; [4,] 119761545</span></span>
+<span><span class="co">#&gt; [5,] 560434702</span></span>
+<span><span class="co">#&gt; [6,] 560434702</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">extended_fit_input</span><span class="op">$</span><span class="va">start_list</span><span class="op">$</span><span class="va">m0</span><span class="op">)</span></span>
+<span><span class="co">#&gt;           [,1]      [,2]</span></span>
+<span><span class="co">#&gt; [1,] 411826954 411826954</span></span>
+<span><span class="co">#&gt; [2,] 411826954 411826954</span></span>
+<span><span class="co">#&gt; [3,] 119761545 119761545</span></span>
+<span><span class="co">#&gt; [4,] 119761545 119761545</span></span>
+<span><span class="co">#&gt; [5,] 560434702 560434702</span></span>
+<span><span class="co">#&gt; [6,] 560434702 560434702</span></span>
+<span><span class="va">extended_fit_input</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/update_fit_bounds.html">update_fit_bounds</a></span><span class="op">(</span><span class="va">extended_fit_input</span>, omega0_r2_factor<span class="op">=</span><span class="fl">1.5</span>, r2_bounds<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">20</span><span class="op">)</span>, sc_bounds<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">12</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">extended_fit_output</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/perform_fit.html">perform_fit</a></span><span class="op">(</span><span class="va">extended_fit_input</span><span class="op">)</span></span>
+<span><span class="va">extended_peak_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/param_list_to_peak_df.html">param_list_to_peak_df</a></span><span class="op">(</span><span class="va">extended_fit_output</span><span class="op">)</span></span>
+<span><span class="va">extended_peak_df</span></span>
+<span><span class="co">#&gt;    peak fit omega0_ppm_1 omega0_ppm_2 sc_hz_1 r2_hz_1 r2_hz_2      1.ft2     2.ft2</span></span>
+<span><span class="co">#&gt; 1     1   1       8.2477       121.87  3.5990  2.8622 2.31689  830842209 210047866</span></span>
+<span><span class="co">#&gt; 2     2   1       8.2597       121.93  3.5990  2.8622 2.31689  229341270  95117365</span></span>
+<span><span class="co">#&gt; 3     3   2       8.5396       119.76  2.0000  5.7375 2.07965 1123239155 321223317</span></span>
+<span><span class="co">#&gt; 5     4   3       8.6124       123.37  9.4971  3.2734 2.36572  776957582 219067212</span></span>
+<span><span class="co">#&gt; 6     5   4       8.5854       123.04  5.9568  6.6395 1.78841  634197446 174862251</span></span>
+<span><span class="co">#&gt; 7     6   3       8.6441       123.45  9.4971  3.2734 2.36572  162742659  48844731</span></span>
+<span><span class="co">#&gt; 8     7   4       8.5370       122.96  5.9568  6.6395 1.78841  151478910  42110074</span></span>
+<span><span class="co">#&gt; 9     8   5       8.3576       119.89 10.1415  1.8255 4.77580  811481657 234014667</span></span>
+<span><span class="co">#&gt; 10    9   5       8.3747       119.90 10.1415  1.8255 4.77580   90684748  46955496</span></span>
+<span><span class="co">#&gt; 11   10   6       8.2507       119.41  6.0253  5.0653 1.80271  733711506 210530936</span></span>
+<span><span class="co">#&gt; 12   11   6       8.2902       119.38  6.0253  5.0653 1.80271  180068078  51782211</span></span>
+<span><span class="co">#&gt; 13   12   7       8.4820       122.49  9.4837  5.0140 2.39974  585468868 171083375</span></span>
+<span><span class="co">#&gt; 15   13   7       8.4746       123.01  9.4837  5.0140 2.39974  107909300  35712860</span></span>
+<span><span class="co">#&gt; 17   14   8       8.4434       120.73  9.0403  4.9595 3.20275  438456400 123241978</span></span>
+<span><span class="co">#&gt; 18   15   8       8.4246       120.47  9.0403  4.9595 3.20275   96468436  24991594</span></span>
+<span><span class="co">#&gt; 19   16   8       8.4672       120.52  9.0403  4.9595 3.20275   63361999  21694761</span></span>
+<span><span class="co">#&gt; 20   17   9       8.3444       120.76  8.3617  1.6683 0.87464   98061407  35062473</span></span>
+<span><span class="fu"><a href="../reference/plot_peak_df.html">plot_peak_df</a></span><span class="op">(</span><span class="va">extended_peak_df</span>, <span class="va">spec_list</span>, cex<span class="op">=</span><span class="fl">0.6</span><span class="op">)</span></span></code></pre></div>
+<p><img src="peak2d_files/figure-html/extend-1.png" width="672"><img src="peak2d_files/figure-html/extend-2.png" width="672"></p>
+<p>The fit for <code>2.ft2</code> looks nearly identical but the peaks
+are about fourfold less intense than <code>1.ft2</code>. You can tell
+this because the lowest contour level in the plot below is slightly
+narrower than in the plot above. (Remember that the lowest contour level
+is drawn at 4x the noise level for all plots drawn by
+<code>plot_peak_df</code>.)</p>
+<p>The peak volumes between the two spectra are highly correlated and
+have similar relative ratios, indicating that the T<sub>1</sub> values
+are for the peaks are relatively similar.</p>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">xlim</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/range.html" class="external-link">range</a></span><span class="op">(</span><span class="fl">0</span>, <span class="va">extended_peak_df</span><span class="op">[</span>,<span class="st">"1.ft2"</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="va">ylim</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/range.html" class="external-link">range</a></span><span class="op">(</span><span class="fl">0</span>, <span class="va">extended_peak_df</span><span class="op">[</span>,<span class="st">"2.ft2"</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">extended_peak_df</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1.ft2"</span>, <span class="st">"2.ft2"</span><span class="op">)</span><span class="op">]</span>, xlim<span class="op">=</span><span class="va">xlim</span>, ylim<span class="op">=</span><span class="va">ylim</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/abline.html" class="external-link">abline</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/lsfit.html" class="external-link">lsfit</a></span><span class="op">(</span><span class="va">extended_peak_df</span><span class="op">[</span>,<span class="st">"1.ft2"</span><span class="op">]</span>, <span class="va">extended_peak_df</span><span class="op">[</span>,<span class="st">"2.ft2"</span><span class="op">]</span><span class="op">)</span>, col<span class="op">=</span><span class="st">"red"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="peak2d_files/figure-html/unnamed-chunk-21-1.png" width="384"></p>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">extended_peak_df</span><span class="op">[</span>,<span class="st">"2.ft2"</span><span class="op">]</span><span class="op">/</span><span class="va">extended_peak_df</span><span class="op">[</span>,<span class="st">"1.ft2"</span><span class="op">]</span>, xlab<span class="op">=</span><span class="st">"Peak Number"</span>, ylab<span class="op">=</span><span class="st">"Spectrum 2 Volume/Spectrum 1 Volume"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="peak2d_files/figure-html/unnamed-chunk-21-2.png" width="384"></p>
 </div>
   </div>
 
@@ -456,11 +611,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by <a href="http://smithlab.wesleyan.edu">Colin Smith</a>.</p>
+  <p></p>
+<p>Developed by <a href="http://smithlab.wesleyan.edu" class="external-link">Colin Smith</a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>
@@ -468,6 +625,8 @@
 
   
 
+
+  
 
   </body>
 </html>

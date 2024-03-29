@@ -14,5 +14,6 @@ source("https://smith-group.github.io/fitnmr_releases/install_fitnmr.R")
 
 # Source Packages
 
-[fitnmr_0.6.tar.gz](fitnmr_0.6.tar.gz)  
-[fitnmr_0.5.tar.gz](fitnmr_0.5.tar.gz)  
+[fitnmr_0.7.tar.gz](fitnmr_0.6.tar.gz)
+[fitnmr_0.6.tar.gz](fitnmr_0.6.tar.gz)
+[fitnmr_0.5.tar.gz](fitnmr_0.5.tar.gz)

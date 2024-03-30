@@ -65,12 +65,12 @@ release_page_url <- paste(release_site_url, release_page_path, sep="")
 
 release_page_lines <- readLines(release_page_url)
 
-link_line_pattern <- "^<p><a href=\"(/fitnmr_releases/fitnmr_[^\"]+.tar.gz)\">.+$"
+link_line_pattern <- "<li><a href=\"(/fitnmr_releases/fitnmr_[^\"]+.tar.gz)\">.+$"
 
 release_link_lines <- grep(link_line_pattern, release_page_lines, value=TRUE)
 
 release_paths <- sub(link_line_pattern, "\\1", release_link_lines)
-release_path <- tail(release_paths, 1)
+release_path <- head(release_paths, 1)
 
 release_url <- paste(release_site_url, release_path, sep="")
 

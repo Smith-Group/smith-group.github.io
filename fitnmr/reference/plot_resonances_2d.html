@@ -66,7 +66,8 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">plot_resonances_2d</span><span class="op">(</span></span>
 <span>  <span class="va">fit_data</span>,</span>
 <span>  <span class="va">omega0_plus</span>,</span>
-<span>  resonances <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">fit_data</span><span class="op">$</span><span class="va">resonance_names</span><span class="op">)</span></span>
+<span>  resonances <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">fit_data</span><span class="op">$</span><span class="va">resonance_names</span><span class="op">)</span>,</span>
+<span>  low_frac <span class="op">=</span> <span class="fl">0.05</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -78,6 +79,10 @@
 
 <dt>omega0_plus</dt>
 <dd><p>length 2 vector giving ppm range for each dimension</p></dd>
+
+
+<dt>low_frac</dt>
+<dd><p>minimum absolute value (as a fraction of maximum intensity) at which to show contours</p></dd>
 
 </dl></div>
 

@@ -1,11 +1,11 @@
-pandoc: 3.1.12.3
-pkgdown: 2.0.7
+pandoc: 3.6.3
+pkgdown: 2.2.0
 pkgdown_sha: ~
 articles:
-  peak2d: peak2d.html
   peak2d_scripts: peak2d_scripts.html
-last_built: 2024-04-05T15:18Z
+  peak2d: peak2d.html
+  timeseries1d: timeseries1d.html
+last_built: 2025-11-11T00:54Z
 urls:
   reference: https://smith-group.github.io/fitnmr/reference
   article: https://smith-group.github.io/fitnmr/articles
-

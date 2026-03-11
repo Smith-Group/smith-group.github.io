@@ -4,88 +4,64 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Automated 2D Peak Fitting Code • fitnmr</title>
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
-<script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="Automated 2D Peak Fitting Code">
-<!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
-<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-<![endif]-->
+<script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Automated 2D Peak Fitting Code">
 </head>
-<body data-spy="scroll" data-target="#toc">
+<body>
+    <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
-    <div class="container template-article">
-      <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <span class="navbar-brand">
-        <a class="navbar-link" href="../index.html">fitnmr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.8</span>
-      </span>
-    </div>
+    <nav class="navbar navbar-expand-lg fixed-top bg-light" data-bs-theme="light" aria-label="Site navigation"><div class="container">
 
-    <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav">
-<li>
-  <a href="../reference/index.html">Reference</a>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    Articles
+    <a class="navbar-brand me-2" href="../index.html">fitnmr</a>
 
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-<li>
-      <a href="../articles/peak2d_scripts.html">Automated 2D Peak Fitting Scripts</a>
-    </li>
-    <li>
-      <a href="../articles/peak2d.html">Automated 2D Peak Fitting Code</a>
-    </li>
-    <li>
-      <a href="../articles/timeseries1d.html">1D Time Series Preprocessing/Two-State Fitting</a>
-    </li>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0</small>
+
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div id="navbar" class="collapse navbar-collapse ms-3">
+      <ul class="navbar-nav me-auto">
+<li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
+<li class="active nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
+<li><a class="dropdown-item" href="../articles/peak2d_scripts.html">Automated 2D Peak Fitting Scripts</a></li>
+    <li><a class="dropdown-item" href="../articles/peak2d.html">Automated 2D Peak Fitting Code</a></li>
+    <li><a class="dropdown-item" href="../articles/timeseries1d.html">1D Time Series Preprocessing/Two-State Fitting</a></li>
   </ul>
 </li>
       </ul>
-<ul class="nav navbar-nav navbar-right">
-<li>
-  <a href="https://github.com/smith-group/fitnmr/" class="external-link">
-    <span class="fab fa-github fa-lg"></span>
-
-  </a>
-</li>
+<ul class="navbar-nav">
+<li class="nav-item"><form class="form-inline" role="search">
+ <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json">
+</form></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/smith-group/fitnmr/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul>
 </div>
-<!--/.nav-collapse -->
+
+
   </div>
-<!--/.container -->
-</div>
-<!--/.navbar -->
+</nav><div class="container template-article">
 
 
 
-      </header><div class="row">
-  <div class="col-md-9 contents">
-    <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Automated 2D Peak Fitting Code</h1>
+
+<div class="row">
+  <main id="main" class="col-md-9"><div class="page-header">
+
+      <h1>Automated 2D Peak Fitting Code</h1>
             
       
       <small class="dont-index">Source: <a href="https://github.com/smith-group/fitnmr/blob/HEAD/vignettes/peak2d.Rmd" class="external-link"><code>vignettes/peak2d.Rmd</code></a></small>
-      <div class="hidden name"><code>peak2d.Rmd</code></div>
-
+      <div class="d-none name"><code>peak2d.Rmd</code></div>
     </div>
 
     
@@ -197,7 +173,7 @@ must extract the <code>int</code> matrix of the first spectrum with the
 syntax shown.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/contour_pipe.html">contour_pipe</a></span><span class="op">(</span><span class="va">spec_list</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">int</span><span class="op">)</span></span></code></pre></div>
-<p><img src="peak2d_files/figure-html/unnamed-chunk-6-1.png" class="r-plt" width="672" style="display: block; margin: auto auto auto 0;"></p>
+<p><img src="peak2d_files/figure-html/unnamed-chunk-7-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto auto auto 0;"></p>
 <p>As you can see above, the spectrum has a number of overlapped peaks
 with possible shoulders.</p>
 </div>
@@ -231,7 +207,7 @@ on (<code>mu</code>), the standard deviation of the noise
 <p>The <code>noise_estimate</code> function can create plots showing the
 histogram of the intensity values (black) and the fit Gaussian function
 (blue). S/N is defined as <code>max/sigma</code>.</p>
-<p><img src="peak2d_files/figure-html/unnamed-chunk-8-1.png" class="r-plt" width="288"><img src="peak2d_files/figure-html/unnamed-chunk-8-2.png" class="r-plt" width="288"></p>
+<p><img src="peak2d_files/figure-html/unnamed-chunk-9-1.png" class="r-plt" alt="" width="288"><img src="peak2d_files/figure-html/unnamed-chunk-9-2.png" class="r-plt" alt="" width="288"></p>
 <pre><code><span><span class="co">#&gt;           1.ft2     2.ft2</span></span>
 <span><span class="co">#&gt; mu       928.52    385.31</span></span>
 <span><span class="co">#&gt; sigma   1097.91    739.07</span></span>
@@ -308,7 +284,7 @@ columns give the peak volumes from each spectrum.</p>
 <span><span class="co">#&gt; 7    7   3 1.3424e-05       8.6449       123.47  7.6481  5.2849  2.1801  147984411</span></span>
 <span><span class="co">#&gt; 8    8   3 1.4680e-13       8.5370       122.96  7.6481  5.2849  2.1801  161971930</span></span>
 <span><span class="fu"><a href="../reference/plot_peak_df.html">plot_peak_df</a></span><span class="op">(</span><span class="va">peak_df</span>, <span class="va">spec_list</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, cex<span class="op">=</span><span class="fl">0.6</span><span class="op">)</span></span></code></pre></div>
-<p><img src="peak2d_files/figure-html/unnamed-chunk-10-1.png" class="r-plt" width="672" style="display: block; margin: auto auto auto 0;"></p>
+<p><img src="peak2d_files/figure-html/unnamed-chunk-11-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto auto auto 0;"></p>
 <p>A plot of the resulting peak fits can be produced with the
 <code>plot_peak_df</code> function, which requires a peak table and list
 of spectra. It plots the peaks with contours down to 4 times the
@@ -350,11 +326,11 @@ indicated by the gray square.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">peak_fits</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fit_peak_iter.html">fit_peak_iter</a></span><span class="op">(</span><span class="va">spec_list</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, iter_max<span class="op">=</span><span class="fl">1</span>, fit_list<span class="op">=</span><span class="va">peak_fits</span>, plot_fit_stages<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Fit iteration 1:</span></span></code></pre></div>
-<p><img src="peak2d_files/figure-html/unnamed-chunk-12-1.png" class="r-plt" width="384" style="display: block; margin: auto auto auto 0;"><img src="peak2d_files/figure-html/unnamed-chunk-12-2.png" class="r-plt" width="384" style="display: block; margin: auto auto auto 0;"><img src="peak2d_files/figure-html/unnamed-chunk-12-3.png" class="r-plt" width="384" style="display: block; margin: auto auto auto 0;"></p>
+<p><img src="peak2d_files/figure-html/unnamed-chunk-13-1.png" class="r-plt" alt="" width="384" style="display: block; margin: auto auto auto 0;"><img src="peak2d_files/figure-html/unnamed-chunk-13-2.png" class="r-plt" alt="" width="384" style="display: block; margin: auto auto auto 0;"><img src="peak2d_files/figure-html/unnamed-chunk-13-3.png" class="r-plt" alt="" width="384" style="display: block; margin: auto auto auto 0;"></p>
 <pre><code><span><span class="co">#&gt;   0 -&gt;  6 fit parameters: F = 2022.7 (p = 1.60653e-20)</span></span></code></pre>
-<p><img src="peak2d_files/figure-html/unnamed-chunk-12-4.png" class="r-plt" width="384" style="display: block; margin: auto auto auto 0;"><img src="peak2d_files/figure-html/unnamed-chunk-12-5.png" class="r-plt" width="384" style="display: block; margin: auto auto auto 0;"><img src="peak2d_files/figure-html/unnamed-chunk-12-6.png" class="r-plt" width="384" style="display: block; margin: auto auto auto 0;"><img src="peak2d_files/figure-html/unnamed-chunk-12-7.png" class="r-plt" width="384" style="display: block; margin: auto auto auto 0;"></p>
+<p><img src="peak2d_files/figure-html/unnamed-chunk-13-4.png" class="r-plt" alt="" width="384" style="display: block; margin: auto auto auto 0;"><img src="peak2d_files/figure-html/unnamed-chunk-13-5.png" class="r-plt" alt="" width="384" style="display: block; margin: auto auto auto 0;"><img src="peak2d_files/figure-html/unnamed-chunk-13-6.png" class="r-plt" alt="" width="384" style="display: block; margin: auto auto auto 0;"><img src="peak2d_files/figure-html/unnamed-chunk-13-7.png" class="r-plt" alt="" width="384" style="display: block; margin: auto auto auto 0;"></p>
 <pre><code><span><span class="co">#&gt;   6 -&gt;  9 fit parameters: F = 14.0 (p = 0.000228688)</span></span></code></pre>
-<p><img src="peak2d_files/figure-html/unnamed-chunk-12-8.png" class="r-plt" width="384" style="display: block; margin: auto auto auto 0;"><img src="peak2d_files/figure-html/unnamed-chunk-12-9.png" class="r-plt" width="384" style="display: block; margin: auto auto auto 0;"><img src="peak2d_files/figure-html/unnamed-chunk-12-10.png" class="r-plt" width="384" style="display: block; margin: auto auto auto 0;"></p>
+<p><img src="peak2d_files/figure-html/unnamed-chunk-13-8.png" class="r-plt" alt="" width="384" style="display: block; margin: auto auto auto 0;"><img src="peak2d_files/figure-html/unnamed-chunk-13-9.png" class="r-plt" alt="" width="384" style="display: block; margin: auto auto auto 0;"><img src="peak2d_files/figure-html/unnamed-chunk-13-10.png" class="r-plt" alt="" width="384" style="display: block; margin: auto auto auto 0;"></p>
 <pre><code><span><span class="co">#&gt;  Terminating search because fit produced zero volume</span></span></code></pre>
 <p>In this case, the last peak added was too close to the first and when
 all parameters were unfixed, one of the peaks had zero volume, which
@@ -366,7 +342,7 @@ outlined in green in the following spectrum.</p>
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_peak_df.html">plot_peak_df</a></span><span class="op">(</span><span class="fu"><a href="../reference/param_list_to_peak_df.html">param_list_to_peak_df</a></span><span class="op">(</span><span class="va">peak_fits</span><span class="op">)</span>, <span class="va">spec_list</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, cex<span class="op">=</span><span class="fl">0.6</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/rect.html" class="external-link">rect</a></span><span class="op">(</span><span class="fl">8.41</span>, <span class="fl">120.6</span>, <span class="fl">8.31</span>, <span class="fl">119.2</span>, border<span class="op">=</span><span class="st">"green"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/text.html" class="external-link">text</a></span><span class="op">(</span><span class="fl">8.31</span>, <span class="fl">119.9</span>, <span class="st">"New Cluster"</span>, pos<span class="op">=</span><span class="fl">4</span>, col<span class="op">=</span><span class="st">"green"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="peak2d_files/figure-html/unnamed-chunk-14-1.png" class="r-plt" width="576" style="display: block; margin: auto auto auto 0;"></p>
+<p><img src="peak2d_files/figure-html/unnamed-chunk-15-1.png" class="r-plt" alt="" width="576" style="display: block; margin: auto auto auto 0;"></p>
 </div>
 <div class="section level3">
 <h3 id="fitting-the-remainder-of-the-peaks">Fitting the Remainder of the Peaks<a class="anchor" aria-label="anchor" href="#fitting-the-remainder-of-the-peaks"></a>
@@ -422,7 +398,7 @@ used.</p>
 <span><span class="co">#&gt; 19   19   7 1.1582e-11       8.4663       120.51  7.1444  6.3350 2.97224   62014526</span></span>
 <span><span class="co">#&gt; 20   20   8 1.7504e-07       8.3444       120.76  8.6176  1.9530 0.86044  105614247</span></span>
 <span><span class="fu"><a href="../reference/plot_peak_df.html">plot_peak_df</a></span><span class="op">(</span><span class="va">peak_df</span>, <span class="va">spec_list</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, cex<span class="op">=</span><span class="fl">0.6</span><span class="op">)</span></span></code></pre></div>
-<p><img src="peak2d_files/figure-html/unnamed-chunk-15-1.png" class="r-plt" width="672" style="display: block; margin: auto auto auto 0;"></p>
+<p><img src="peak2d_files/figure-html/unnamed-chunk-16-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto auto auto 0;"></p>
 </div>
 </div>
 <div class="section level2">
@@ -446,7 +422,7 @@ disable scalar couplings altogether, set <code>sc_start</code> to
 <span><span class="fu"><a href="../reference/plot_peak_df.html">plot_peak_df</a></span><span class="op">(</span><span class="fu"><a href="../reference/param_list_to_peak_df.html">param_list_to_peak_df</a></span><span class="op">(</span><span class="va">peak_fits_no_sc</span><span class="op">)</span>, <span class="va">spec_list</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, cex<span class="op">=</span><span class="fl">0.6</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/rect.html" class="external-link">rect</a></span><span class="op">(</span><span class="fl">8.55</span>, <span class="fl">122.8</span>, <span class="fl">8.43</span>, <span class="fl">122.1</span>, border<span class="op">=</span><span class="st">"green"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/text.html" class="external-link">text</a></span><span class="op">(</span><span class="fl">8.43</span>, <span class="fl">122.5</span>, <span class="st">"Coupling\nDetected\nde novo"</span>, pos<span class="op">=</span><span class="fl">4</span>, col<span class="op">=</span><span class="st">"green"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="peak2d_files/figure-html/unnamed-chunk-16-1.png" class="r-plt" width="672"></p>
+<p><img src="peak2d_files/figure-html/unnamed-chunk-17-1.png" class="r-plt" alt="" width="672"></p>
 <p>Many of the peaks in the above plot can be fit reasonably well
 without scalar couplings, but the contours do not necessarily match up
 as well. For one peak boxed in green above, a scalar coupling is
@@ -521,7 +497,7 @@ function.</p>
 <span><span class="co">#&gt; 19   16   8       8.4672       120.52  9.1220  4.8622 3.19641   64410776</span></span>
 <span><span class="co">#&gt; 20   17   9       8.3442       120.76  8.3984  1.5895 0.91163   97880231</span></span>
 <span><span class="fu"><a href="../reference/plot_peak_df.html">plot_peak_df</a></span><span class="op">(</span><span class="va">refined_peak_df</span>, <span class="va">spec_list</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, cex<span class="op">=</span><span class="fl">0.6</span><span class="op">)</span></span></code></pre></div>
-<p><img src="peak2d_files/figure-html/refine-1.png" class="r-plt" width="672" style="display: block; margin: auto auto auto 0;"></p>
+<p><img src="peak2d_files/figure-html/refine-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto auto auto 0;"></p>
 </div>
 </div>
 <div class="section level2">
@@ -580,7 +556,7 @@ volumes.</p>
 <span><span class="co">#&gt; 19   16   8       8.4672       120.52  9.0403  4.9595 3.20275   63361999  21694761</span></span>
 <span><span class="co">#&gt; 20   17   9       8.3444       120.76  8.3617  1.6683 0.87464   98061407  35062473</span></span>
 <span><span class="fu"><a href="../reference/plot_peak_df.html">plot_peak_df</a></span><span class="op">(</span><span class="va">extended_peak_df</span>, <span class="va">spec_list</span>, cex<span class="op">=</span><span class="fl">0.6</span><span class="op">)</span></span></code></pre></div>
-<p><img src="peak2d_files/figure-html/extend-1.png" class="r-plt" width="672"><img src="peak2d_files/figure-html/extend-2.png" class="r-plt" width="672"></p>
+<p><img src="peak2d_files/figure-html/extend-1.png" class="r-plt" alt="" width="672"><img src="peak2d_files/figure-html/extend-2.png" class="r-plt" alt="" width="672"></p>
 <p>The fit for <code>2.ft2</code> looks nearly identical but the peaks
 are about fourfold less intense than <code>1.ft2</code>. You can tell
 this because the lowest contour level in the plot below is slightly
@@ -595,34 +571,27 @@ are for the peaks are relatively similar.</p>
 <span><span class="va">ylim</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/range.html" class="external-link">range</a></span><span class="op">(</span><span class="fl">0</span>, <span class="va">extended_peak_df</span><span class="op">[</span>,<span class="st">"2.ft2"</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">extended_peak_df</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1.ft2"</span>, <span class="st">"2.ft2"</span><span class="op">)</span><span class="op">]</span>, xlim<span class="op">=</span><span class="va">xlim</span>, ylim<span class="op">=</span><span class="va">ylim</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/abline.html" class="external-link">abline</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/lsfit.html" class="external-link">lsfit</a></span><span class="op">(</span><span class="va">extended_peak_df</span><span class="op">[</span>,<span class="st">"1.ft2"</span><span class="op">]</span>, <span class="va">extended_peak_df</span><span class="op">[</span>,<span class="st">"2.ft2"</span><span class="op">]</span><span class="op">)</span>, col<span class="op">=</span><span class="st">"red"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="peak2d_files/figure-html/unnamed-chunk-21-1.png" class="r-plt" width="384"></p>
+<p><img src="peak2d_files/figure-html/unnamed-chunk-22-1.png" class="r-plt" alt="" width="384"></p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">extended_peak_df</span><span class="op">[</span>,<span class="st">"2.ft2"</span><span class="op">]</span><span class="op">/</span><span class="va">extended_peak_df</span><span class="op">[</span>,<span class="st">"1.ft2"</span><span class="op">]</span>, xlab<span class="op">=</span><span class="st">"Peak Number"</span>, ylab<span class="op">=</span><span class="st">"Spectrum 2 Volume/Spectrum 1 Volume"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="peak2d_files/figure-html/unnamed-chunk-21-2.png" class="r-plt" width="384"></p>
+<p><img src="peak2d_files/figure-html/unnamed-chunk-22-2.png" class="r-plt" alt="" width="384"></p>
 </div>
-  </div>
-
-  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
-
-      </div>
-
+  </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
+    </nav></aside>
 </div>
 
 
 
-      <footer><div class="copyright">
-  <p></p>
-<p>Developed by <a href="http://smithlab.wesleyan.edu" class="external-link">Colin Smith</a>.</p>
+    <footer><div class="pkgdown-footer-left">
+  <p>Developed by <a href="http://smithlab.wesleyan.edu" class="external-link">Colin Smith</a>.</p>
 </div>
 
-<div class="pkgdown">
-  <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+<div class="pkgdown-footer-right">
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
-      </footer>
+    </footer>
 </div>
-
 
 
 

@@ -7,3 +7,5 @@ title: Smith Group GitHub Pages
 [`fitnmr`](/fitnmr/) multidimensional NMR spectrum analysis ([Download Releases](/fitnmr_releases/))
 
 [`deeppicker`](/deeppicker/) interface for ANN based NMR peak picker
+
+[`sparseLM`](/sparseLM/) interface for Levenberg-Marquardt algorithm with sparse Jacobian

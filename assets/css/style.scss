@@ -12,6 +12,8 @@
 }
 
 #main-content li {
-    padding-left: 0.25em;
+    list-style-position: outside;
+    list-style-type: disc;
+    padding-left: 0;
     margin-bottom: 0.25em;
 }

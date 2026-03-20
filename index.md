@@ -8,11 +8,19 @@ Methods and software from the Smith Group and others for NMR data analysis and r
 
 [![r-universe: smith-group](https://smith-group.r-universe.dev/badges/:name)](https://smith-group.r-universe.dev/)
 
-- [fitnmr](/fitnmr/) multidimensional NMR spectrum analysis [![r-universe version](https://smith-group.r-universe.dev/badges/fitnmr)](https://smith-group.r-universe.dev/fitnmr)
+- [fitnmr](/fitnmr/) multidimensional NMR spectrum analysis [![CRAN version](https://www.r-pkg.org/badges/version/fitnmr)](https://CRAN.R-project.org/package=fitnmr) [![r-universe version](https://smith-group.r-universe.dev/badges/fitnmr)](https://smith-group.r-universe.dev/fitnmr)
 
 - [deeppicker](/deeppicker/) interface for ANN-based NMR peak picker [![r-universe version](https://smith-group.r-universe.dev/badges/deeppicker)](https://smith-group.r-universe.dev/deeppicker)
 
 - [sparseLM](/sparseLM/) interface for Levenberg-Marquardt with sparse Jacobian [![r-universe version](https://smith-group.r-universe.dev/badges/sparseLM)](https://smith-group.r-universe.dev/sparseLM)
+
+## Install stable release versions
+
+Install for standard R with:
+
+```
+install.packages("fitnmr", repos = "https://cloud.r-project.org")
+```
 
 ## Install latest GitHub versions from R-universe
 

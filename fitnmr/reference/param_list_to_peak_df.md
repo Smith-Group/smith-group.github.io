@@ -100,7 +100,7 @@ parameter lists will be combined into a single table.
 ``` r
 spec_file <- system.file("extdata", "t1", "1.ft2", package = "fitnmr")
 spec <- list("1.ft2" = read_nmrpipe(spec_file, dim_order = "hx"))
-peak_fits <- fit_peak_iter(spec, iter_max = 3)
+peak_fits <- fit_peak_iter(spec, iter_max = 2)
 #> Fit iteration 1:
 #>   0 ->  6 fit parameters: F = 333.8 (p = 4.56642e-10)
 #>   6 ->  9 fit parameters: F = 64.6 (p = 1.11899e-05)
@@ -112,30 +112,15 @@ peak_fits <- fit_peak_iter(spec, iter_max = 3)
 #>   6 ->  9 fit parameters: F = 14.7 (p = 0.000581712)
 #>   9 -> 12 fit parameters: F = 0.1 (p = 0.976358)
 #>  Terminating search because F-test p-value > 0.001
-#> Fit iteration 3:
-#>   0 ->  6 fit parameters: F = 27.7 (p = 7.52698e-13)
-#>   6 ->  9 fit parameters: F = 226.0 (p = 2.5923e-27)
-#>   9 -> 12 fit parameters: F = 13.3 (p = 1.34241e-05)
-#>  12 -> 15 fit parameters: F = 68.7 (p = 1.46797e-13)
-#>  15 -> 18 fit parameters: F = 7.0 (p = 0.00144316)
-#>  Terminating search because F-test p-value > 0.001
 param_list_to_peak_df(peak_fits)
 #>   peak fit     f_pvalue omega0_ppm_1 omega0_ppm_2  sc_hz_1  r2_hz_1  r2_hz_2
 #> 1    1   1 4.566421e-10     8.247602     121.8666 3.280589 2.907218 2.334497
 #> 2    2   1 1.118991e-05     8.259565     121.9299 3.280589 2.907218 2.334497
 #> 3    3   2 1.876528e-15     8.540030     119.7611 2.000000 4.788566 2.099646
 #> 4    4   2 5.817124e-04     8.520232     119.7266 2.000000 4.788566 2.099646
-#> 5    5   3 7.526979e-13     8.612449     123.3640 7.648082 5.284891 2.180120
-#> 6    6   3 2.592298e-27     8.585348     123.0315 7.648082 5.284891 2.180120
-#> 7    7   3 1.342406e-05     8.644864     123.4689 7.648082 5.284891 2.180120
-#> 8    8   3 1.467971e-13     8.536996     122.9636 7.648082 5.284891 2.180120
 #>        1.ft2
 #> 1  824420657
 #> 2  240560662
 #> 3 1020008726
 #> 4   89977216
-#> 5  848579189
-#> 6  607904936
-#> 7  147984411
-#> 8  161971930
 ```

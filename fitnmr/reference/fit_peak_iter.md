@@ -139,7 +139,7 @@ either the `plot_fit` or `plot_fit_stages` parameters.
 ``` r
 spec_file <- system.file("extdata", "t1", "1.ft2", package = "fitnmr")
 spec <- list("1.ft2" = read_nmrpipe(spec_file, dim_order = "hx"))
-peak_fits <- fit_peak_iter(spec, iter_max = 3)
+peak_fits <- fit_peak_iter(spec, iter_max = 2)
 #> Fit iteration 1:
 #>   0 ->  6 fit parameters: F = 333.8 (p = 4.56642e-10)
 #>   6 ->  9 fit parameters: F = 64.6 (p = 1.11899e-05)
@@ -150,12 +150,5 @@ peak_fits <- fit_peak_iter(spec, iter_max = 3)
 #>   0 ->  6 fit parameters: F = 734.0 (p = 1.87653e-15)
 #>   6 ->  9 fit parameters: F = 14.7 (p = 0.000581712)
 #>   9 -> 12 fit parameters: F = 0.1 (p = 0.976358)
-#>  Terminating search because F-test p-value > 0.001
-#> Fit iteration 3:
-#>   0 ->  6 fit parameters: F = 27.7 (p = 7.52698e-13)
-#>   6 ->  9 fit parameters: F = 226.0 (p = 2.5923e-27)
-#>   9 -> 12 fit parameters: F = 13.3 (p = 1.34241e-05)
-#>  12 -> 15 fit parameters: F = 68.7 (p = 1.46797e-13)
-#>  15 -> 18 fit parameters: F = 7.0 (p = 0.00144316)
 #>  Terminating search because F-test p-value > 0.001
 ```

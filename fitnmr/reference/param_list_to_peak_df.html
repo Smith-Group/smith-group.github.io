@@ -113,7 +113,7 @@
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">spec_file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"t1"</span>, <span class="st">"1.ft2"</span>, package <span class="op">=</span> <span class="st">"fitnmr"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">spec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"1.ft2"</span> <span class="op">=</span> <span class="fu"><a href="read_nmrpipe.html">read_nmrpipe</a></span><span class="op">(</span><span class="va">spec_file</span>, dim_order <span class="op">=</span> <span class="st">"hx"</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">peak_fits</span> <span class="op">&lt;-</span> <span class="fu"><a href="fit_peak_iter.html">fit_peak_iter</a></span><span class="op">(</span><span class="va">spec</span>, iter_max <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">peak_fits</span> <span class="op">&lt;-</span> <span class="fu"><a href="fit_peak_iter.html">fit_peak_iter</a></span><span class="op">(</span><span class="va">spec</span>, iter_max <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Fit iteration 1:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   0 -&gt;  6 fit parameters: F = 333.8 (p = 4.56642e-10)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   6 -&gt;  9 fit parameters: F = 64.6 (p = 1.11899e-05)</span>
@@ -125,32 +125,17 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>   6 -&gt;  9 fit parameters: F = 14.7 (p = 0.000581712)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   9 -&gt; 12 fit parameters: F = 0.1 (p = 0.976358)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Terminating search because F-test p-value &gt; 0.001</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Fit iteration 3:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   0 -&gt;  6 fit parameters: F = 27.7 (p = 7.52698e-13)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   6 -&gt;  9 fit parameters: F = 226.0 (p = 2.5923e-27)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   9 -&gt; 12 fit parameters: F = 13.3 (p = 1.34241e-05)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  12 -&gt; 15 fit parameters: F = 68.7 (p = 1.46797e-13)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  15 -&gt; 18 fit parameters: F = 7.0 (p = 0.00144316)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Terminating search because F-test p-value &gt; 0.001</span>
 <span class="r-in"><span><span class="fu">param_list_to_peak_df</span><span class="op">(</span><span class="va">peak_fits</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   peak fit     f_pvalue omega0_ppm_1 omega0_ppm_2  sc_hz_1  r2_hz_1  r2_hz_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1    1   1 4.566421e-10     8.247602     121.8666 3.280589 2.907218 2.334497</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2    2   1 1.118991e-05     8.259565     121.9299 3.280589 2.907218 2.334497</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3    3   2 1.876528e-15     8.540030     119.7611 2.000000 4.788566 2.099646</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4    4   2 5.817124e-04     8.520232     119.7266 2.000000 4.788566 2.099646</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5    5   3 7.526979e-13     8.612449     123.3640 7.648082 5.284891 2.180120</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6    6   3 2.592298e-27     8.585348     123.0315 7.648082 5.284891 2.180120</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7    7   3 1.342406e-05     8.644864     123.4689 7.648082 5.284891 2.180120</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8    8   3 1.467971e-13     8.536996     122.9636 7.648082 5.284891 2.180120</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        1.ft2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1  824420657</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2  240560662</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3 1020008726</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4   89977216</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5  848579189</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6  607904936</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7  147984411</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8  161971930</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

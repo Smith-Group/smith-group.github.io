@@ -1,0 +1,246 @@
+What the package does (one paragraph).
+
+# Package index
+
+## All functions
+
+- [`a_matrix_to_relax()`](https://smith-group.github.io/ke/reference/a_matrix_to_relax.md)
+  : Calculate relaxation rates from spectral density functions with
+  internal and overall motion
+
+- [`a_matrix_to_relax_backprop()`](https://smith-group.github.io/ke/reference/a_matrix_to_relax_backprop.md)
+  : Back-propagate energy derivative from relaxation rates to a matrix
+
+- [`a_matrix_to_sigma()`](https://smith-group.github.io/ke/reference/a_matrix_to_sigma.md)
+  : Calculate sigma from a matrix of a values
+
+- [`a_matrix_to_sigma_backprop()`](https://smith-group.github.io/ke/reference/a_matrix_to_sigma_backprop.md)
+  : Back-propagate energy derivative from sigma to a matrix
+
+- [`array_shift()`](https://smith-group.github.io/ke/reference/array_shift.md)
+  : Shift from one array dimension to another
+
+- [`atom_lines_to_coord()`](https://smith-group.github.io/ke/reference/atom_lines_to_coord.md)
+  : Convert PDB formatted atom lines into a matrix
+
+- [`amber_to_pdb`](https://smith-group.github.io/ke/reference/atom_residue_names.md)
+  [`pdb_to_amber`](https://smith-group.github.io/ke/reference/atom_residue_names.md)
+  [`charmm_to_pdb`](https://smith-group.github.io/ke/reference/atom_residue_names.md)
+  [`pdb_to_charmm`](https://smith-group.github.io/ke/reference/atom_residue_names.md)
+  : Convert between proton atom/residue name pairs
+
+- [`bond_separation()`](https://smith-group.github.io/ke/reference/bond_separation.md)
+  : Calculate bond distances between a set of atoms
+
+- [`calc_subset_mat()`](https://smith-group.github.io/ke/reference/calc_subset_mat.md)
+  : Determine subsets of states within transition rate matrices
+
+- [`collapse_array()`](https://smith-group.github.io/ke/reference/collapse_array.md)
+  : Collapse first two dimensions of an array
+
+- [`coord_array_to_g_energy()`](https://smith-group.github.io/ke/reference/coord_array_to_g_energy.md)
+  : Calculate g value restraint energy from atomic coordinates
+
+- [`coord_array_to_g_energy_refactored()`](https://smith-group.github.io/ke/reference/coord_array_to_g_energy_refactored.md)
+  : Calculate g value restraint energy from atomic coordinates
+
+- [`coord_array_to_g_matrix()`](https://smith-group.github.io/ke/reference/coord_array_to_g_matrix.md)
+  : Calculate group norm squared values from atomic coordinates
+
+- [`coord_array_to_r_array()`](https://smith-group.github.io/ke/reference/coord_array_to_r_array.md)
+  : Calculate internuclear vectors from atomic coordinates
+
+- [`coord_array_to_r_array_backprop()`](https://smith-group.github.io/ke/reference/coord_array_to_r_array_backprop.md)
+  : Back-propagate energy derivative from r array to coordinates
+
+- [`coord_array_to_sigma()`](https://smith-group.github.io/ke/reference/coord_array_to_sigma.md)
+  : Calculate cross relaxation rates from atomic coordinates
+
+- [`coord_array_to_sigma_energy()`](https://smith-group.github.io/ke/reference/coord_array_to_sigma_energy.md)
+  : Calculate sigma restraint energy from atomic coordinates
+
+- [`coord_atomnames()`](https://smith-group.github.io/ke/reference/coord_atomnames.md)
+  [`` `coord_atomnames<-`() ``](https://smith-group.github.io/ke/reference/coord_atomnames.md)
+  : Get or set four-character atom names
+
+- [`coord_atomresnames()`](https://smith-group.github.io/ke/reference/coord_atomresnames.md)
+  [`` `coord_atomresnames<-`() ``](https://smith-group.github.io/ke/reference/coord_atomresnames.md)
+  : Get or set atom/residue name pairs
+
+- [`coord_proton_groups()`](https://smith-group.github.io/ke/reference/coord_proton_groups.md)
+  : Select groups of protons that are typically detectable with unique
+  chemical shifts
+
+- [`coord_rapidly_exchangeable()`](https://smith-group.github.io/ke/reference/coord_rapidly_exchangeable.md)
+  : Determine whether an atom is rapidly exchangeable at neutral pH
+
+- [`coord_resnames()`](https://smith-group.github.io/ke/reference/coord_resnames.md)
+  [`` `coord_resnames<-`() ``](https://smith-group.github.io/ke/reference/coord_resnames.md)
+  : Get or set three-character residue names
+
+- [`coord_resseq()`](https://smith-group.github.io/ke/reference/coord_resseq.md)
+  [`` `coord_resseq<-`() ``](https://smith-group.github.io/ke/reference/coord_resseq.md)
+  : Get or set residue sequence number
+
+- [`coord_to_atom_lines()`](https://smith-group.github.io/ke/reference/coord_to_atom_lines.md)
+  : Convert a matrix of coordinates into PDB formatted atom lines
+
+- [`d_array_to_g()`](https://smith-group.github.io/ke/reference/d_array_to_g.md)
+  : Calculate group norm squared from dipole-dipole interaction tensors
+
+- [`d_array_to_g_matrix()`](https://smith-group.github.io/ke/reference/d_array_to_g_matrix.md)
+  : Calculate group norm squared from dipole-dipole interaction tensors
+
+- [`d_array_to_g_matrix_backprop()`](https://smith-group.github.io/ke/reference/d_array_to_g_matrix_backprop.md)
+  : Back-propagate energy derivative from g matrix to d array
+
+- [`d_real_rank2()`](https://smith-group.github.io/ke/reference/d_real_rank2.md)
+  : Construct the real rank-2 rotation matrix
+
+- [`deriv_check()`](https://smith-group.github.io/ke/reference/deriv_check.md)
+  : Check analytical derivatives via finite difference approximation
+
+- [`dxyz_dunit_to_overall_modes()`](https://smith-group.github.io/ke/reference/dxyz_dunit_to_overall_modes.md)
+  : Calculate overall tumbling modes from diffusion tensor principal
+  values
+
+- [`equiv_list_name()`](https://smith-group.github.io/ke/reference/equiv_list_name.md)
+  : Update names of equivalent atoms
+
+- [`euler_zyz_matrix()`](https://smith-group.github.io/ke/reference/euler_zyz_matrix.md)
+  : Construct a ZYZ Euler rotation matrix
+
+- [`expand_subset_mat()`](https://smith-group.github.io/ke/reference/expand_subset_mat.md)
+  : Expand subset matrix consistent with applying Kronecker product to
+  original rate matrix
+
+- [`find_aromatic_permutations()`](https://smith-group.github.io/ke/reference/find_aromatic_permutations.md)
+  : Find permutations to coordinates of phenylalanine and tyrosine rings
+
+- [`find_methyl_permutations()`](https://smith-group.github.io/ke/reference/find_methyl_permutations.md)
+  : Find permutations to coordinates of XH3 groups
+
+- [`g_matrix_to_a_matrix()`](https://smith-group.github.io/ke/reference/g_matrix_to_a_matrix.md)
+  : Calculate matrix of a values from a matrix of g values
+
+- [`g_matrix_to_a_matrix_backprop()`](https://smith-group.github.io/ke/reference/g_matrix_to_a_matrix_backprop.md)
+  : Back-propagate energy derivative from a matrix to g matrix
+
+- [`g_to_energy()`](https://smith-group.github.io/ke/reference/g_to_energy.md)
+  : Calculate restraint energy from group norm squared values
+
+- [`get_eigen_groups()`](https://smith-group.github.io/ke/reference/get_eigen_groups.md)
+  :
+
+  Get `k` coefficients for creating linear combinations of `a` values
+  from `g` values
+
+- [`get_rate_count_mat()`](https://smith-group.github.io/ke/reference/get_rate_count_mat.md)
+  : Get counts enabling calculation of eigenvalues from individual rates
+
+- [`get_rate_data()`](https://smith-group.github.io/ke/reference/get_rate_data.md)
+  :
+
+  Construct `k` coefficients in a recursive manner
+
+- [`get_rate_groups()`](https://smith-group.github.io/ke/reference/get_rate_groups.md)
+  : Find groups of numerically equivalent rates (degenerate eigenvalues)
+
+- [`make_atom_perm_list()`](https://smith-group.github.io/ke/reference/make_atom_perm_list.md)
+  : Create list of matrices for doing two or three atom permutations
+
+- [`make_equiv_list()`](https://smith-group.github.io/ke/reference/make_equiv_list.md)
+  : Create list of equivalent atoms
+
+- [`make_ke_data()`](https://smith-group.github.io/ke/reference/make_ke_data.md)
+  : Encapsulate kinetic ensemble data into a list data structure
+
+- [`make_sigma_spec_den_term_array()`](https://smith-group.github.io/ke/reference/make_sigma_spec_den_term_array.md)
+  : Make spectral density term array for proton-proton cross relaxation
+
+- [`make_spec_den_data()`](https://smith-group.github.io/ke/reference/make_spec_den_data.md)
+  : Create data structures for calculating sigma/rho from dipole-dipole
+  interaction tensors
+
+- [`noe_dacf_kernel()`](https://smith-group.github.io/ke/reference/noe_dacf_kernel.md)
+  : Calculate kernel weights for determining NOE sigma and rho from a
+  dipolar autocorrelation function
+
+- [`pdb_traj_apply()`](https://smith-group.github.io/ke/reference/pdb_traj_apply.md)
+  : Apply a function to a rolling buffer of trajectory frames
+
+- [`pdb_traj_close()`](https://smith-group.github.io/ke/reference/pdb_traj_close.md)
+  : Close a PDB trajectory file
+
+- [`pdb_traj_d()`](https://smith-group.github.io/ke/reference/pdb_traj_d.md)
+  : Calculate second-rank dipole interaction tensors
+
+- [`pdb_traj_dacf()`](https://smith-group.github.io/ke/reference/pdb_traj_dacf.md)
+  : Calculate second-rank dipolar autocorrelation functions
+
+- [`pdb_traj_open()`](https://smith-group.github.io/ke/reference/pdb_traj_open.md)
+  : Open a PDB trajectory file for reading
+
+- [`pdb_traj_read()`](https://smith-group.github.io/ke/reference/pdb_traj_read.md)
+  : Read coordinates from the trajectory
+
+- [`power_scale()`](https://smith-group.github.io/ke/reference/power_scale.md)
+  : Scale real or back calculated values towards zero by taking a power
+
+- [`power_scaled_loss()`](https://smith-group.github.io/ke/reference/power_scaled_loss.md)
+  : Traditional squared loss function scaled by a power
+
+- [`r_array_to_d_array()`](https://smith-group.github.io/ke/reference/r_array_to_d_array.md)
+  : Calculate dipole-dipole interaction tensors from internuclear
+  vectors
+
+- [`r_array_to_d_array_backprop()`](https://smith-group.github.io/ke/reference/r_array_to_d_array_backprop.md)
+  : Back-propagate energy derivative from d array to r array
+
+- [`rate_data_to_mat_list()`](https://smith-group.github.io/ke/reference/rate_data_to_mat_list.md)
+  : Convert rate data into a format more easily serializable to set of
+  tables
+
+- [`rate_mat_diag()`](https://smith-group.github.io/ke/reference/rate_mat_diag.md)
+  : Update transition rate diagonal using rates
+
+- [`rate_mat_intra_inter()`](https://smith-group.github.io/ke/reference/rate_mat_intra_inter.md)
+  : Create hierarchical transition rate matrix
+
+- [`rate_mat_kronecker()`](https://smith-group.github.io/ke/reference/rate_mat_kronecker.md)
+  : Calculate Kronecker product of two transition rate matrices
+
+- [`rate_mat_simple()`](https://smith-group.github.io/ke/reference/rate_mat_simple.md)
+  : Create transition rate matrix with single rate
+
+- [`read_ensemble()`](https://smith-group.github.io/ke/reference/read_ensemble.md)
+  : Read an ensemble of PDB files
+
+- [`read_spec_den_data()`](https://smith-group.github.io/ke/reference/read_spec_den_data.md)
+  : Read data for calculating spectral density functions
+
+- [`aa1_to_aa3`](https://smith-group.github.io/ke/reference/residue_names.md)
+  [`aa3_to_aa1`](https://smith-group.github.io/ke/reference/residue_names.md)
+  : Convert between one and three letter residue names
+
+- [`subset_idx_to_grouping_mat()`](https://smith-group.github.io/ke/reference/subset_idx_to_grouping_mat.md)
+  : Convert a list of subset groups into a matrix with group indices
+
+- [`test_eros3()`](https://smith-group.github.io/ke/reference/test_eros3.md)
+  : Tests with EROS3 ensemble subset (First two ensemble members and
+  five atoms from M1)
+
+- [`test_random()`](https://smith-group.github.io/ke/reference/test_random.md)
+  : Tests with random internuclear vectors of length 1
+
+- [`test_toy()`](https://smith-group.github.io/ke/reference/test_toy.md)
+  : Tests with toy example from Smith 2020 J Biomol NMR
+
+- [`unique_atom_map()`](https://smith-group.github.io/ke/reference/unique_atom_map.md)
+  : Generate matrix of possible permuted assignments to individual atoms
+  in a group
+
+- [`unique_atom_pair_map()`](https://smith-group.github.io/ke/reference/unique_atom_pair_map.md)
+  : Generate matrix of possible permuted assignments of atom pairs
+  within a group
+

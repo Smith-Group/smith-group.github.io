@@ -12,14 +12,15 @@ Methods and software from the Smith Group and others for NMR data analysis and r
 
 - [deeppicker](/deeppicker/) interface for ANN-based NMR peak picker [![r-universe version](https://smith-group.r-universe.dev/badges/deeppicker)](https://smith-group.r-universe.dev/deeppicker)
 
-- [sparseLM](/sparseLM/) interface for Levenberg-Marquardt with sparse Jacobian [![r-universe version](https://smith-group.r-universe.dev/badges/sparseLM)](https://smith-group.r-universe.dev/sparseLM)
+- [sparseLM](/sparseLM/) interface for Levenberg-Marquardt with sparse Jacobian [![CRAN version](https://www.r-pkg.org/badges/version/sparseLM)](https://CRAN.R-project.org/package=sparseLM) [![r-universe version](https://smith-group.r-universe.dev/badges/sparseLM)](https://smith-group.r-universe.dev/sparseLM)
 
-## Install stable release versions
+## Install stable release versions from CRAN
 
 Install for standard R with:
 
 ```
 install.packages("fitnmr", repos = "https://cloud.r-project.org")
+install.packages("sparseLM", repos = "https://cloud.r-project.org")
 ```
 
 ## Install latest GitHub versions from R-universe

@@ -27,7 +27,8 @@ sparselm(
 
 - x:
 
-  measurement vector length nobs
+  measurement vector length nobs; `length(x)` must be at least
+  `length(p)`
 
 - func:
 
@@ -53,8 +54,7 @@ sparselm(
 
 - opts:
 
-  minim. options `mu, epsilon1, epsilon2, epsilon3, delta, spsolver`,
-  not currently implemented!
+  minim. options `mu, epsilon1, epsilon2, epsilon3, delta, spsolver`
 
 - dif:
 

@@ -34,7 +34,8 @@ sparselm.opts(
 
 - delta:
 
-  step used in difference approximation to the Jacobian
+  step used in difference approximation to the Jacobian; if negative,
+  central differences are used instead of forward differences
 
 ## Value
 

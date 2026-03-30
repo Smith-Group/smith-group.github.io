@@ -5,14 +5,14 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Interface for sparseLM Levenberg-Marquardt Package • sparseLM</title>
+<title>Interface to the sparseLM Levenberg-Marquardt Library • sparseLM</title>
 <script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Interface for sparseLM Levenberg-Marquardt Package">
-<meta name="description" content="Provides an R interface to the sparseLM C library for large-scale nonlinear least squares problems with arbitrarily sparse Jacobians. The underlying solver implements a sparse variant of the Levenberg-Marquardt algorithm for minimizing sum-of-squares objective functions, supports user-supplied analytic Jacobians or finite-difference approximation, and is designed to exploit sparsity for improved memory use and performance. This package exposes the solver in R and uses sparse matrix classes and CHOLMOD routines through the Matrix package interface.">
-<meta property="og:description" content="Provides an R interface to the sparseLM C library for large-scale nonlinear least squares problems with arbitrarily sparse Jacobians. The underlying solver implements a sparse variant of the Levenberg-Marquardt algorithm for minimizing sum-of-squares objective functions, supports user-supplied analytic Jacobians or finite-difference approximation, and is designed to exploit sparsity for improved memory use and performance. This package exposes the solver in R and uses sparse matrix classes and CHOLMOD routines through the Matrix package interface.">
+<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Interface to the sparseLM Levenberg-Marquardt Library">
+<meta name="description" content="Provides an R interface to the sparseLM C library for large-scale nonlinear least squares problems with arbitrarily sparse Jacobians. The underlying solver implements a sparse variant of the Levenberg-Marquardt algorithm for minimizing sum-of-squares objective functions, supports user-supplied analytic Jacobians or finite-difference approximation, and is designed to exploit sparsity for improved memory use and performance. This package exposes the solver in R and uses sparse matrix classes and the CHOLMOD sparse Cholesky factorization routines through the Matrix package interface. Methods from the C library are described in Lourakis (2010) &lt;doi:10.1007/978-3-642-15552-9_4&gt;.">
+<meta property="og:description" content="Provides an R interface to the sparseLM C library for large-scale nonlinear least squares problems with arbitrarily sparse Jacobians. The underlying solver implements a sparse variant of the Levenberg-Marquardt algorithm for minimizing sum-of-squares objective functions, supports user-supplied analytic Jacobians or finite-difference approximation, and is designed to exploit sparsity for improved memory use and performance. This package exposes the solver in R and uses sparse matrix classes and the CHOLMOD sparse Cholesky factorization routines through the Matrix package interface. Methods from the C library are described in Lourakis (2010) &lt;doi:10.1007/978-3-642-15552-9_4&gt;.">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -48,6 +48,7 @@
   <main id="main" class="col-md-9"><div class="section level1">
 <div class="page-header"><h1 id="sparselm-r-package">sparseLM R Package<a class="anchor" aria-label="anchor" href="#sparselm-r-package"></a>
 </h1></div>
+<p><a href="https://CRAN.R-project.org/package=sparseLM" class="external-link"><img src="https://www.r-pkg.org/badges/version/sparseLM" alt="CRAN version"></a> <a href="https://smith-group.r-universe.dev/sparseLM" class="external-link"><img src="https://smith-group.r-universe.dev/badges/sparseLM" alt="R-universe version"></a> <a href="https://smith-group.r-universe.dev/sparseLM#checktable" class="external-link"><img src="https://smith-group.r-universe.dev/sparseLM/badges/checks" alt="R-universe checks"></a></p>
 <p><code>sparseLM</code> provides an R interface to the <code>sparseLM</code> library for solving nonlinear least squares problems with sparse Jacobians. The package wraps the underlying C solver and uses CHOLMOD through the <code>Matrix</code> package interface, exposing the results through an R-friendly fitting interface.</p>
 <p>The underlying <code>sparseLM</code> algorithms and C library were created by Manolis Lourakis. The R package interface was created by Colin Smith.</p>
 <div class="section level2">
@@ -81,6 +82,7 @@
   </main><aside class="col-md-3"><div class="links">
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
+<li><a href="https://cloud.r-project.org/package=sparseLM" class="external-link">View on CRAN</a></li>
 <li><a href="https://github.com/smith-group/sparseLM/" class="external-link">Browse source code</a></li>
 </ul>
 </div>

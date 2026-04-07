@@ -1,6 +1,8 @@
 <urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
 <url><loc>https://smith-group.github.io/ke/404.html</loc></url>
 <url><loc>https://smith-group.github.io/ke/LICENSE-text.html</loc></url>
+<url><loc>https://smith-group.github.io/ke/articles/gb3.html</loc></url>
+<url><loc>https://smith-group.github.io/ke/articles/index.html</loc></url>
 <url><loc>https://smith-group.github.io/ke/authors.html</loc></url>
 <url><loc>https://smith-group.github.io/ke/index.html</loc></url>
 <url><loc>https://smith-group.github.io/ke/reference/a_matrix_to_relax.html</loc></url>
@@ -9,6 +11,8 @@
 <url><loc>https://smith-group.github.io/ke/reference/a_matrix_to_sigma_backprop.html</loc></url>
 <url><loc>https://smith-group.github.io/ke/reference/array_shift.html</loc></url>
 <url><loc>https://smith-group.github.io/ke/reference/atom_lines_to_coord.html</loc></url>
+<url><loc>https://smith-group.github.io/ke/reference/atom_relax_columns_to_spec_den_term_array.html</loc></url>
+<url><loc>https://smith-group.github.io/ke/reference/atom_relax_df_to_spec_den_term_array_list.html</loc></url>
 <url><loc>https://smith-group.github.io/ke/reference/atom_residue_names.html</loc></url>
 <url><loc>https://smith-group.github.io/ke/reference/bond_separation.html</loc></url>
 <url><loc>https://smith-group.github.io/ke/reference/calc_subset_mat.html</loc></url>
@@ -52,9 +56,13 @@
 <url><loc>https://smith-group.github.io/ke/reference/make_atom_perm_list.html</loc></url>
 <url><loc>https://smith-group.github.io/ke/reference/make_equiv_list.html</loc></url>
 <url><loc>https://smith-group.github.io/ke/reference/make_ke_data.html</loc></url>
+<url><loc>https://smith-group.github.io/ke/reference/make_r1_spec_den_term_array.html</loc></url>
+<url><loc>https://smith-group.github.io/ke/reference/make_r2_spec_den_term_array.html</loc></url>
 <url><loc>https://smith-group.github.io/ke/reference/make_sigma_spec_den_term_array.html</loc></url>
 <url><loc>https://smith-group.github.io/ke/reference/make_spec_den_data.html</loc></url>
+<url><loc>https://smith-group.github.io/ke/reference/make_spec_den_relax_data.html</loc></url>
 <url><loc>https://smith-group.github.io/ke/reference/noe_dacf_kernel.html</loc></url>
+<url><loc>https://smith-group.github.io/ke/reference/noe_to_sigma.html</loc></url>
 <url><loc>https://smith-group.github.io/ke/reference/pdb_traj_apply.html</loc></url>
 <url><loc>https://smith-group.github.io/ke/reference/pdb_traj_close.html</loc></url>
 <url><loc>https://smith-group.github.io/ke/reference/pdb_traj_d.html</loc></url>
@@ -63,6 +71,7 @@
 <url><loc>https://smith-group.github.io/ke/reference/pdb_traj_read.html</loc></url>
 <url><loc>https://smith-group.github.io/ke/reference/power_scale.html</loc></url>
 <url><loc>https://smith-group.github.io/ke/reference/power_scaled_loss.html</loc></url>
+<url><loc>https://smith-group.github.io/ke/reference/quadratic_loss.html</loc></url>
 <url><loc>https://smith-group.github.io/ke/reference/r_array_to_d_array.html</loc></url>
 <url><loc>https://smith-group.github.io/ke/reference/r_array_to_d_array_backprop.html</loc></url>
 <url><loc>https://smith-group.github.io/ke/reference/rate_data_to_mat_list.html</loc></url>
@@ -72,12 +81,16 @@
 <url><loc>https://smith-group.github.io/ke/reference/rate_mat_simple.html</loc></url>
 <url><loc>https://smith-group.github.io/ke/reference/read_ensemble.html</loc></url>
 <url><loc>https://smith-group.github.io/ke/reference/read_spec_den_data.html</loc></url>
+<url><loc>https://smith-group.github.io/ke/reference/read_spec_den_relax_data.html</loc></url>
 <url><loc>https://smith-group.github.io/ke/reference/residue_names.html</loc></url>
+<url><loc>https://smith-group.github.io/ke/reference/spec_den_term_array_list_to_atom_relax_df.html</loc></url>
+<url><loc>https://smith-group.github.io/ke/reference/spec_den_term_array_to_atom_relax_columns.html</loc></url>
 <url><loc>https://smith-group.github.io/ke/reference/subset_idx_to_grouping_mat.html</loc></url>
 <url><loc>https://smith-group.github.io/ke/reference/test_eros3.html</loc></url>
 <url><loc>https://smith-group.github.io/ke/reference/test_random.html</loc></url>
 <url><loc>https://smith-group.github.io/ke/reference/test_toy.html</loc></url>
 <url><loc>https://smith-group.github.io/ke/reference/unique_atom_map.html</loc></url>
 <url><loc>https://smith-group.github.io/ke/reference/unique_atom_pair_map.html</loc></url>
+<url><loc>https://smith-group.github.io/ke/reference/write_spec_den_relax_data.html</loc></url>
 </urlset>
 

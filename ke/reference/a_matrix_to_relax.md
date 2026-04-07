@@ -55,15 +55,13 @@ For pair \\p\\, this function evaluates \$\$R_p = \sum_t c\_{pt}
 J_p(\omega\_{pt})\$\$ where \\t\\ indexes the supplied spectral density
 terms, with coefficients \\c\_{pt}\\ and frequencies \\\omega\_{pt}\\
 from `spec_den_term_array`. The spectral density is calculated as
-\$\$J_p(\omega) = -2 \sum_i \sum_j a^{\mathrm{int}}\_{pj}
+\$\$J_p(\omega) = -\sum_i \sum_j a^{\mathrm{int}}\_{pj}
 a^{\mathrm{overall}}\_{pi}
 \frac{\lambda^{\prime}\_{ij}}{(\lambda^{\prime}\_{ij})^2 + \omega^2}\$\$
 with combined decay rates \$\$\lambda^{\prime}\_{ij} =
-\lambda^{\mathrm{int}}\_j - \lambda^{\mathrm{overall}}\_i.\$\$ In the
-spectral density summation, the factor of 2 comes from integrating an
-equilibrium time-correlation function over both positive and negative
-time lags, and the minus sign reflects the use of negative decay
-eigenvalues.
+\lambda^{\mathrm{int}}\_j + \lambda^{\mathrm{overall}}\_i.\$\$ In the
+spectral density summation, the minus sign reflects the use of negative
+decay eigenvalues.
 
 ## See also
 

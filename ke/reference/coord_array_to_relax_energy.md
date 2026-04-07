@@ -8,9 +8,7 @@ Calculate relaxation rate restraint energy from atomic coordinates
 coord_array_to_relax_energy(
   coord_array,
   rates,
-  relax_data_list,
-  d_rot = 1/(6 * tau_c),
-  tau_c,
+  spec_den_relax_data_list,
   loss_func = power_scaled_loss,
   ...,
   gradient = FALSE
@@ -27,18 +25,9 @@ coord_array_to_relax_energy(
 
   named numeric vector with ensemble rates
 
-- relax_data_list:
+- spec_den_relax_data_list:
 
   list of data for calculating relaxation rates
-
-- d_rot:
-
-  rotational diffusion constants: c(Diso), c(Dperp, Dpara), or c(Dx, Dy,
-  Dz)
-
-- tau_c:
-
-  isotropic rotational diffusion time
 
 - loss_func:
 
@@ -46,7 +35,11 @@ coord_array_to_relax_energy(
 
 - ...:
 
-  additional parameters passed to `loss_func`
+  additional parameters passed to `loss_func`. If a `k` argument is not
+  supplied here, `coord_array_to_relax_energy()` looks for an optional
+  numeric `k` field in each `relax_data_list` entry and uses those
+  values as per-relaxation-rate force constants. Each such `k` may have
+  length 1 or the number of relaxation rates in that entry.
 
 - gradient:
 
@@ -58,8 +51,3 @@ total restraint energy calculated using `loss_func`
 
 The optional derivative is contained in the `"gradient"` attribute. It
 is a 3D array (atoms, xyz, models).
-
-Testing with `deriv_check` showed a slight systematic (~0.2%
-underestimation) of the gradient between two methyl groups. Perhaps
-there's some unaccounted correlation in the purely additive derivative
-calculation?

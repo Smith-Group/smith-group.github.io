@@ -5,7 +5,7 @@ Calculate relaxation rates from atomic coordinates
 ## Usage
 
 ``` r
-coord_array_to_relax(coord_array, rates, spec_den_data_list)
+coord_array_to_relax(coord_array, rates, spec_den_relax_data_list)
 ```
 
 ## Arguments
@@ -18,10 +18,6 @@ coord_array_to_relax(coord_array, rates, spec_den_data_list)
 
   named numeric vector with rates
 
-- spec_den_data_list:
+- spec_den_relax_data_list:
 
-  list of data for calculating spectral density functions
-
-- proton_mhz:
-
-  spectrometer proton field strength in MHz
+  list of data for calculating relaxation rates

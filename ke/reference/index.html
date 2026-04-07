@@ -22,6 +22,10 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto"><li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/gb3.html">GB3 Kinetic Ensemble Analysis</a></li>
+  </ul></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
 <li class="nav-item"><a class="external-link nav-link" href="https://github.com/smith-group/ke/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
@@ -90,6 +94,20 @@
 
         <dt>
 
+          <code><a href="atom_relax_columns_to_spec_den_term_array.html">atom_relax_columns_to_spec_den_term_array()</a></code>
+
+        </dt>
+        <dd>Convert one rate block of atom-relax columns into a spectral-density term array</dd>
+
+        <dt>
+
+          <code><a href="atom_relax_df_to_spec_den_term_array_list.html">atom_relax_df_to_spec_den_term_array_list()</a></code>
+
+        </dt>
+        <dd>Convert atom-relax columns into a named list of spectral-density term arrays</dd>
+
+        <dt>
+
           <code><a href="atom_residue_names.html">amber_to_pdb</a></code> <code><a href="atom_residue_names.html">pdb_to_amber</a></code> <code><a href="atom_residue_names.html">charmm_to_pdb</a></code> <code><a href="atom_residue_names.html">pdb_to_charmm</a></code>
 
         </dt>
@@ -150,6 +168,20 @@
 
         </dt>
         <dd>Back-propagate energy derivative from r array to coordinates</dd>
+
+        <dt>
+
+          <code><a href="coord_array_to_relax.html">coord_array_to_relax()</a></code>
+
+        </dt>
+        <dd>Calculate relaxation rates from atomic coordinates</dd>
+
+        <dt>
+
+          <code><a href="coord_array_to_relax_energy.html">coord_array_to_relax_energy()</a></code>
+
+        </dt>
+        <dd>Calculate relaxation rate restraint energy from atomic coordinates</dd>
 
         <dt>
 
@@ -363,10 +395,24 @@
 
         <dt>
 
+          <code><a href="make_r1_spec_den_term_array.html">make_r1_spec_den_term_array()</a></code>
+
+        </dt>
+        <dd>Make spectral density term array for heteronuclear R1 relaxation</dd>
+
+        <dt>
+
+          <code><a href="make_r2_spec_den_term_array.html">make_r2_spec_den_term_array()</a></code>
+
+        </dt>
+        <dd>Make spectral density term array for heteronuclear R2 relaxation</dd>
+
+        <dt>
+
           <code><a href="make_sigma_spec_den_term_array.html">make_sigma_spec_den_term_array()</a></code>
 
         </dt>
-        <dd>Make spectral density term array for proton-proton cross relaxation</dd>
+        <dd>Make spectral density term array for dipolar sigma cross relaxation</dd>
 
         <dt>
 
@@ -377,10 +423,24 @@
 
         <dt>
 
+          <code><a href="make_spec_den_relax_data.html">make_spec_den_relax_data()</a></code>
+
+        </dt>
+        <dd>Build spectral-density relaxation data from expanded atom-pair input</dd>
+
+        <dt>
+
           <code><a href="noe_dacf_kernel.html">noe_dacf_kernel()</a></code>
 
         </dt>
         <dd>Calculate kernel weights for determining NOE sigma and rho from a dipolar autocorrelation function</dd>
+
+        <dt>
+
+          <code><a href="noe_to_sigma.html">noe_to_sigma()</a></code>
+
+        </dt>
+        <dd>Convert steady-state NOE values to sigma cross-relaxation rates</dd>
 
         <dt>
 
@@ -437,6 +497,13 @@
 
         </dt>
         <dd>Traditional squared loss function scaled by a power</dd>
+
+        <dt>
+
+          <code><a href="quadratic_loss.html">quadratic_loss()</a></code>
+
+        </dt>
+        <dd>Quadratic loss function</dd>
 
         <dt>
 
@@ -503,10 +570,31 @@
 
         <dt>
 
+          <code><a href="read_spec_den_relax_data.html">read_spec_den_relax_data()</a></code>
+
+        </dt>
+        <dd>Read data for calculating spectral-density-based relaxation rates</dd>
+
+        <dt>
+
           <code><a href="residue_names.html">aa1_to_aa3</a></code> <code><a href="residue_names.html">aa3_to_aa1</a></code>
 
         </dt>
         <dd>Convert between one and three letter residue names</dd>
+
+        <dt>
+
+          <code><a href="spec_den_term_array_list_to_atom_relax_df.html">spec_den_term_array_list_to_atom_relax_df()</a></code>
+
+        </dt>
+        <dd>Convert a named list of spectral-density term arrays into atom-relax columns</dd>
+
+        <dt>
+
+          <code><a href="spec_den_term_array_to_atom_relax_columns.html">spec_den_term_array_to_atom_relax_columns()</a></code>
+
+        </dt>
+        <dd>Convert a spectral-density term array into one rate block of atom-relax columns</dd>
 
         <dt>
 
@@ -549,6 +637,13 @@
 
         </dt>
         <dd>Generate matrix of possible permuted assignments of atom pairs within a group</dd>
+
+        <dt>
+
+          <code><a href="write_spec_den_relax_data.html">write_spec_den_relax_data()</a></code>
+
+        </dt>
+        <dd>Write data for calculating spectral-density-based relaxation rates</dd>
       </dl></div>
   </main></div>
 

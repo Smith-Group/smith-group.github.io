@@ -21,6 +21,14 @@
 - [`atom_lines_to_coord()`](https://smith-group.github.io/ke/reference/atom_lines_to_coord.md)
   : Convert PDB formatted atom lines into a matrix
 
+- [`atom_relax_columns_to_spec_den_term_array()`](https://smith-group.github.io/ke/reference/atom_relax_columns_to_spec_den_term_array.md)
+  : Convert one rate block of atom-relax columns into a spectral-density
+  term array
+
+- [`atom_relax_df_to_spec_den_term_array_list()`](https://smith-group.github.io/ke/reference/atom_relax_df_to_spec_den_term_array_list.md)
+  : Convert atom-relax columns into a named list of spectral-density
+  term arrays
+
 - [`amber_to_pdb`](https://smith-group.github.io/ke/reference/atom_residue_names.md)
   [`pdb_to_amber`](https://smith-group.github.io/ke/reference/atom_residue_names.md)
   [`charmm_to_pdb`](https://smith-group.github.io/ke/reference/atom_residue_names.md)
@@ -50,6 +58,12 @@
 
 - [`coord_array_to_r_array_backprop()`](https://smith-group.github.io/ke/reference/coord_array_to_r_array_backprop.md)
   : Back-propagate energy derivative from r array to coordinates
+
+- [`coord_array_to_relax()`](https://smith-group.github.io/ke/reference/coord_array_to_relax.md)
+  : Calculate relaxation rates from atomic coordinates
+
+- [`coord_array_to_relax_energy()`](https://smith-group.github.io/ke/reference/coord_array_to_relax_energy.md)
+  : Calculate relaxation rate restraint energy from atomic coordinates
 
 - [`coord_array_to_sigma()`](https://smith-group.github.io/ke/reference/coord_array_to_sigma.md)
   : Calculate cross relaxation rates from atomic coordinates
@@ -153,16 +167,28 @@
 - [`make_ke_data()`](https://smith-group.github.io/ke/reference/make_ke_data.md)
   : Encapsulate kinetic ensemble data into a list data structure
 
+- [`make_r1_spec_den_term_array()`](https://smith-group.github.io/ke/reference/make_r1_spec_den_term_array.md)
+  : Make spectral density term array for heteronuclear R1 relaxation
+
+- [`make_r2_spec_den_term_array()`](https://smith-group.github.io/ke/reference/make_r2_spec_den_term_array.md)
+  : Make spectral density term array for heteronuclear R2 relaxation
+
 - [`make_sigma_spec_den_term_array()`](https://smith-group.github.io/ke/reference/make_sigma_spec_den_term_array.md)
-  : Make spectral density term array for proton-proton cross relaxation
+  : Make spectral density term array for dipolar sigma cross relaxation
 
 - [`make_spec_den_data()`](https://smith-group.github.io/ke/reference/make_spec_den_data.md)
   : Create data structures for calculating sigma/rho from dipole-dipole
   interaction tensors
 
+- [`make_spec_den_relax_data()`](https://smith-group.github.io/ke/reference/make_spec_den_relax_data.md)
+  : Build spectral-density relaxation data from expanded atom-pair input
+
 - [`noe_dacf_kernel()`](https://smith-group.github.io/ke/reference/noe_dacf_kernel.md)
   : Calculate kernel weights for determining NOE sigma and rho from a
   dipolar autocorrelation function
+
+- [`noe_to_sigma()`](https://smith-group.github.io/ke/reference/noe_to_sigma.md)
+  : Convert steady-state NOE values to sigma cross-relaxation rates
 
 - [`pdb_traj_apply()`](https://smith-group.github.io/ke/reference/pdb_traj_apply.md)
   : Apply a function to a rolling buffer of trajectory frames
@@ -187,6 +213,9 @@
 
 - [`power_scaled_loss()`](https://smith-group.github.io/ke/reference/power_scaled_loss.md)
   : Traditional squared loss function scaled by a power
+
+- [`quadratic_loss()`](https://smith-group.github.io/ke/reference/quadratic_loss.md)
+  : Quadratic loss function
 
 - [`r_array_to_d_array()`](https://smith-group.github.io/ke/reference/r_array_to_d_array.md)
   : Calculate dipole-dipole interaction tensors from internuclear
@@ -217,9 +246,20 @@
 - [`read_spec_den_data()`](https://smith-group.github.io/ke/reference/read_spec_den_data.md)
   : Read data for calculating spectral density functions
 
+- [`read_spec_den_relax_data()`](https://smith-group.github.io/ke/reference/read_spec_den_relax_data.md)
+  : Read data for calculating spectral-density-based relaxation rates
+
 - [`aa1_to_aa3`](https://smith-group.github.io/ke/reference/residue_names.md)
   [`aa3_to_aa1`](https://smith-group.github.io/ke/reference/residue_names.md)
   : Convert between one and three letter residue names
+
+- [`spec_den_term_array_list_to_atom_relax_df()`](https://smith-group.github.io/ke/reference/spec_den_term_array_list_to_atom_relax_df.md)
+  : Convert a named list of spectral-density term arrays into atom-relax
+  columns
+
+- [`spec_den_term_array_to_atom_relax_columns()`](https://smith-group.github.io/ke/reference/spec_den_term_array_to_atom_relax_columns.md)
+  : Convert a spectral-density term array into one rate block of
+  atom-relax columns
 
 - [`subset_idx_to_grouping_mat()`](https://smith-group.github.io/ke/reference/subset_idx_to_grouping_mat.md)
   : Convert a list of subset groups into a matrix with group indices
@@ -241,3 +281,6 @@
 - [`unique_atom_pair_map()`](https://smith-group.github.io/ke/reference/unique_atom_pair_map.md)
   : Generate matrix of possible permuted assignments of atom pairs
   within a group
+
+- [`write_spec_den_relax_data()`](https://smith-group.github.io/ke/reference/write_spec_den_relax_data.md)
+  : Write data for calculating spectral-density-based relaxation rates

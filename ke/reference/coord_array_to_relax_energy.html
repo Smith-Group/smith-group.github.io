@@ -22,6 +22,10 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto"><li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/gb3.html">GB3 Kinetic Ensemble Analysis</a></li>
+  </ul></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
 <li class="nav-item"><a class="external-link nav-link" href="https://github.com/smith-group/ke/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
@@ -47,9 +51,7 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">coord_array_to_relax_energy</span><span class="op">(</span></span>
 <span>  <span class="va">coord_array</span>,</span>
 <span>  <span class="va">rates</span>,</span>
-<span>  <span class="va">relax_data_list</span>,</span>
-<span>  d_rot <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="op">(</span><span class="fl">6</span> <span class="op">*</span> <span class="va">tau_c</span><span class="op">)</span>,</span>
-<span>  <span class="va">tau_c</span>,</span>
+<span>  <span class="va">spec_den_relax_data_list</span>,</span>
 <span>  loss_func <span class="op">=</span> <span class="va">power_scaled_loss</span>,</span>
 <span>  <span class="va">...</span>,</span>
 <span>  gradient <span class="op">=</span> <span class="cn">FALSE</span></span>
@@ -68,16 +70,8 @@
 <dd><p>named numeric vector with ensemble rates</p></dd>
 
 
-<dt id="arg-relax-data-list">relax_data_list<a class="anchor" aria-label="anchor" href="#arg-relax-data-list"></a></dt>
+<dt id="arg-spec-den-relax-data-list">spec_den_relax_data_list<a class="anchor" aria-label="anchor" href="#arg-spec-den-relax-data-list"></a></dt>
 <dd><p>list of data for calculating relaxation rates</p></dd>
-
-
-<dt id="arg-d-rot">d_rot<a class="anchor" aria-label="anchor" href="#arg-d-rot"></a></dt>
-<dd><p>rotational diffusion constants: c(Diso), c(Dperp, Dpara), or c(Dx, Dy, Dz)</p></dd>
-
-
-<dt id="arg-tau-c">tau_c<a class="anchor" aria-label="anchor" href="#arg-tau-c"></a></dt>
-<dd><p>isotropic rotational diffusion time</p></dd>
 
 
 <dt id="arg-loss-func">loss_func<a class="anchor" aria-label="anchor" href="#arg-loss-func"></a></dt>
@@ -85,7 +79,11 @@
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
-<dd><p>additional parameters passed to <code>loss_func</code></p></dd>
+<dd><p>additional parameters passed to <code>loss_func</code>. If a <code>k</code> argument is
+not supplied here, <code>coord_array_to_relax_energy()</code> looks for an optional
+numeric <code>k</code> field in each <code>relax_data_list</code> entry and uses those values as
+per-relaxation-rate force constants. Each such <code>k</code> may have length 1 or
+the number of relaxation rates in that entry.</p></dd>
 
 
 <dt id="arg-gradient">gradient<a class="anchor" aria-label="anchor" href="#arg-gradient"></a></dt>
@@ -97,9 +95,6 @@
     <p>total restraint energy calculated using <code>loss_func</code></p>
 <p>The optional derivative is contained in the <code>"gradient"</code> attribute. It is a 3D array
 (atoms, xyz, models).</p>
-<p>Testing with <code>deriv_check</code> showed a slight systematic (~0.2% underestimation) of the
-gradient between two methyl groups. Perhaps there's some unaccounted correlation in
-the purely additive derivative calculation?</p>
     </div>
 
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

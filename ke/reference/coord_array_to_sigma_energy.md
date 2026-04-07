@@ -52,8 +52,3 @@ total restraint energy calculated using `loss_func`
 
 The optional derivative is contained in the `"gradient"` attribute. It
 is a 3D array (atoms, xyz, models).
-
-Testing with `deriv_check` showed a slight systematic (~0.2%
-underestimation) of the gradient between two methyl groups. Perhaps
-there's some unaccounted correlation in the purely additive derivative
-calculation?

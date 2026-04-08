@@ -250,8 +250,8 @@ residue numbers that overlap the Hall 2006 relaxation tables.</p>
 <span></span>
 <span><span class="va">n_atom</span> <span class="op">&lt;-</span> <span class="va">atom_meta</span><span class="op">[</span><span class="va">atom_meta</span><span class="op">$</span><span class="va">atom_name</span> <span class="op">==</span> <span class="st">"N"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"residue"</span>, <span class="st">"atom_id"</span><span class="op">)</span><span class="op">]</span></span>
 <span><span class="va">h_atom</span> <span class="op">&lt;-</span> <span class="va">atom_meta</span><span class="op">[</span><span class="va">atom_meta</span><span class="op">$</span><span class="va">atom_name</span> <span class="op">==</span> <span class="st">"H"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"residue"</span>, <span class="st">"atom_id"</span><span class="op">)</span><span class="op">]</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">n_atom</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"atom1"</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">h_atom</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"atom2"</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">n_atom</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"a1"</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">h_atom</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"a2"</span></span>
 <span></span>
 <span><span class="va">atom_pairs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/merge.html" class="external-link">merge</a></span><span class="op">(</span><span class="va">n_atom</span>, <span class="va">h_atom</span>, by <span class="op">=</span> <span class="st">"residue"</span><span class="op">)</span></span>
 <span><span class="va">atom_pairs</span> <span class="op">&lt;-</span> <span class="va">atom_pairs</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/order.html" class="external-link">order</a></span><span class="op">(</span><span class="va">atom_pairs</span><span class="op">$</span><span class="va">residue</span><span class="op">)</span>, <span class="op">]</span></span>
@@ -262,12 +262,12 @@ residue numbers that overlap the Hall 2006 relaxation tables.</p>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">relax_table</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/merge.html" class="external-link">merge</a></span><span class="op">(</span><span class="va">atom_pairs</span>, <span class="va">relax_table</span>, by <span class="op">=</span> <span class="st">"residue"</span><span class="op">)</span></span>
-<span><span class="va">atom_pairs</span> <span class="op">&lt;-</span> <span class="va">relax_table</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"atom1"</span>, <span class="st">"atom2"</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="va">atom_pairs</span> <span class="op">&lt;-</span> <span class="va">relax_table</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a1"</span>, <span class="st">"a2"</span><span class="op">)</span><span class="op">]</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">atom_pairs</span><span class="op">)</span></span>
 <span><span class="co">#&gt; 'data.frame':    51 obs. of  2 variables:</span></span>
-<span><span class="co">#&gt;  $ atom1: chr  " N   GLN A   2 " " N   TYR A   3 " " N   LYS A   4 " " N   LEU A   5 " ...</span></span>
-<span><span class="co">#&gt;  $ atom2: chr  " H   GLN A   2 " " H   TYR A   3 " " H   LYS A   4 " " H   LEU A   5 " ...</span></span></code></pre></div>
+<span><span class="co">#&gt;  $ a1: chr  " N   GLN A   2 " " N   TYR A   3 " " N   LYS A   4 " " N   LEU A   5 " ...</span></span>
+<span><span class="co">#&gt;  $ a2: chr  " H   GLN A   2 " " H   TYR A   3 " " H   LYS A   4 " " H   LEU A   5 " ...</span></span></code></pre></div>
 <p>Next, the experimental <code>R1</code>, <code>R2</code>, and sigma
 values are converted into the <code>relax_data_list</code> format used
 by the package. Each entry in the list contains both a numeric vector of
@@ -366,7 +366,7 @@ to see exactly how the values and term arrays line up.</p>
 <span>  <span class="va">atom_pairs</span><span class="op">[</span><span class="va">example_idx</span>, <span class="op">]</span>,</span>
 <span>  r1_400 <span class="op">=</span> <span class="va">relax_data_list</span><span class="op">[[</span><span class="st">"r1_400"</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">value</span><span class="op">[</span><span class="va">example_idx</span><span class="op">]</span></span>
 <span><span class="op">)</span></span>
-<span><span class="co">#&gt;   residue           atom1           atom2 r1_400</span></span>
+<span><span class="co">#&gt;   residue              a1              a2 r1_400</span></span>
 <span><span class="co">#&gt; 1       2  N   GLN A   2   H   GLN A   2    3.05</span></span>
 <span><span class="co">#&gt; 2       3  N   TYR A   3   H   TYR A   3    2.98</span></span>
 <span><span class="co">#&gt; 3       4  N   LYS A   4   H   LYS A   4    3.04</span></span>
@@ -442,8 +442,8 @@ build the kinetic-model matrices needed for relaxation calculations.</p>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">atom_relax_data</span>, max.level <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
 <span><span class="co">#&gt; List of 3</span></span>
 <span><span class="co">#&gt;  $ atom_pairs     :'data.frame': 51 obs. of  2 variables:</span></span>
-<span><span class="co">#&gt;   ..$ atom1: chr [1:51] " N   GLN A   2 " " N   TYR A   3 " " N   LYS A   4 " " N   LEU A   5 " ...</span></span>
-<span><span class="co">#&gt;   ..$ atom2: chr [1:51] " H   GLN A   2 " " H   TYR A   3 " " H   LYS A   4 " " H   LEU A   5 " ...</span></span>
+<span><span class="co">#&gt;   ..$ a1: chr [1:51] " N   GLN A   2 " " N   TYR A   3 " " N   LYS A   4 " " N   LEU A   5 " ...</span></span>
+<span><span class="co">#&gt;   ..$ a2: chr [1:51] " H   GLN A   2 " " H   TYR A   3 " " H   LYS A   4 " " H   LEU A   5 " ...</span></span>
 <span><span class="co">#&gt;  $ unit           : logi TRUE</span></span>
 <span><span class="co">#&gt;  $ relax_data_list:List of 15</span></span>
 <span><span class="co">#&gt;   ..$ r1_400   :List of 3</span></span>
@@ -483,8 +483,8 @@ above.</p>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">spec_den_relax_data</span>, max.level <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
 <span><span class="co">#&gt; List of 7</span></span>
 <span><span class="co">#&gt;  $ atom_pairs           :'data.frame':   51 obs. of  2 variables:</span></span>
-<span><span class="co">#&gt;   ..$ atom1: chr [1:51] " N   GLN A   2 " " N   TYR A   3 " " N   LYS A   4 " " N   LEU A   5 " ...</span></span>
-<span><span class="co">#&gt;   ..$ atom2: chr [1:51] " H   GLN A   2 " " H   TYR A   3 " " H   LYS A   4 " " H   LEU A   5 " ...</span></span>
+<span><span class="co">#&gt;   ..$ a1: chr [1:51] " N   GLN A   2 " " N   TYR A   3 " " N   LYS A   4 " " N   LEU A   5 " ...</span></span>
+<span><span class="co">#&gt;   ..$ a2: chr [1:51] " H   GLN A   2 " " H   TYR A   3 " " H   LYS A   4 " " H   LEU A   5 " ...</span></span>
 <span><span class="co">#&gt;  $ unit                 : logi TRUE</span></span>
 <span><span class="co">#&gt;  $ relax_data_list      :List of 15</span></span>
 <span><span class="co">#&gt;   ..$ r1_400   :List of 3</span></span>
@@ -508,7 +508,7 @@ above.</p>
 <span><span class="co">#&gt;  $ lambda_int_coef      : int [1, 1:2] 0 1</span></span>
 <span><span class="co">#&gt;   ..- attr(*, "dimnames")=List of 2</span></span>
 <span><span class="co">#&gt;  $ inferred_multiplicity: Named int [1:2] 1 1</span></span>
-<span><span class="co">#&gt;   ..- attr(*, "names")= chr [1:2] "atom1" "atom2"</span></span></code></pre></div>
+<span><span class="co">#&gt;   ..- attr(*, "names")= chr [1:2] "a1" "a2"</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
@@ -560,8 +560,8 @@ for a small subset of residues.</p>
 <col width="20%">
 </colgroup>
 <thead><tr class="header">
-<th align="left">atom1_unit</th>
-<th align="left">atom2_unit</th>
+<th align="left">a1_unit</th>
+<th align="left">a2_unit</th>
 <th align="right">r1_400_value</th>
 <th align="right">r1_400_k</th>
 <th align="right">r1_400_wHmwN_coef</th>

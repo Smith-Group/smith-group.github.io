@@ -185,8 +185,8 @@ atom_meta$atom_id <- atom_ids
 
 n_atom <- atom_meta[atom_meta$atom_name == "N", c("residue", "atom_id")]
 h_atom <- atom_meta[atom_meta$atom_name == "H", c("residue", "atom_id")]
-names(n_atom)[2] <- "atom1"
-names(h_atom)[2] <- "atom2"
+names(n_atom)[2] <- "a1"
+names(h_atom)[2] <- "a2"
 
 atom_pairs <- merge(n_atom, h_atom, by = "residue")
 atom_pairs <- atom_pairs[order(atom_pairs$residue), ]
@@ -197,12 +197,12 @@ relax_table <- Reduce(
 )
 
 relax_table <- merge(atom_pairs, relax_table, by = "residue")
-atom_pairs <- relax_table[, c("atom1", "atom2")]
+atom_pairs <- relax_table[, c("a1", "a2")]
 
 str(atom_pairs)
 #> 'data.frame':    51 obs. of  2 variables:
-#>  $ atom1: chr  " N   GLN A   2 " " N   TYR A   3 " " N   LYS A   4 " " N   LEU A   5 " ...
-#>  $ atom2: chr  " H   GLN A   2 " " H   TYR A   3 " " H   LYS A   4 " " H   LEU A   5 " ...
+#>  $ a1: chr  " N   GLN A   2 " " N   TYR A   3 " " N   LYS A   4 " " N   LEU A   5 " ...
+#>  $ a2: chr  " H   GLN A   2 " " H   TYR A   3 " " H   LYS A   4 " " H   LEU A   5 " ...
 ```
 
 Next, the experimental `R1`, `R2`, and sigma values are converted into
@@ -308,7 +308,7 @@ data.frame(
   atom_pairs[example_idx, ],
   r1_400 = relax_data_list[["r1_400"]]$value[example_idx]
 )
-#>   residue           atom1           atom2 r1_400
+#>   residue              a1              a2 r1_400
 #> 1       2  N   GLN A   2   H   GLN A   2    3.05
 #> 2       3  N   TYR A   3   H   TYR A   3    2.98
 #> 3       4  N   LYS A   4   H   LYS A   4    3.04
@@ -373,8 +373,8 @@ atom_relax_data <- list(
 str(atom_relax_data, max.level = 2)
 #> List of 3
 #>  $ atom_pairs     :'data.frame': 51 obs. of  2 variables:
-#>   ..$ atom1: chr [1:51] " N   GLN A   2 " " N   TYR A   3 " " N   LYS A   4 " " N   LEU A   5 " ...
-#>   ..$ atom2: chr [1:51] " H   GLN A   2 " " H   TYR A   3 " " H   LYS A   4 " " H   LEU A   5 " ...
+#>   ..$ a1: chr [1:51] " N   GLN A   2 " " N   TYR A   3 " " N   LYS A   4 " " N   LEU A   5 " ...
+#>   ..$ a2: chr [1:51] " H   GLN A   2 " " H   TYR A   3 " " H   LYS A   4 " " H   LEU A   5 " ...
 #>  $ unit           : logi TRUE
 #>  $ relax_data_list:List of 15
 #>   ..$ r1_400   :List of 3
@@ -417,8 +417,8 @@ spec_den_relax_data <- make_spec_den_relax_data(
 str(spec_den_relax_data, max.level = 2)
 #> List of 7
 #>  $ atom_pairs           :'data.frame':   51 obs. of  2 variables:
-#>   ..$ atom1: chr [1:51] " N   GLN A   2 " " N   TYR A   3 " " N   LYS A   4 " " N   LEU A   5 " ...
-#>   ..$ atom2: chr [1:51] " H   GLN A   2 " " H   TYR A   3 " " H   LYS A   4 " " H   LEU A   5 " ...
+#>   ..$ a1: chr [1:51] " N   GLN A   2 " " N   TYR A   3 " " N   LYS A   4 " " N   LEU A   5 " ...
+#>   ..$ a2: chr [1:51] " H   GLN A   2 " " H   TYR A   3 " " H   LYS A   4 " " H   LEU A   5 " ...
 #>  $ unit                 : logi TRUE
 #>  $ relax_data_list      :List of 15
 #>   ..$ r1_400   :List of 3
@@ -442,7 +442,7 @@ str(spec_den_relax_data, max.level = 2)
 #>  $ lambda_int_coef      : int [1, 1:2] 0 1
 #>   ..- attr(*, "dimnames")=List of 2
 #>  $ inferred_multiplicity: Named int [1:2] 1 1
-#>   ..- attr(*, "names")= chr [1:2] "atom1" "atom2"
+#>   ..- attr(*, "names")= chr [1:2] "a1" "a2"
 ```
 
 ## Writing Spectral Density Relaxation Data
@@ -488,14 +488,14 @@ atom_relax_subset <- atom_relax_csv[
 knitr::kable(atom_relax_subset[, 1:6, drop = FALSE], digits = 3)
 ```
 
-| atom1_unit | atom2_unit | r1_400_value | r1_400_k | r1_400_wHmwN_coef | r1_400_wHmwN_freq |
-|:---|:---|---:|---:|---:|---:|
-| N GLN A 2 | H GLN A 2 | 3.05 | 400.000 | 519663430 | 2258529117 |
-| N TYR A 3 | H TYR A 3 | 2.98 | 625.000 | 519663430 | 2258529117 |
-| N LYS A 4 | H LYS A 4 | 3.04 | 1111.111 | 519663430 | 2258529117 |
-| N LEU A 5 | H LEU A 5 | 3.08 | 277.778 | 519663430 | 2258529117 |
-| N VAL A 6 | H VAL A 6 | 3.08 | 1111.111 | 519663430 | 2258529117 |
-| N ILE A 7 | H ILE A 7 | 3.02 | 400.000 | 519663430 | 2258529117 |
+| a1_unit   | a2_unit   | r1_400_value | r1_400_k | r1_400_wHmwN_coef | r1_400_wHmwN_freq |
+|:----------|:----------|-------------:|---------:|------------------:|------------------:|
+| N GLN A 2 | H GLN A 2 |         3.05 |  400.000 |         519663430 |        2258529117 |
+| N TYR A 3 | H TYR A 3 |         2.98 |  625.000 |         519663430 |        2258529117 |
+| N LYS A 4 | H LYS A 4 |         3.04 | 1111.111 |         519663430 |        2258529117 |
+| N LEU A 5 | H LEU A 5 |         3.08 |  277.778 |         519663430 |        2258529117 |
+| N VAL A 6 | H VAL A 6 |         3.08 | 1111.111 |         519663430 |        2258529117 |
+| N ILE A 7 | H ILE A 7 |         3.02 |  400.000 |         519663430 |        2258529117 |
 
 ``` r
 knitr::kable(atom_relax_subset[, 7:10, drop = FALSE], digits = 3)

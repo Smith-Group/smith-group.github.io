@@ -35,10 +35,10 @@ make_spec_den_relax_data(
 
 - perm_rates:
 
-  length-two numeric vector describing permutation processes on the
-  `atom1` and `atom2` sides. `NA` indicates no permutation, while a
-  non-missing named value supplies the symbolic rate constant for the
-  inferred permutation on that side.
+  length-two numeric vector describing permutation processes on the `a1`
+  and `a2` sides. `NA` indicates no permutation, while a non-missing
+  named value supplies the symbolic rate constant for the inferred
+  permutation on that side.
 
 ## Value
 

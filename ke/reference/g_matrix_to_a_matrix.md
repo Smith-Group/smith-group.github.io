@@ -17,3 +17,8 @@ g_matrix_to_a_matrix(g_matrix, a_coef)
 - a_coef:
 
   coefficients used for calculating a values
+
+## Value
+
+Numeric matrix of `a` values with one row per atom pair and one column
+per eigenvalue combination in `a_coef`.

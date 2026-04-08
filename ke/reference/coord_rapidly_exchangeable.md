@@ -18,3 +18,8 @@ coord_rapidly_exchangeable(coord, amber = FALSE)
 - amber:
 
   logical indicating whether atom names are from AMBER force field
+
+## Value
+
+Logical vector with one value per atom identifier in `coord`, indicating
+whether the proton is treated as rapidly exchangeable.

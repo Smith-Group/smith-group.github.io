@@ -16,6 +16,11 @@ An object of class `character` of length 20.
 
 An object of class `character` of length 20.
 
+## Value
+
+Named character vector mapping one-letter and three-letter amino-acid
+residue codes.
+
 ## Examples
 
 ``` r

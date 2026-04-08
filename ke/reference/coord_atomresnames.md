@@ -21,3 +21,8 @@ coord_atomresnames(coord) <- value
 
   character vector with eight characters per element (1-4: atom name,
   6-8: residue name)
+
+## Value
+
+Getter: character vector of atom/residue identifiers. Setter: modified
+`coord` with updated atom/residue identifiers.

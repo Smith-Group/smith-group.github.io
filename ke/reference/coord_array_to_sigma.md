@@ -25,3 +25,8 @@ coord_array_to_sigma(coord_array, rates, spec_den_data_list, proton_mhz)
 - proton_mhz:
 
   spectrometer proton field strength in MHz
+
+## Value
+
+Named list of numeric sigma vectors, one entry for each block in
+`spec_den_data_list`.

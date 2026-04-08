@@ -34,3 +34,9 @@ make_spec_den_data(
 - sigma:
 
   optional numeric vector of cross relaxation rates
+
+## Value
+
+Named list of spectral-density data blocks. Each block contains atom
+pairs, grouping matrices, `a` coefficients, and eigenvalue coefficients
+for one pair-type combination.

@@ -22,4 +22,9 @@ get_rate_groups(rates, eps_factor = 0.5, eps_log10 = NULL)
 
   log10(rates) must differ by this amount
 
-  If set, eps_log10 is used and eps_factor is bypassed.
+## Value
+
+Named list of integer index vectors, grouping numerically equivalent
+rates.
+
+If set, eps_log10 is used and eps_factor is bypassed.

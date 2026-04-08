@@ -23,7 +23,10 @@ should be swapped.
 ## Examples
 
 ``` r
-pdb2lum <- read_ensemble("https://files.rcsb.org/download/2LUM.pdb", proton_only=TRUE)
+pdb2lum <- read_ensemble(
+  system.file("extdata", "gb3", "2lum_subset.pdb.gz", package = "ke"),
+  proton_only = TRUE
+)
 find_aromatic_permutations(dimnames(pdb2lum)[[2]])
 #> [[1]]
 #>      A   3 A1          A   3 A2         

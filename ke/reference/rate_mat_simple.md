@@ -18,6 +18,13 @@ rate_mat_simple(k, n_names)
 
   character vector with row and columns
 
+## Value
+
+Square transition rate matrix with off-diagonal rates filled and the
+diagonal left as `NA` until
+[`rate_mat_diag()`](https://smith-group.github.io/ke/reference/rate_mat_diag.md)
+is applied.
+
 ## Examples
 
 ``` r

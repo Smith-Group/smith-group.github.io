@@ -67,7 +67,10 @@ Columns correspond to equivalent atoms whose coordinates should be swapped.</p>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">pdb2lum</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_ensemble.html">read_ensemble</a></span><span class="op">(</span><span class="st">"https://files.rcsb.org/download/2LUM.pdb"</span>, proton_only<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">pdb2lum</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_ensemble.html">read_ensemble</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"gb3"</span>, <span class="st">"2lum_subset.pdb.gz"</span>, package <span class="op">=</span> <span class="st">"ke"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  proton_only <span class="op">=</span> <span class="cn">TRUE</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">find_methyl_permutations</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/dimnames.html" class="external-link">dimnames</a></span><span class="op">(</span><span class="va">pdb2lum</span><span class="op">)</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[1]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      A   1 HE1         A   1 HE2         A   1 HE3        </span>

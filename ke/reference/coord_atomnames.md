@@ -20,3 +20,8 @@ coord_atomnames(coord) <- value
 - value:
 
   character vector with four characters per element
+
+## Value
+
+Getter: character vector of four-character atom names. Setter: modified
+`coord` with updated atom names.

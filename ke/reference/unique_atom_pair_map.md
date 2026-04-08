@@ -17,10 +17,18 @@ unique_atom_pair_map(permutation)
 
   This is useful for calculating interactions within a permutation group
 
+## Value
+
+List of two-row matrices, each giving one equivalence class of atom
+pairs within the permutation group.
+
 ## Examples
 
 ``` r
-pdb2lum <- read_ensemble("https://files.rcsb.org/download/2LUM.pdb", proton_only=TRUE)
+pdb2lum <- read_ensemble(
+  system.file("extdata", "gb3", "2lum_subset.pdb.gz", package = "ke"),
+  proton_only = TRUE
+)
 perm_methyl <- find_methyl_permutations(dimnames(pdb2lum)[[2]])
 perm_aro <- find_aromatic_permutations(dimnames(pdb2lum)[[2]])
 unique_atom_pair_map(perm_methyl[[1]])

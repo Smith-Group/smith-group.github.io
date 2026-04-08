@@ -13,3 +13,7 @@ pdb_traj_close(traj_data)
 - traj_data:
 
   list structure with data necessary for reads
+
+## Value
+
+No return value, called for side effects.

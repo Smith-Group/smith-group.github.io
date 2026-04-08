@@ -22,6 +22,11 @@ rate_mat_intra_inter(group_vec, k_intra, k_inter)
 
   desired eigenvalue for inter-group transitions
 
+## Value
+
+Square transition rate matrix with group-specific off-diagonal rates and
+diagonal entries left as `NA`.
+
 ## Examples
 
 ``` r

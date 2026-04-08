@@ -41,6 +41,12 @@ get_eigen_groups(
 
   epsilon used for heuristically matching rates generated in two ways
 
+## Value
+
+List describing the eigenvalue grouping structure, including state
+populations, unique rates, subset assignments, and coefficient matrices
+used to reconstruct `a` values from grouped states.
+
 ## Examples
 
 ``` r

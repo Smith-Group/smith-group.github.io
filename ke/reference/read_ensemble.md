@@ -21,3 +21,9 @@ read_ensemble(pdb_files, model_idx = NULL, proton_only = FALSE)
 - proton_only:
 
   logical indicating whether to only read hydrogen ATOM records
+
+## Value
+
+Numeric coordinate array. For a single input file the dimensions are
+`(xyz, atoms, models)`; for multiple input files an additional trailing
+file dimension is retained.

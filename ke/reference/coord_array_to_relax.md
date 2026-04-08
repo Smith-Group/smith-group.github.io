@@ -21,3 +21,9 @@ coord_array_to_relax(coord_array, rates, spec_den_relax_data_list)
 - spec_den_relax_data_list:
 
   list of data for calculating relaxation rates
+
+## Value
+
+Named list of numeric matrices of relaxation rates, one per block in
+`spec_den_relax_data_list`, with columns corresponding to
+relaxation-rate types.

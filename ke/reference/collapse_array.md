@@ -22,3 +22,8 @@ collapse_array(arr, idx_list, func = `+`)
 - func:
 
   function to apply
+
+## Value
+
+Matrix or array with the first two dimensions collapsed according to
+`idx_list`, preserving any trailing dimensions.

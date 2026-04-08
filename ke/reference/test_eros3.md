@@ -8,3 +8,7 @@ atoms from M1)
 ``` r
 test_eros3()
 ```
+
+## Value
+
+No return value, called for side effects.

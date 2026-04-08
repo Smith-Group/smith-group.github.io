@@ -18,6 +18,11 @@ rate_mat_kronecker(rate_mat_a, rate_mat_b)
 
   second transition rate matrix
 
+## Value
+
+Square transition rate matrix representing the combined process on the
+Kronecker-product state space.
+
 ## Examples
 
 ``` r

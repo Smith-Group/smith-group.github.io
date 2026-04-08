@@ -41,9 +41,9 @@
     </div>
 
     <div class="section level2">
-      <h2 id="all-functions">All functions<a class="anchor" aria-label="anchor" href="#all-functions"></a></h2>
+      <h2 id="spectral-density-data">Spectral-Density Data<a class="anchor" aria-label="anchor" href="#spectral-density-data"></a></h2>
 
-
+      <div class="section-desc"><p>Build, reshape, and serialize spectral-density and relaxation term tables.</p></div>
 
       <dl></dl></div><div class="section level2">
 
@@ -52,346 +52,10 @@
 
       <dl><dt>
 
-          <code><a href="a_matrix_to_relax.html">a_matrix_to_relax()</a></code>
+          <code><a href="make_spec_den_data.html">make_spec_den_data()</a></code>
 
         </dt>
-        <dd>Calculate relaxation rates from spectral density functions with internal and overall motion</dd>
-
-        <dt>
-
-          <code><a href="a_matrix_to_relax_backprop.html">a_matrix_to_relax_backprop()</a></code>
-
-        </dt>
-        <dd>Back-propagate energy derivative from relaxation rates to a matrix</dd>
-
-        <dt>
-
-          <code><a href="a_matrix_to_sigma.html">a_matrix_to_sigma()</a></code>
-
-        </dt>
-        <dd>Calculate sigma from a matrix of a values</dd>
-
-        <dt>
-
-          <code><a href="a_matrix_to_sigma_backprop.html">a_matrix_to_sigma_backprop()</a></code>
-
-        </dt>
-        <dd>Back-propagate energy derivative from sigma to a matrix</dd>
-
-        <dt>
-
-          <code><a href="array_shift.html">array_shift()</a></code>
-
-        </dt>
-        <dd>Shift from one array dimension to another</dd>
-
-        <dt>
-
-          <code><a href="atom_lines_to_coord.html">atom_lines_to_coord()</a></code>
-
-        </dt>
-        <dd>Convert PDB formatted atom lines into a matrix</dd>
-
-        <dt>
-
-          <code><a href="atom_relax_columns_to_spec_den_term_array.html">atom_relax_columns_to_spec_den_term_array()</a></code>
-
-        </dt>
-        <dd>Convert one rate block of atom-relax columns into a spectral-density term array</dd>
-
-        <dt>
-
-          <code><a href="atom_relax_df_to_spec_den_term_array_list.html">atom_relax_df_to_spec_den_term_array_list()</a></code>
-
-        </dt>
-        <dd>Convert atom-relax columns into a named list of spectral-density term arrays</dd>
-
-        <dt>
-
-          <code><a href="atom_residue_names.html">amber_to_pdb</a></code> <code><a href="atom_residue_names.html">pdb_to_amber</a></code> <code><a href="atom_residue_names.html">charmm_to_pdb</a></code> <code><a href="atom_residue_names.html">pdb_to_charmm</a></code>
-
-        </dt>
-        <dd>Convert between proton atom/residue name pairs</dd>
-
-        <dt>
-
-          <code><a href="bond_separation.html">bond_separation()</a></code>
-
-        </dt>
-        <dd>Calculate bond distances between a set of atoms</dd>
-
-        <dt>
-
-          <code><a href="calc_subset_mat.html">calc_subset_mat()</a></code>
-
-        </dt>
-        <dd>Determine subsets of states within transition rate matrices</dd>
-
-        <dt>
-
-          <code><a href="collapse_array.html">collapse_array()</a></code>
-
-        </dt>
-        <dd>Collapse first two dimensions of an array</dd>
-
-        <dt>
-
-          <code><a href="coord_array_to_g_energy.html">coord_array_to_g_energy()</a></code>
-
-        </dt>
-        <dd>Calculate g value restraint energy from atomic coordinates</dd>
-
-        <dt>
-
-          <code><a href="coord_array_to_g_energy_refactored.html">coord_array_to_g_energy_refactored()</a></code>
-
-        </dt>
-        <dd>Calculate g value restraint energy from atomic coordinates</dd>
-
-        <dt>
-
-          <code><a href="coord_array_to_g_matrix.html">coord_array_to_g_matrix()</a></code>
-
-        </dt>
-        <dd>Calculate group norm squared values from atomic coordinates</dd>
-
-        <dt>
-
-          <code><a href="coord_array_to_r_array.html">coord_array_to_r_array()</a></code>
-
-        </dt>
-        <dd>Calculate internuclear vectors from atomic coordinates</dd>
-
-        <dt>
-
-          <code><a href="coord_array_to_r_array_backprop.html">coord_array_to_r_array_backprop()</a></code>
-
-        </dt>
-        <dd>Back-propagate energy derivative from r array to coordinates</dd>
-
-        <dt>
-
-          <code><a href="coord_array_to_relax.html">coord_array_to_relax()</a></code>
-
-        </dt>
-        <dd>Calculate relaxation rates from atomic coordinates</dd>
-
-        <dt>
-
-          <code><a href="coord_array_to_relax_energy.html">coord_array_to_relax_energy()</a></code>
-
-        </dt>
-        <dd>Calculate relaxation rate restraint energy from atomic coordinates</dd>
-
-        <dt>
-
-          <code><a href="coord_array_to_sigma.html">coord_array_to_sigma()</a></code>
-
-        </dt>
-        <dd>Calculate cross relaxation rates from atomic coordinates</dd>
-
-        <dt>
-
-          <code><a href="coord_array_to_sigma_energy.html">coord_array_to_sigma_energy()</a></code>
-
-        </dt>
-        <dd>Calculate sigma restraint energy from atomic coordinates</dd>
-
-        <dt>
-
-          <code><a href="coord_atomnames.html">coord_atomnames()</a></code> <code><a href="coord_atomnames.html">`coord_atomnames&lt;-`()</a></code>
-
-        </dt>
-        <dd>Get or set four-character atom names</dd>
-
-        <dt>
-
-          <code><a href="coord_atomresnames.html">coord_atomresnames()</a></code> <code><a href="coord_atomresnames.html">`coord_atomresnames&lt;-`()</a></code>
-
-        </dt>
-        <dd>Get or set atom/residue name pairs</dd>
-
-        <dt>
-
-          <code><a href="coord_proton_groups.html">coord_proton_groups()</a></code>
-
-        </dt>
-        <dd>Select groups of protons that are typically detectable with unique chemical shifts</dd>
-
-        <dt>
-
-          <code><a href="coord_rapidly_exchangeable.html">coord_rapidly_exchangeable()</a></code>
-
-        </dt>
-        <dd>Determine whether an atom is rapidly exchangeable at neutral pH</dd>
-
-        <dt>
-
-          <code><a href="coord_resnames.html">coord_resnames()</a></code> <code><a href="coord_resnames.html">`coord_resnames&lt;-`()</a></code>
-
-        </dt>
-        <dd>Get or set three-character residue names</dd>
-
-        <dt>
-
-          <code><a href="coord_resseq.html">coord_resseq()</a></code> <code><a href="coord_resseq.html">`coord_resseq&lt;-`()</a></code>
-
-        </dt>
-        <dd>Get or set residue sequence number</dd>
-
-        <dt>
-
-          <code><a href="coord_to_atom_lines.html">coord_to_atom_lines()</a></code>
-
-        </dt>
-        <dd>Convert a matrix of coordinates into PDB formatted atom lines</dd>
-
-        <dt>
-
-          <code><a href="d_array_to_g.html">d_array_to_g()</a></code>
-
-        </dt>
-        <dd>Calculate group norm squared from dipole-dipole interaction tensors</dd>
-
-        <dt>
-
-          <code><a href="d_array_to_g_matrix.html">d_array_to_g_matrix()</a></code>
-
-        </dt>
-        <dd>Calculate group norm squared from dipole-dipole interaction tensors</dd>
-
-        <dt>
-
-          <code><a href="d_array_to_g_matrix_backprop.html">d_array_to_g_matrix_backprop()</a></code>
-
-        </dt>
-        <dd>Back-propagate energy derivative from g matrix to d array</dd>
-
-        <dt>
-
-          <code><a href="d_real_rank2.html">d_real_rank2()</a></code>
-
-        </dt>
-        <dd>Construct the real rank-2 rotation matrix</dd>
-
-        <dt>
-
-          <code><a href="deriv_check.html">deriv_check()</a></code>
-
-        </dt>
-        <dd>Check analytical derivatives via finite difference approximation</dd>
-
-        <dt>
-
-          <code><a href="dxyz_dunit_to_overall_modes.html">dxyz_dunit_to_overall_modes()</a></code>
-
-        </dt>
-        <dd>Calculate overall tumbling modes from diffusion tensor principal values</dd>
-
-        <dt>
-
-          <code><a href="equiv_list_name.html">equiv_list_name()</a></code>
-
-        </dt>
-        <dd>Update names of equivalent atoms</dd>
-
-        <dt>
-
-          <code><a href="euler_zyz_matrix.html">euler_zyz_matrix()</a></code>
-
-        </dt>
-        <dd>Construct a ZYZ Euler rotation matrix</dd>
-
-        <dt>
-
-          <code><a href="expand_subset_mat.html">expand_subset_mat()</a></code>
-
-        </dt>
-        <dd>Expand subset matrix consistent with applying Kronecker product to original rate matrix</dd>
-
-        <dt>
-
-          <code><a href="find_aromatic_permutations.html">find_aromatic_permutations()</a></code>
-
-        </dt>
-        <dd>Find permutations to coordinates of phenylalanine and tyrosine rings</dd>
-
-        <dt>
-
-          <code><a href="find_methyl_permutations.html">find_methyl_permutations()</a></code>
-
-        </dt>
-        <dd>Find permutations to coordinates of XH3 groups</dd>
-
-        <dt>
-
-          <code><a href="g_matrix_to_a_matrix.html">g_matrix_to_a_matrix()</a></code>
-
-        </dt>
-        <dd>Calculate matrix of a values from a matrix of g values</dd>
-
-        <dt>
-
-          <code><a href="g_matrix_to_a_matrix_backprop.html">g_matrix_to_a_matrix_backprop()</a></code>
-
-        </dt>
-        <dd>Back-propagate energy derivative from a matrix to g matrix</dd>
-
-        <dt>
-
-          <code><a href="g_to_energy.html">g_to_energy()</a></code>
-
-        </dt>
-        <dd>Calculate restraint energy from group norm squared values</dd>
-
-        <dt>
-
-          <code><a href="get_eigen_groups.html">get_eigen_groups()</a></code>
-
-        </dt>
-        <dd>Get <code>k</code> coefficients for creating linear combinations of <code>a</code> values from <code>g</code> values</dd>
-
-        <dt>
-
-          <code><a href="get_rate_count_mat.html">get_rate_count_mat()</a></code>
-
-        </dt>
-        <dd>Get counts enabling calculation of eigenvalues from individual rates</dd>
-
-        <dt>
-
-          <code><a href="get_rate_data.html">get_rate_data()</a></code>
-
-        </dt>
-        <dd>Construct <code>k</code> coefficients in a recursive manner</dd>
-
-        <dt>
-
-          <code><a href="get_rate_groups.html">get_rate_groups()</a></code>
-
-        </dt>
-        <dd>Find groups of numerically equivalent rates (degenerate eigenvalues)</dd>
-
-        <dt>
-
-          <code><a href="make_atom_perm_list.html">make_atom_perm_list()</a></code>
-
-        </dt>
-        <dd>Create list of matrices for doing two or three atom permutations</dd>
-
-        <dt>
-
-          <code><a href="make_equiv_list.html">make_equiv_list()</a></code>
-
-        </dt>
-        <dd>Create list of equivalent atoms</dd>
-
-        <dt>
-
-          <code><a href="make_ke_data.html">make_ke_data()</a></code>
-
-        </dt>
-        <dd>Encapsulate kinetic ensemble data into a list data structure</dd>
+        <dd>Create data structures for calculating sigma/rho from dipole-dipole interaction tensors</dd>
 
         <dt>
 
@@ -416,10 +80,52 @@
 
         <dt>
 
-          <code><a href="make_spec_den_data.html">make_spec_den_data()</a></code>
+          <code><a href="atom_relax_columns_to_spec_den_term_array.html">atom_relax_columns_to_spec_den_term_array()</a></code>
 
         </dt>
-        <dd>Create data structures for calculating sigma/rho from dipole-dipole interaction tensors</dd>
+        <dd>Convert one rate block of atom-relax columns into a spectral-density term array</dd>
+
+        <dt>
+
+          <code><a href="atom_relax_df_to_spec_den_term_array_list.html">atom_relax_df_to_spec_den_term_array_list()</a></code>
+
+        </dt>
+        <dd>Convert atom-relax columns into a named list of spectral-density term arrays</dd>
+
+        <dt>
+
+          <code><a href="spec_den_term_array_list_to_atom_relax_df.html">spec_den_term_array_list_to_atom_relax_df()</a></code>
+
+        </dt>
+        <dd>Convert a named list of spectral-density term arrays into atom-relax columns</dd>
+
+        <dt>
+
+          <code><a href="spec_den_term_array_to_atom_relax_columns.html">spec_den_term_array_to_atom_relax_columns()</a></code>
+
+        </dt>
+        <dd>Convert a spectral-density term array into one rate block of atom-relax columns</dd>
+
+        <dt>
+
+          <code><a href="read_spec_den_data.html">read_spec_den_data()</a></code>
+
+        </dt>
+        <dd>Read data for calculating spectral density functions</dd>
+
+        <dt>
+
+          <code><a href="read_spec_den_relax_data.html">read_spec_den_relax_data()</a></code>
+
+        </dt>
+        <dd>Read data for calculating spectral-density-based relaxation rates</dd>
+
+        <dt>
+
+          <code><a href="write_spec_den_relax_data.html">write_spec_den_relax_data()</a></code>
+
+        </dt>
+        <dd>Write data for calculating spectral-density-based relaxation rates</dd>
 
         <dt>
 
@@ -430,19 +136,107 @@
 
         <dt>
 
-          <code><a href="noe_dacf_kernel.html">noe_dacf_kernel()</a></code>
-
-        </dt>
-        <dd>Calculate kernel weights for determining NOE sigma and rho from a dipolar autocorrelation function</dd>
-
-        <dt>
-
           <code><a href="noe_to_sigma.html">noe_to_sigma()</a></code>
 
         </dt>
         <dd>Convert steady-state NOE values to sigma cross-relaxation rates</dd>
+      </dl></div><div class="section level2">
+      <h2 id="kinetic-ensemble-coordinate-based-calculations">Kinetic Ensemble Coordinate-Based Calculations<a class="anchor" aria-label="anchor" href="#kinetic-ensemble-coordinate-based-calculations"></a></h2>
+
+      <div class="section-desc"><p>Compute grouped restraints and relaxation rates directly from coordinate ensembles.</p></div>
+
+      <dl></dl></div><div class="section level2">
+
+
+
+
+      <dl><dt>
+
+          <code><a href="coord_array_to_g_energy.html">coord_array_to_g_energy()</a></code>
+
+        </dt>
+        <dd>Calculate g value restraint energy from atomic coordinates</dd>
 
         <dt>
+
+          <code><a href="coord_array_to_g_energy_refactored.html">coord_array_to_g_energy_refactored()</a></code>
+
+        </dt>
+        <dd>Calculate g value restraint energy from atomic coordinates</dd>
+
+        <dt>
+
+          <code><a href="coord_array_to_g_matrix.html">coord_array_to_g_matrix()</a></code>
+
+        </dt>
+        <dd>Calculate group norm squared values from atomic coordinates</dd>
+
+        <dt>
+
+          <code><a href="coord_array_to_sigma.html">coord_array_to_sigma()</a></code>
+
+        </dt>
+        <dd>Calculate cross relaxation rates from atomic coordinates</dd>
+
+        <dt>
+
+          <code><a href="coord_array_to_sigma_energy.html">coord_array_to_sigma_energy()</a></code>
+
+        </dt>
+        <dd>Calculate sigma restraint energy from atomic coordinates</dd>
+
+        <dt>
+
+          <code><a href="coord_array_to_relax.html">coord_array_to_relax()</a></code>
+
+        </dt>
+        <dd>Calculate relaxation rates from atomic coordinates</dd>
+
+        <dt>
+
+          <code><a href="coord_array_to_relax_energy.html">coord_array_to_relax_energy()</a></code>
+
+        </dt>
+        <dd>Calculate relaxation rate restraint energy from atomic coordinates</dd>
+
+        <dt>
+
+          <code><a href="g_to_energy.html">g_to_energy()</a></code>
+
+        </dt>
+        <dd>Calculate restraint energy from group norm squared values</dd>
+
+        <dt>
+
+          <code><a href="quadratic_loss.html">quadratic_loss()</a></code>
+
+        </dt>
+        <dd>Quadratic loss function</dd>
+
+        <dt>
+
+          <code><a href="power_scale.html">power_scale()</a></code>
+
+        </dt>
+        <dd>Scale real or back calculated values towards zero by taking a power</dd>
+
+        <dt>
+
+          <code><a href="power_scaled_loss.html">power_scaled_loss()</a></code>
+
+        </dt>
+        <dd>Traditional squared loss function scaled by a power</dd>
+      </dl></div><div class="section level2">
+      <h2 id="trajectory-processing">Trajectory Processing<a class="anchor" aria-label="anchor" href="#trajectory-processing"></a></h2>
+
+      <div class="section-desc"><p>Stream trajectory data from PDB files and derive dipolar autocorrelation inputs.</p></div>
+
+      <dl></dl></div><div class="section level2">
+
+
+
+
+      <dl><dt>
 
           <code><a href="pdb_traj_apply.html">pdb_traj_apply()</a></code>
 
@@ -486,24 +280,126 @@
 
         <dt>
 
-          <code><a href="power_scale.html">power_scale()</a></code>
+          <code><a href="noe_dacf_kernel.html">noe_dacf_kernel()</a></code>
 
         </dt>
-        <dd>Scale real or back calculated values towards zero by taking a power</dd>
+        <dd>Calculate kernel weights for determining NOE sigma and rho from a dipolar autocorrelation function</dd>
+      </dl></div><div class="section level2">
+      <h2 id="coordinate-and-atom-metadata">Coordinate And Atom Metadata<a class="anchor" aria-label="anchor" href="#coordinate-and-atom-metadata"></a></h2>
+
+      <div class="section-desc"><p>Read PDB-style coordinates, convert naming conventions, and inspect atom- and residue-level annotations.</p></div>
+
+      <dl></dl></div><div class="section level2">
+
+
+
+
+      <dl><dt>
+
+          <code><a href="residue_names.html">aa1_to_aa3</a></code> <code><a href="residue_names.html">aa3_to_aa1</a></code>
+
+        </dt>
+        <dd>Convert between one and three letter residue names</dd>
 
         <dt>
 
-          <code><a href="power_scaled_loss.html">power_scaled_loss()</a></code>
+          <code><a href="atom_residue_names.html">amber_to_pdb</a></code> <code><a href="atom_residue_names.html">pdb_to_amber</a></code> <code><a href="atom_residue_names.html">charmm_to_pdb</a></code> <code><a href="atom_residue_names.html">pdb_to_charmm</a></code>
 
         </dt>
-        <dd>Traditional squared loss function scaled by a power</dd>
+        <dd>Convert between proton atom/residue name pairs</dd>
 
         <dt>
 
-          <code><a href="quadratic_loss.html">quadratic_loss()</a></code>
+          <code><a href="atom_lines_to_coord.html">atom_lines_to_coord()</a></code>
 
         </dt>
-        <dd>Quadratic loss function</dd>
+        <dd>Convert PDB formatted atom lines into a matrix</dd>
+
+        <dt>
+
+          <code><a href="coord_to_atom_lines.html">coord_to_atom_lines()</a></code>
+
+        </dt>
+        <dd>Convert a matrix of coordinates into PDB formatted atom lines</dd>
+
+        <dt>
+
+          <code><a href="coord_atomnames.html">coord_atomnames()</a></code> <code><a href="coord_atomnames.html">`coord_atomnames&lt;-`()</a></code>
+
+        </dt>
+        <dd>Get or set four-character atom names</dd>
+
+        <dt>
+
+          <code><a href="coord_atomresnames.html">coord_atomresnames()</a></code> <code><a href="coord_atomresnames.html">`coord_atomresnames&lt;-`()</a></code>
+
+        </dt>
+        <dd>Get or set atom/residue name pairs</dd>
+
+        <dt>
+
+          <code><a href="coord_resnames.html">coord_resnames()</a></code> <code><a href="coord_resnames.html">`coord_resnames&lt;-`()</a></code>
+
+        </dt>
+        <dd>Get or set three-character residue names</dd>
+
+        <dt>
+
+          <code><a href="coord_resseq.html">coord_resseq()</a></code> <code><a href="coord_resseq.html">`coord_resseq&lt;-`()</a></code>
+
+        </dt>
+        <dd>Get or set residue sequence number</dd>
+
+        <dt>
+
+          <code><a href="coord_rapidly_exchangeable.html">coord_rapidly_exchangeable()</a></code>
+
+        </dt>
+        <dd>Determine whether an atom is rapidly exchangeable at neutral pH</dd>
+
+        <dt>
+
+          <code><a href="coord_proton_groups.html">coord_proton_groups()</a></code>
+
+        </dt>
+        <dd>Select groups of protons that are typically detectable with unique chemical shifts</dd>
+
+        <dt>
+
+          <code><a href="bond_separation.html">bond_separation()</a></code>
+
+        </dt>
+        <dd>Calculate bond distances between a set of atoms</dd>
+
+        <dt>
+
+          <code><a href="read_ensemble.html">read_ensemble()</a></code>
+
+        </dt>
+        <dd>Read an ensemble of PDB files</dd>
+      </dl></div><div class="section level2">
+      <h2 id="kinetic-ensemble-core">Kinetic Ensemble Core<a class="anchor" aria-label="anchor" href="#kinetic-ensemble-core"></a></h2>
+
+      <div class="section-desc"><p>Core numerical methods underlying the Kinetic Ensemble calculation, transforming coordinates into tensors, mode amplitudes, and the quantities that drive the coordinate-based calculations.</p></div>
+
+      <dl></dl></div><div class="section level2">
+
+
+
+
+      <dl><dt>
+
+          <code><a href="coord_array_to_r_array.html">coord_array_to_r_array()</a></code>
+
+        </dt>
+        <dd>Calculate internuclear vectors from atomic coordinates</dd>
+
+        <dt>
+
+          <code><a href="coord_array_to_r_array_backprop.html">coord_array_to_r_array_backprop()</a></code>
+
+        </dt>
+        <dd>Back-propagate energy derivative from r array to coordinates</dd>
 
         <dt>
 
@@ -521,10 +417,152 @@
 
         <dt>
 
-          <code><a href="rate_data_to_mat_list.html">rate_data_to_mat_list()</a></code>
+          <code><a href="d_array_to_g.html">d_array_to_g()</a></code>
 
         </dt>
-        <dd>Convert rate data into a format more easily serializable to set of tables</dd>
+        <dd>Calculate group norm squared from dipole-dipole interaction tensors</dd>
+
+        <dt>
+
+          <code><a href="d_array_to_g_matrix.html">d_array_to_g_matrix()</a></code>
+
+        </dt>
+        <dd>Calculate group norm squared from dipole-dipole interaction tensors</dd>
+
+        <dt>
+
+          <code><a href="d_array_to_g_matrix_backprop.html">d_array_to_g_matrix_backprop()</a></code>
+
+        </dt>
+        <dd>Back-propagate energy derivative from g matrix to d array</dd>
+
+        <dt>
+
+          <code><a href="g_matrix_to_a_matrix.html">g_matrix_to_a_matrix()</a></code>
+
+        </dt>
+        <dd>Calculate matrix of a values from a matrix of g values</dd>
+
+        <dt>
+
+          <code><a href="g_matrix_to_a_matrix_backprop.html">g_matrix_to_a_matrix_backprop()</a></code>
+
+        </dt>
+        <dd>Back-propagate energy derivative from a matrix to g matrix</dd>
+
+        <dt>
+
+          <code><a href="dxyz_dunit_to_overall_modes.html">dxyz_dunit_to_overall_modes()</a></code>
+
+        </dt>
+        <dd>Calculate overall tumbling modes from diffusion tensor principal values</dd>
+
+        <dt>
+
+          <code><a href="a_matrix_to_relax.html">a_matrix_to_relax()</a></code>
+
+        </dt>
+        <dd>Calculate relaxation rates from spectral density functions with internal and overall motion</dd>
+
+        <dt>
+
+          <code><a href="a_matrix_to_relax_backprop.html">a_matrix_to_relax_backprop()</a></code>
+
+        </dt>
+        <dd>Back-propagate energy derivative from relaxation rates to a matrix</dd>
+
+        <dt>
+
+          <code><a href="a_matrix_to_sigma.html">a_matrix_to_sigma()</a></code>
+
+        </dt>
+        <dd>Calculate sigma from a matrix of a values</dd>
+
+        <dt>
+
+          <code><a href="a_matrix_to_sigma_backprop.html">a_matrix_to_sigma_backprop()</a></code>
+
+        </dt>
+        <dd>Back-propagate energy derivative from sigma to a matrix</dd>
+
+        <dt>
+
+          <code><a href="euler_zyz_matrix.html">euler_zyz_matrix()</a></code>
+
+        </dt>
+        <dd>Construct a ZYZ Euler rotation matrix</dd>
+
+        <dt>
+
+          <code><a href="d_real_rank2.html">d_real_rank2()</a></code>
+
+        </dt>
+        <dd>Construct the real rank-2 rotation matrix</dd>
+
+        <dt>
+
+          <code><a href="collapse_array.html">collapse_array()</a></code>
+
+        </dt>
+        <dd>Collapse first two dimensions of an array</dd>
+
+        <dt>
+
+          <code><a href="array_shift.html">array_shift()</a></code>
+
+        </dt>
+        <dd>Shift from one array dimension to another</dd>
+
+        <dt>
+
+          <code><a href="deriv_check.html">deriv_check()</a></code>
+
+        </dt>
+        <dd>Check analytical derivatives via finite difference approximation</dd>
+      </dl></div><div class="section level2">
+      <h2 id="permutations-and-rate-models">Permutations And Rate Models<a class="anchor" aria-label="anchor" href="#permutations-and-rate-models"></a></h2>
+
+      <div class="section-desc"><p>Build symmetry-aware permutation maps, transition-rate matrices, and kinetic ensemble metadata.</p></div>
+
+      <dl></dl></div><div class="section level2">
+
+
+
+
+      <dl><dt>
+
+          <code><a href="find_aromatic_permutations.html">find_aromatic_permutations()</a></code>
+
+        </dt>
+        <dd>Find permutations to coordinates of phenylalanine and tyrosine rings</dd>
+
+        <dt>
+
+          <code><a href="find_methyl_permutations.html">find_methyl_permutations()</a></code>
+
+        </dt>
+        <dd>Find permutations to coordinates of XH3 groups</dd>
+
+        <dt>
+
+          <code><a href="make_atom_perm_list.html">make_atom_perm_list()</a></code>
+
+        </dt>
+        <dd>Create list of matrices for doing two or three atom permutations</dd>
+
+        <dt>
+
+          <code><a href="unique_atom_map.html">unique_atom_map()</a></code>
+
+        </dt>
+        <dd>Generate matrix of possible permuted assignments to individual atoms in a group</dd>
+
+        <dt>
+
+          <code><a href="unique_atom_pair_map.html">unique_atom_pair_map()</a></code>
+
+        </dt>
+        <dd>Generate matrix of possible permuted assignments of atom pairs within a group</dd>
 
         <dt>
 
@@ -556,45 +594,45 @@
 
         <dt>
 
-          <code><a href="read_ensemble.html">read_ensemble()</a></code>
+          <code><a href="get_rate_count_mat.html">get_rate_count_mat()</a></code>
 
         </dt>
-        <dd>Read an ensemble of PDB files</dd>
+        <dd>Get counts enabling calculation of eigenvalues from individual rates</dd>
 
         <dt>
 
-          <code><a href="read_spec_den_data.html">read_spec_den_data()</a></code>
+          <code><a href="get_rate_data.html">get_rate_data()</a></code>
 
         </dt>
-        <dd>Read data for calculating spectral density functions</dd>
+        <dd>Construct <code>k</code> coefficients in a recursive manner</dd>
 
         <dt>
 
-          <code><a href="read_spec_den_relax_data.html">read_spec_den_relax_data()</a></code>
+          <code><a href="get_rate_groups.html">get_rate_groups()</a></code>
 
         </dt>
-        <dd>Read data for calculating spectral-density-based relaxation rates</dd>
+        <dd>Find groups of numerically equivalent rates (degenerate eigenvalues)</dd>
 
         <dt>
 
-          <code><a href="residue_names.html">aa1_to_aa3</a></code> <code><a href="residue_names.html">aa3_to_aa1</a></code>
+          <code><a href="get_eigen_groups.html">get_eigen_groups()</a></code>
 
         </dt>
-        <dd>Convert between one and three letter residue names</dd>
+        <dd>Get <code>k</code> coefficients for creating linear combinations of <code>a</code> values from <code>g</code> values</dd>
 
         <dt>
 
-          <code><a href="spec_den_term_array_list_to_atom_relax_df.html">spec_den_term_array_list_to_atom_relax_df()</a></code>
+          <code><a href="calc_subset_mat.html">calc_subset_mat()</a></code>
 
         </dt>
-        <dd>Convert a named list of spectral-density term arrays into atom-relax columns</dd>
+        <dd>Determine subsets of states within transition rate matrices</dd>
 
         <dt>
 
-          <code><a href="spec_den_term_array_to_atom_relax_columns.html">spec_den_term_array_to_atom_relax_columns()</a></code>
+          <code><a href="expand_subset_mat.html">expand_subset_mat()</a></code>
 
         </dt>
-        <dd>Convert a spectral-density term array into one rate block of atom-relax columns</dd>
+        <dd>Expand subset matrix consistent with applying Kronecker product to original rate matrix</dd>
 
         <dt>
 
@@ -604,6 +642,43 @@
         <dd>Convert a list of subset groups into a matrix with group indices</dd>
 
         <dt>
+
+          <code><a href="rate_data_to_mat_list.html">rate_data_to_mat_list()</a></code>
+
+        </dt>
+        <dd>Convert rate data into a format more easily serializable to set of tables</dd>
+
+        <dt>
+
+          <code><a href="make_equiv_list.html">make_equiv_list()</a></code>
+
+        </dt>
+        <dd>Create list of equivalent atoms</dd>
+
+        <dt>
+
+          <code><a href="equiv_list_name.html">equiv_list_name()</a></code>
+
+        </dt>
+        <dd>Update names of equivalent atoms</dd>
+
+        <dt>
+
+          <code><a href="make_ke_data.html">make_ke_data()</a></code>
+
+        </dt>
+        <dd>Encapsulate kinetic ensemble data into a list data structure</dd>
+      </dl></div><div class="section level2">
+      <h2 id="validation-examples">Validation Examples<a class="anchor" aria-label="anchor" href="#validation-examples"></a></h2>
+
+      <div class="section-desc"><p>Reproduce the package’s bundled validation and sanity-check workflows.</p></div>
+
+      <dl></dl></div><div class="section level2">
+
+
+
+
+      <dl><dt>
 
           <code><a href="test_eros3.html">test_eros3()</a></code>
 
@@ -623,29 +698,9 @@
 
         </dt>
         <dd>Tests with toy example from Smith 2020 J Biomol NMR</dd>
-
-        <dt>
-
-          <code><a href="unique_atom_map.html">unique_atom_map()</a></code>
-
-        </dt>
-        <dd>Generate matrix of possible permuted assignments to individual atoms in a group</dd>
-
-        <dt>
-
-          <code><a href="unique_atom_pair_map.html">unique_atom_pair_map()</a></code>
-
-        </dt>
-        <dd>Generate matrix of possible permuted assignments of atom pairs within a group</dd>
-
-        <dt>
-
-          <code><a href="write_spec_den_relax_data.html">write_spec_den_relax_data()</a></code>
-
-        </dt>
-        <dd>Write data for calculating spectral-density-based relaxation rates</dd>
       </dl></div>
-  </main></div>
+  </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
+    </nav></aside></div>
 
 
     <footer><div class="pkgdown-footer-left">

@@ -32,6 +32,12 @@ get_rate_data(
   passed onto
   [`get_eigen_groups()`](https://smith-group.github.io/ke/reference/get_eigen_groups.md)
 
+## Value
+
+List containing the combined transition matrix and the grouping data
+returned by
+[`get_eigen_groups()`](https://smith-group.github.io/ke/reference/get_eigen_groups.md).
+
 ## Examples
 
 ``` r

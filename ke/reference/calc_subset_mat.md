@@ -27,6 +27,11 @@ calc_subset_mat(
   and `rate_mat_intra_inter`. It does not work with
   [`rate_mat_kronecker()`](https://smith-group.github.io/ke/reference/rate_mat_kronecker.md).
 
+## Value
+
+Numeric matrix assigning each state to a subset for each unique rate
+group.
+
 ## Examples
 
 ``` r

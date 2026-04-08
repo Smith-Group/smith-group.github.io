@@ -20,6 +20,11 @@ expand_subset_mat(rate_subset_mat, permutation_counts)
 
   vector with counts of states and names giving the rate
 
+## Value
+
+Numeric matrix expanding `rate_subset_mat` to the larger state space
+implied by the permutation counts.
+
 ## Examples
 
 ``` r

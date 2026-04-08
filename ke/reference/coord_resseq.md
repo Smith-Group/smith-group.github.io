@@ -20,3 +20,8 @@ coord_resseq(coord) <- value
 - value:
 
   integer or character vector with no more than four digits
+
+## Value
+
+Getter: integer vector of residue sequence numbers. Setter: modified
+`coord` with updated residue sequence numbers.

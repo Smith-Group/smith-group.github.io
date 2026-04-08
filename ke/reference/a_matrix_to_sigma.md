@@ -25,3 +25,9 @@ a_matrix_to_sigma(a_matrix, lambda_prime_vec, proton_mhz, gradient = FALSE)
 - gradient:
 
   a logical value indicating whether to calculate the derivative
+
+## Value
+
+Numeric vector of sigma rates, one per row of `a_matrix`. If
+`gradient = TRUE`, the `"gradient"` attribute is a matrix of derivatives
+with respect to `a_matrix`.

@@ -20,3 +20,8 @@ coord_resnames(coord) <- value
 - value:
 
   character vector with three characters per element
+
+## Value
+
+Getter: character vector of three-letter residue names. Setter: modified
+`coord` with updated residue names.

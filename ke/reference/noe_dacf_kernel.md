@@ -43,3 +43,8 @@ noe_dacf_kernel(
 
   number of trailing kernel elements over which to spread the truncated
   tail contribution
+
+## Value
+
+Numeric matrix with rows `sigma` and `rho` and one column per lag in the
+truncated autocorrelation function.

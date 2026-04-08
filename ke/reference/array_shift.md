@@ -30,3 +30,8 @@ array_shift(a, n = NULL, dnames = NULL, dfrom = 1, dto = 2)
 - dto:
 
   integer with dimension to move to (should be one greater than `dfrom`)
+
+## Value
+
+Array with the same entries as `a`, reshaped so size is moved from
+dimension `dfrom` into dimension `dto`.

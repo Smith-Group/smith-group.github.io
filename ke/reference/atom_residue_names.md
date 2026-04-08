@@ -23,3 +23,8 @@ An object of class `character` of length 161.
 An object of class `character` of length 161.
 
 An object of class `character` of length 161.
+
+## Value
+
+Named character vector mapping atom/residue identifiers between naming
+conventions.

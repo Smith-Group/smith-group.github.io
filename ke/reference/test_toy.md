@@ -7,3 +7,7 @@ Tests with toy example from Smith 2020 J Biomol NMR
 ``` r
 test_toy()
 ```
+
+## Value
+
+No return value, called for side effects.

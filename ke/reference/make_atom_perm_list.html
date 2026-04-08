@@ -64,10 +64,18 @@
 <code><a href="find_aromatic_permutations.html">find_aromatic_permutations()</a></code></p></dd>
 
 </dl></div>
+    <div class="section level2">
+    <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
+    <p>List of integer matrices giving, for each supported multiplicity, the
+atom index assignments under the supplied permutations.</p>
+    </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">pdb2lum</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_ensemble.html">read_ensemble</a></span><span class="op">(</span><span class="st">"https://files.rcsb.org/download/2LUM.pdb"</span>, proton_only<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">pdb2lum</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_ensemble.html">read_ensemble</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"gb3"</span>, <span class="st">"2lum_subset.pdb.gz"</span>, package <span class="op">=</span> <span class="st">"ke"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  proton_only <span class="op">=</span> <span class="cn">TRUE</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">perm_methyl</span> <span class="op">&lt;-</span> <span class="fu"><a href="find_methyl_permutations.html">find_methyl_permutations</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/dimnames.html" class="external-link">dimnames</a></span><span class="op">(</span><span class="va">pdb2lum</span><span class="op">)</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">perm_aro</span> <span class="op">&lt;-</span> <span class="fu"><a href="find_aromatic_permutations.html">find_aromatic_permutations</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/dimnames.html" class="external-link">dimnames</a></span><span class="op">(</span><span class="va">pdb2lum</span><span class="op">)</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">perm_list</span> <span class="op">&lt;-</span> <span class="fu">make_atom_perm_list</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/dimnames.html" class="external-link">dimnames</a></span><span class="op">(</span><span class="va">pdb2lum</span><span class="op">)</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">perm_methyl</span>, <span class="va">perm_aro</span><span class="op">)</span><span class="op">)</span></span></span>

@@ -11,7 +11,8 @@ pdb_traj_d(
   segment_nums,
   atom_pair_mat_list,
   unit = FALSE,
-  d_dir = NULL
+  d_dir = NULL,
+  verbose = FALSE
 )
 ```
 
@@ -42,6 +43,10 @@ pdb_traj_d(
 
   directory where \<segment_num\>.rds files written with calculated
   tensors
+
+- verbose:
+
+  logical indicating whether to emit progress messages
 
 ## Value
 

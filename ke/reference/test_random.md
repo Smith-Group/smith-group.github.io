@@ -7,3 +7,7 @@ Tests with random internuclear vectors of length 1
 ``` r
 test_random()
 ```
+
+## Value
+
+No return value, called for side effects.

@@ -22,6 +22,11 @@ get_rate_count_mat(trans_rate, all_permutations, eps_factor = 0.5)
 
   rates must differ by this amount times the lowest rate
 
+## Value
+
+Integer matrix whose rows count how often each base or permutation rate
+contributes to each combined eigenvalue.
+
 ## Examples
 
 ``` r

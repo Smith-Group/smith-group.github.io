@@ -450,7 +450,8 @@ str(spec_den_relax_data, max.level = 2)
 The `spec_den_relax_data` object can also be written to disk as a set of
 CSV files. This is useful when preparing an analysis outside the current
 R session, or when inspecting the exact inputs that
-\[read_spec_den_relax_data()\] expects to reconstruct.
+[`read_spec_den_relax_data()`](https://smith-group.github.io/ke/reference/read_spec_den_relax_data.md)
+expects to reconstruct.
 
 ``` r
 relax_prefix <- file.path(tempdir(), "gb3_15n")
@@ -567,9 +568,10 @@ knitr::kable(lambda_coef_csv, digits = 3)
 
 Because `atom_relax_data` stores one force constant per relaxation rate,
 the same setup can also be used in a simple numerical fit. The example
-below uses \[optim()\] to refine the ensemble exchange rate `kens` and
-an isotropic rotational diffusion constant `Diso` by minimizing the
-weighted quadratic loss returned by \[coord_array_to_relax_energy()\].
+below uses [`optim()`](https://rdrr.io/r/stats/optim.html) to refine the
+ensemble exchange rate `kens` and an isotropic rotational diffusion
+constant `Diso` by minimizing the weighted quadratic loss returned by
+[`coord_array_to_relax_energy()`](https://smith-group.github.io/ke/reference/coord_array_to_relax_energy.md).
 The optimization is carried out on the log scale so that both fitted
 parameters remain positive.
 
@@ -624,8 +626,9 @@ fit_summary
 ## Plotting Relaxation Rates
 
 The optimized values can then be inserted into the named rate vector and
-used with \[coord_array_to_relax()\] to calculate relaxation rates from
-the ensemble coordinates.
+used with
+[`coord_array_to_relax()`](https://smith-group.github.io/ke/reference/coord_array_to_relax.md)
+to calculate relaxation rates from the ensemble coordinates.
 
 ``` r
 relax_calc <- coord_array_to_relax(

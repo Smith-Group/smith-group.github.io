@@ -50,3 +50,9 @@ make_ke_data(
 - mix_times:
 
   mixing times to calculate
+
+## Value
+
+List containing coordinates, rate matrices, named rates, equivalent atom
+groups, symmetry permutations, proton frequency, and mixing times used
+for kinetic-ensemble calculations.
